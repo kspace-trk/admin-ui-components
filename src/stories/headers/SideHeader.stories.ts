@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import { vueRouter } from 'storybook-vue3-router'
-import { Icon } from '@iconify/vue'
-import SideHeader from '../../components/headers/SideHeader.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { vueRouter } from 'storybook-vue3-router';
+import { Icon } from '@iconify/vue';
+import SideHeader from '../../components/headers/SideHeader.vue';
 
 // ルート定義
 const routes = [
@@ -20,7 +20,7 @@ const routes = [
     name: 'account', 
     component: { template: '<div>アカウントページコンテンツ</div>' } 
   },
-]
+];
 
 const meta: Meta<typeof SideHeader> = {
   title: 'Components/Headers/SideHeader',
@@ -86,10 +86,10 @@ const meta: Meta<typeof SideHeader> = {
       `,
     }),
   ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // デスクトップ表示（ホームページ）
 export const HomePage: Story = {
@@ -109,7 +109,7 @@ export const HomePage: Story = {
       },
     },
   },
-}
+};
 
 // 設定ページ
 export const SettingsPage: Story = {
@@ -129,7 +129,7 @@ export const SettingsPage: Story = {
       },
     },
   },
-}
+};
 
 // アカウントページ
 export const AccountPage: Story = {
@@ -149,7 +149,7 @@ export const AccountPage: Story = {
       },
     },
   },
-}
+};
 
 // モバイル表示
 export const MobileView: Story = {
@@ -172,7 +172,7 @@ export const MobileView: Story = {
       },
     },
   },
-}
+};
 
 // カスタムロゴテキスト
 export const CustomLogo: Story = {
@@ -192,7 +192,7 @@ export const CustomLogo: Story = {
       },
     },
   },
-}
+};
 
 // ヘッダーのみ表示（装飾なし）
 export const HeaderOnly: Story = {
@@ -212,7 +212,7 @@ export const HeaderOnly: Story = {
       },
     },
   },
-}
+};
 
 // カスタムメニュー項目
 export const CustomMenuItems: Story = {
@@ -260,4 +260,4 @@ export const CustomMenuItems: Story = {
       },
     },
   },
-}
+};

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import { ref } from 'vue'
-import InputField from '../../components/forms/InputField.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
+import InputField from '../../components/forms/InputField.vue';
 
 const meta: Meta<typeof InputField> = {
   title: 'Components/Forms/InputField',
@@ -33,10 +33,10 @@ const meta: Meta<typeof InputField> = {
     placeholder: 'プレースホルダーを入力',
     modelValue: '',
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // デフォルトの入力フィールド
 export const Default: Story = {
@@ -44,7 +44,7 @@ export const Default: Story = {
     label: 'お名前',
     placeholder: 'お名前を入力してください',
   },
-}
+};
 
 // 値が入力済みの入力フィールド
 export const WithValue: Story = {
@@ -53,7 +53,7 @@ export const WithValue: Story = {
     placeholder: 'お名前を入力してください',
     modelValue: '山田太郎',
   },
-}
+};
 
 // メールアドレス入力フィールド
 export const EmailField: Story = {
@@ -61,7 +61,7 @@ export const EmailField: Story = {
     label: 'メールアドレス',
     placeholder: 'example@domain.com',
   },
-}
+};
 
 // パスワード入力フィールド
 export const PasswordField: Story = {
@@ -69,7 +69,7 @@ export const PasswordField: Story = {
     label: 'パスワード',
     placeholder: 'パスワードを入力してください',
   },
-}
+};
 
 // 長いラベルの入力フィールド
 export const LongLabel: Story = {
@@ -77,22 +77,22 @@ export const LongLabel: Story = {
     label: '非常に長いラベルテキストの入力フィールド',
     placeholder: 'こちらに入力してください',
   },
-}
+};
 
 // プレースホルダーなしの入力フィールド
 export const NoPlaceholder: Story = {
   args: {
     label: 'コメント',
   },
-}
+};
 
 // インタラクティブな例（双方向バインディング）
 export const Interactive: Story = {
   render: (args) => ({
     components: { InputField },
     setup() {
-      const value = ref('')
-      return { args, value }
+      const value = ref('');
+      return { args, value };
     },
     template: `
       <div style="width: 300px;">
@@ -117,7 +117,7 @@ export const Interactive: Story = {
       },
     },
   },
-}
+};
 
 // 複数の入力フィールドを使ったフォーム例
 export const FormExample: Story = {
@@ -129,8 +129,8 @@ export const FormExample: Story = {
         email: '',
         phone: '',
         address: '',
-      })
-      return { formData }
+      });
+      return { formData };
     },
     template: `
       <div style="width: 400px; display: flex; flex-direction: column; gap: 16px;">
@@ -168,7 +168,7 @@ export const FormExample: Story = {
       },
     },
   },
-}
+};
 
 // 幅が異なる入力フィールドの表示例
 export const DifferentWidths: Story = {
@@ -195,4 +195,4 @@ export const DifferentWidths: Story = {
       },
     },
   },
-}
+};

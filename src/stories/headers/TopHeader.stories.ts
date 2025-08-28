@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import { vueRouter } from 'storybook-vue3-router'
-import TopHeader from '../../components/headers/TopHeader.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { vueRouter } from 'storybook-vue3-router';
+import TopHeader from '../../components/headers/TopHeader.vue';
 
 // ルート定義（TopHeaderのタイトル変更に対応）
 const routes = [
@@ -19,7 +19,7 @@ const routes = [
     name: 'other', 
     component: { template: '<div>その他のページのコンテンツ</div>' } 
   },
-]
+];
 
 const meta: Meta<typeof TopHeader> = {
   title: 'Components/Headers/TopHeader',
@@ -65,10 +65,10 @@ const meta: Meta<typeof TopHeader> = {
       `,
     }),
   ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // ルートページ（タスクリスト）
 export const TaskListPage: Story = {
@@ -83,7 +83,7 @@ export const TaskListPage: Story = {
       },
     },
   },
-}
+};
 
 // 設定ページ  
 export const SettingsPage: Story = {
@@ -98,7 +98,7 @@ export const SettingsPage: Story = {
       },
     },
   },
-}
+};
 
 // その他のページ（デフォルトタイトル）
 export const DefaultPage: Story = {
@@ -113,7 +113,7 @@ export const DefaultPage: Story = {
       },
     },
   },
-}
+};
 
 // モバイル表示のプレビュー
 export const MobileView: Story = {
@@ -131,7 +131,7 @@ export const MobileView: Story = {
       },
     },
   },
-}
+};
 
 // レスポンシブデザインの確認用
 export const ResponsiveDemo: Story = {
@@ -146,7 +146,7 @@ export const ResponsiveDemo: Story = {
       },
     },
   },
-}
+};
 
 // ヘッダーのみ表示（装飾なし）
 export const HeaderOnly: Story = {
@@ -162,7 +162,7 @@ export const HeaderOnly: Story = {
       },
     },
   },
-}
+};
 
 // カスタムタイトルの例
 export const CustomTitle: Story = {
@@ -177,7 +177,7 @@ export const CustomTitle: Story = {
       },
     },
   },
-}
+};
 
 // 長いタイトルのテスト
 export const LongTitle: Story = {
@@ -192,4 +192,4 @@ export const LongTitle: Story = {
       },
     },
   },
-}
+};

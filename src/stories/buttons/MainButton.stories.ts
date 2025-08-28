@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import MainButton from '../../components/buttons/MainButton.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import MainButton from '../../components/buttons/MainButton.vue';
 
 const meta: Meta<typeof MainButton> = {
   title: 'Components/Buttons/MainButton',
@@ -40,24 +40,24 @@ const meta: Meta<typeof MainButton> = {
     disabled: false,
     loading: false,
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 // デフォルトの送信ボタン
 export const SubmitDefault: Story = {
   args: {
     type: 'submit',
   },
-}
+};
 
 // デフォルトのキャンセルボタン
 export const CancelDefault: Story = {
   args: {
     type: 'cancel',
   },
-}
+};
 
 // カスタムテキストの送信ボタン
 export const SubmitWithCustomText: Story = {
@@ -65,7 +65,7 @@ export const SubmitWithCustomText: Story = {
     type: 'submit',
     text: '保存',
   },
-}
+};
 
 // カスタムテキストのキャンセルボタン
 export const CancelWithCustomText: Story = {
@@ -73,7 +73,7 @@ export const CancelWithCustomText: Story = {
     type: 'cancel',
     text: '戻る',
   },
-}
+};
 
 // 無効化された送信ボタン
 export const SubmitDisabled: Story = {
@@ -81,7 +81,7 @@ export const SubmitDisabled: Story = {
     type: 'submit',
     disabled: true,
   },
-}
+};
 
 // 無効化されたキャンセルボタン
 export const CancelDisabled: Story = {
@@ -89,7 +89,7 @@ export const CancelDisabled: Story = {
     type: 'cancel',
     disabled: true,
   },
-}
+};
 
 // ローディング中の送信ボタン
 export const SubmitLoading: Story = {
@@ -97,7 +97,7 @@ export const SubmitLoading: Story = {
     type: 'submit',
     loading: true,
   },
-}
+};
 
 // ローディング中のキャンセルボタン
 export const CancelLoading: Story = {
@@ -105,7 +105,7 @@ export const CancelLoading: Story = {
     type: 'cancel',
     loading: true,
   },
-}
+};
 
 // 長いテキストのボタン
 export const LongText: Story = {
@@ -113,7 +113,7 @@ export const LongText: Story = {
     type: 'submit',
     text: '非常に長いテキストのボタン',
   },
-}
+};
 
 // ボタンのバリエーション表示
 export const AllVariations: Story = {
@@ -147,4 +147,4 @@ export const AllVariations: Story = {
       },
     },
   },
-}
+};
