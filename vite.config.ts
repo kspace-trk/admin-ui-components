@@ -16,6 +16,7 @@ export default defineConfig({
         // グローバルにSCSS変数とmixinを読み込み
         additionalData: `
           @use "${resolve(__dirname, './assets/scss/variables.scss')}" as *;
+          @use "${resolve(__dirname, './assets/css/reset.css')}";
         `,
         // SCSSファイルの依存関係を追跡
         includePaths: [resolve(__dirname, './assets/scss')],
@@ -26,6 +27,7 @@ export default defineConfig({
       plugins: [],
     },
   },
+
   plugins: [
     vue(),
     dts({

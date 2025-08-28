@@ -1,3 +1,5 @@
-import { default as HalfRoundedButton } from './components/buttons/HalfRoundedButton.vue';
-import { default as RoundedButtonWithIcon } from './components/buttons/RoundedButtonWithIcon.vue';
-export { HalfRoundedButton, RoundedButtonWithIcon, };
+import { default as MainButton } from './components/buttons/MainButton.vue';
+import { default as InputField } from './components/forms/InputField.vue';
+import { default as TopHeader } from './components/headers/TopHeader.vue';
+import { default as SideHeader } from './components/headers/SideHeader.vue';
+export { MainButton, InputField, TopHeader, SideHeader, };
