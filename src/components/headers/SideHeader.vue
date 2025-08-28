@@ -22,7 +22,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  menuItemClick: [path: string];
+  menuItemClick: [path: string, event?: Event];
 }>();
 
 const isMenuOpen = ref(false);
@@ -36,8 +36,8 @@ const closeMenu = (): void => {
 };
 
 // メニュー項目クリック時にメニューを閉じる（モバイル時）とイベントをエミット
-const handleMenuItemClick = (path: string): void => {
-  emit('menuItemClick', path);
+const handleMenuItemClick = (path: string, event?: Event): void => {
+  emit('menuItemClick', path, event);
   closeMenu();
 };
 </script>
@@ -72,30 +72,32 @@ const handleMenuItemClick = (path: string): void => {
       <div class="menu-wrapper">
         <ul>
           <li v-for="item in menuItems" :key="item.path">
-            <button
+            <a
+              :href="item.path"
               :class="['menu-item', { active: props.currentPath === item.path }]"
-              @click="handleMenuItemClick(item.path)"
+              @click="handleMenuItemClick(item.path, $event)"
             >
               <Icon
                 :icon="item.icon"
                 class="menu-item-icon"
               />
               <p>{{ item.label }}</p>
-            </button>
+            </a>
           </li>
         </ul>
       </div>
       <div v-if="bottomMenuItem" class="bottom-wrapper">
-        <button
+        <a
+          :href="bottomMenuItem.path"
           :class="['menu-item', { active: props.currentPath === bottomMenuItem.path }]"
-          @click="handleMenuItemClick(bottomMenuItem.path)"
+          @click="handleMenuItemClick(bottomMenuItem.path, $event)"
         >
           <Icon
             :icon="bottomMenuItem.icon"
             class="menu-item-icon"
           />
           <p>{{ bottomMenuItem.label }}</p>
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -206,11 +208,8 @@ const handleMenuItemClick = (path: string): void => {
   text-decoration: none;
   color: inherit;
   transition: background-color 0.2s ease;
-  background: none;
-  border: none;
   width: 100%;
   cursor: pointer;
-  font-family: inherit;
 
   &.active,
   &:hover {

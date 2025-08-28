@@ -14,8 +14,8 @@ interface Props {
     currentPath: string;
 }
 declare const _default: import('vue').DefineComponent<Props, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
-    menuItemClick: (path: string) => any;
+    menuItemClick: (path: string, event?: Event | undefined) => any;
 }, string, import('vue').PublicProps, Readonly<Props> & Readonly<{
-    onMenuItemClick?: ((path: string) => any) | undefined;
+    onMenuItemClick?: ((path: string, event?: Event | undefined) => any) | undefined;
 }>, {}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {}, any>;
 export default _default;

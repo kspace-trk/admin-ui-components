@@ -54,7 +54,11 @@ const meta: Meta<typeof SideHeader> = {
       components: { Icon },
       setup() {
         const currentPath = ref('/');
-        const handleMenuItemClick = (path: string) => {
+        const handleMenuItemClick = (path: string, event?: Event) => {
+          // デフォルトのページ遷移を防ぐ（Storybook環境では）
+          if (event) {
+            event.preventDefault();
+          }
           currentPath.value = path;
           console.log('Menu item clicked:', path);
         };

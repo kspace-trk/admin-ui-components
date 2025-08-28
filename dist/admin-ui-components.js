@@ -1,8 +1,8 @@
-import { defineComponent as A, computed as te, createElementBlock as w, openBlock as k, normalizeClass as M, createCommentVNode as G, createTextVNode as _e, toDisplayString as P, createElementVNode as b, ref as N, shallowRef as Ee, onMounted as Me, watch as Oe, onUnmounted as Ae, h as ne, nextTick as Le, Fragment as oe, renderList as Ne, createVNode as ie, unref as se } from "vue";
-const $e = ["disabled"], De = {
+import { defineComponent as A, computed as te, createElementBlock as w, openBlock as k, normalizeClass as M, createCommentVNode as G, createTextVNode as je, toDisplayString as P, createElementVNode as b, ref as N, shallowRef as Ee, onMounted as Me, watch as Oe, onUnmounted as Ae, h as ne, nextTick as Le, Fragment as oe, renderList as Ne, createVNode as ie, unref as se } from "vue";
+const De = ["disabled"], Re = {
   key: 0,
   class: "spinner"
-}, Re = /* @__PURE__ */ A({
+}, $e = /* @__PURE__ */ A({
   __name: "MainButton",
   props: {
     type: { default: "submit" },
@@ -23,16 +23,16 @@ const $e = ["disabled"], De = {
       disabled: r.disabled || r.loading,
       onClick: i
     }, [
-      r.loading ? (k(), w("span", De)) : G("", !0),
-      _e(" " + P(t.value), 1)
-    ], 10, $e));
+      r.loading ? (k(), w("span", Re)) : G("", !0),
+      je(" " + P(t.value), 1)
+    ], 10, De));
   }
 }), H = (e, o) => {
   const n = e.__vccOpts || e;
   for (const [i, t] of o)
     n[i] = t;
   return n;
-}, Zt = /* @__PURE__ */ H(Re, [["__scopeId", "data-v-489ef9cb"]]), Ve = { class: "input-field" }, He = { class: "input-field__label" }, ze = ["value", "placeholder"], Be = /* @__PURE__ */ A({
+}, en = /* @__PURE__ */ H($e, [["__scopeId", "data-v-489ef9cb"]]), Ve = { class: "input-field" }, He = { class: "input-field__label" }, ze = ["value", "placeholder"], Be = /* @__PURE__ */ A({
   __name: "InputField",
   props: {
     label: {},
@@ -52,7 +52,7 @@ const $e = ["disabled"], De = {
       }, null, 40, ze)
     ]));
   }
-}), en = /* @__PURE__ */ H(Be, [["__scopeId", "data-v-9da3aab7"]]), Qe = { class: "top-header" }, Ue = { class: "top-header__title" }, qe = /* @__PURE__ */ A({
+}), tn = /* @__PURE__ */ H(Be, [["__scopeId", "data-v-9da3aab7"]]), Qe = { class: "top-header" }, Ue = { class: "top-header__title" }, qe = /* @__PURE__ */ A({
   __name: "TopHeader",
   props: {
     title: {}
@@ -62,7 +62,7 @@ const $e = ["disabled"], De = {
       b("h1", Ue, P(o.title), 1)
     ]));
   }
-}), tn = /* @__PURE__ */ H(qe, [["__scopeId", "data-v-87421744"]]), ve = /^[a-z0-9]+(-[a-z0-9]+)*$/, z = (e, o, n, i = "") => {
+}), nn = /* @__PURE__ */ H(qe, [["__scopeId", "data-v-87421744"]]), ve = /^[a-z0-9]+(-[a-z0-9]+)*$/, z = (e, o, n, i = "") => {
   const t = e.split(":");
   if (e.slice(0, 1) === "@") {
     if (t.length < 2 || t.length > 3)
@@ -78,7 +78,7 @@ const $e = ["disabled"], De = {
       prefix: u,
       name: l
     };
-    return o && !$(c) ? null : c;
+    return o && !D(c) ? null : c;
   }
   const s = t[0], r = s.split("-");
   if (r.length > 1) {
@@ -87,7 +87,7 @@ const $e = ["disabled"], De = {
       prefix: r.shift(),
       name: r.join("-")
     };
-    return o && !$(l) ? null : l;
+    return o && !D(l) ? null : l;
   }
   if (n && i === "") {
     const l = {
@@ -95,10 +95,10 @@ const $e = ["disabled"], De = {
       prefix: "",
       name: s
     };
-    return o && !$(l, n) ? null : l;
+    return o && !D(l, n) ? null : l;
   }
   return null;
-}, $ = (e, o) => e ? !!// Check prefix: cannot be empty, unless allowSimpleName is enabled
+}, D = (e, o) => e ? !!// Check prefix: cannot be empty, unless allowSimpleName is enabled
 // Check name: cannot be empty
 ((o && e.prefix === "" || e.prefix) && e.name) : !1, Ie = Object.freeze(
   {
@@ -272,7 +272,7 @@ function tt(e, o) {
     })), t;
   }
   const n = e.prefix;
-  if (!$({
+  if (!D({
     prefix: n,
     name: "a"
   }))
@@ -449,14 +449,14 @@ function Y(e) {
     dataAfterTimeout: e.dataAfterTimeout !== !1
   };
 }
-const Z = /* @__PURE__ */ Object.create(null), _ = [
+const Z = /* @__PURE__ */ Object.create(null), j = [
   "https://api.simplesvg.com",
   "https://api.unisvg.com"
-], D = [];
-for (; _.length > 0; )
-  _.length === 1 || Math.random() > 0.5 ? D.push(_.shift()) : D.push(_.pop());
+], R = [];
+for (; j.length > 0; )
+  j.length === 1 || Math.random() > 0.5 ? R.push(j.shift()) : R.push(j.pop());
 Z[""] = Y({
-  resources: ["https://api.iconify.design"].concat(D)
+  resources: ["https://api.iconify.design"].concat(R)
 });
 function ht(e, o) {
   const n = Y(o);
@@ -717,7 +717,7 @@ function Ft(e, o, n, i) {
       h.status === "pending" && (h.status = "aborted");
     }), p = [];
   }
-  function v(h, I, j) {
+  function v(h, I, _) {
     const L = I !== "success";
     switch (p = p.filter((S) => S !== h), u) {
       case "pending":
@@ -730,11 +730,11 @@ function Ft(e, o, n, i) {
         return;
     }
     if (I === "abort") {
-      a = j, C();
+      a = _, C();
       return;
     }
     if (L) {
-      a = j, p.length || (r.length ? Q() : C());
+      a = _, p.length || (r.length ? Q() : C());
       return;
     }
     if (y(), x(), !e.random) {
@@ -742,7 +742,7 @@ function Ft(e, o, n, i) {
       S !== -1 && S !== e.index && (e.index = S);
     }
     u = "completed", m.forEach((S) => {
-      S(j);
+      S(_);
     });
   }
   function Q() {
@@ -763,8 +763,8 @@ function Ft(e, o, n, i) {
     const I = {
       status: "pending",
       resource: h,
-      callback: (j, L) => {
-        v(I, j, L);
+      callback: (_, L) => {
+        v(I, _, L);
       }
     };
     p.push(I), c++, d = setTimeout(Q, e.rotate), n(h, o, I.callback);
@@ -807,7 +807,7 @@ function Fe(e) {
 function ae() {
 }
 const q = /* @__PURE__ */ Object.create(null);
-function jt(e) {
+function _t(e) {
   if (!q[e]) {
     const o = ee(e);
     if (!o)
@@ -820,14 +820,14 @@ function jt(e) {
   }
   return q[e];
 }
-function _t(e, o, n) {
+function jt(e, o, n) {
   let i, t;
   if (typeof e == "string") {
     const s = J(e);
     if (!s)
       return n(void 0, 424), ae;
     t = s.send;
-    const r = jt(e);
+    const r = _t(e);
     r && (i = r.redundancy);
   } else {
     const s = Y(e);
@@ -920,7 +920,7 @@ function Ot(e, o) {
       return;
     }
     u.prepare(n, i, r).forEach((a) => {
-      _t(n, a, (d) => {
+      jt(n, a, (d) => {
         E(e, a.icons, d);
       });
     });
@@ -969,7 +969,7 @@ function Lt(e, o) {
   return n;
 }
 const Nt = /[\s,]+/;
-function $t(e, o) {
+function Dt(e, o) {
   o.split(Nt).forEach((n) => {
     switch (n.trim()) {
       case "horizontal":
@@ -981,7 +981,7 @@ function $t(e, o) {
     }
   });
 }
-function Dt(e, o = 0) {
+function Rt(e, o = 0) {
   const n = e.replace(/^-?[0-9.]*/, "");
   function i(t) {
     for (; t < 0; )
@@ -1007,7 +1007,7 @@ function Dt(e, o = 0) {
   }
   return o;
 }
-function Rt(e, o) {
+function $t(e, o) {
   let n = e.indexOf("xlink:") === -1 ? "" : ' xmlns:xlink="http://www.w3.org/1999/xlink"';
   for (const i in o)
     n += " " + i + '="' + o[i] + '"';
@@ -1034,7 +1034,7 @@ const pe = {
   display: "inline-block"
 }, X = {
   backgroundColor: "currentColor"
-}, je = {
+}, _e = {
   backgroundColor: "transparent"
 }, he = {
   Image: "var(--svg)",
@@ -1043,17 +1043,17 @@ const pe = {
 }, me = {
   webkitMask: X,
   mask: X,
-  background: je
+  background: _e
 };
 for (const e in me) {
   const o = me[e];
   for (const n in he)
     o[e + n] = he[n];
 }
-const R = {};
+const $ = {};
 ["horizontal", "vertical"].forEach((e) => {
   const o = e.slice(0, 1) + "Flip";
-  R[e + "-flip"] = o, R[e.slice(0, 1) + "-flip"] = o, R[e + "Flip"] = o;
+  $[e + "-flip"] = o, $[e.slice(0, 1) + "-flip"] = o, $[e + "Flip"] = o;
 });
 function ge(e) {
   return e + (e.match(/^[-0-9.]+$/) ? "px" : "");
@@ -1079,7 +1079,7 @@ const be = (e, o) => {
           break;
         // Flip as string: 'horizontal,vertical'
         case "flip":
-          typeof f == "string" && $t(n, f);
+          typeof f == "string" && Dt(n, f);
           break;
         // Color: override style
         case "color":
@@ -1087,7 +1087,7 @@ const be = (e, o) => {
           break;
         // Rotation as string
         case "rotate":
-          typeof f == "string" ? n[g] = Dt(f) : typeof f == "number" && (n[g] = f);
+          typeof f == "string" ? n[g] = Rt(f) : typeof f == "number" && (n[g] = f);
           break;
         // Remove aria-hidden
         case "ariaHidden":
@@ -1095,7 +1095,7 @@ const be = (e, o) => {
           f !== !0 && f !== "true" && delete i["aria-hidden"];
           break;
         default: {
-          const T = R[g];
+          const T = $[g];
           T ? (f === !0 || f === "true" || f === 1) && (n[T] = !0) : pe[g] === void 0 && (i[g] = f);
         }
       }
@@ -1109,7 +1109,7 @@ const be = (e, o) => {
     let g = 0, f = o.id;
     return typeof f == "string" && (f = f.replace(/-/g, "_")), i.innerHTML = dt(u.body, f ? () => f + "ID" + g++ : "iconifyVue"), ne("svg", i);
   }
-  const { body: a, width: d, height: p } = e, m = t === "mask" || (t === "bg" ? !1 : a.indexOf("currentColor") !== -1), y = Rt(a, {
+  const { body: a, width: d, height: p } = e, m = t === "mask" || (t === "bg" ? !1 : a.indexOf("currentColor") !== -1), y = $t(a, {
     ...c,
     width: d + "",
     height: p + ""
@@ -1120,7 +1120,7 @@ const be = (e, o) => {
     width: ge(c.width),
     height: ge(c.height),
     ...Qt,
-    ...m ? X : je,
+    ...m ? X : _e,
     ...l
   }, ne("span", i);
 };
@@ -1244,10 +1244,10 @@ const Ut = {
     "title"
   ],
   emits: ["load"]
-}), qt = { class: "side-header-container" }, Gt = { class: "logo-wrapper" }, Kt = { class: "menu-wrapper" }, Wt = ["onClick"], Jt = {
+}), qt = { class: "side-header-container" }, Gt = { class: "logo-wrapper" }, Kt = { class: "menu-wrapper" }, Wt = ["href", "onClick"], Jt = {
   key: 0,
   class: "bottom-wrapper"
-}, Xt = /* @__PURE__ */ A({
+}, Xt = ["href"], Yt = /* @__PURE__ */ A({
   __name: "SideHeader",
   props: {
     logoText: {},
@@ -1261,8 +1261,8 @@ const Ut = {
       t.value = !t.value;
     }, r = () => {
       t.value = !1;
-    }, l = (u) => {
-      i("menuItemClick", u), r();
+    }, l = (u, c) => {
+      i("menuItemClick", u, c), r();
     };
     return (u, c) => (k(), w(oe, null, [
       b("button", {
@@ -1291,9 +1291,10 @@ const Ut = {
               (k(!0), w(oe, null, Ne(u.menuItems, (a) => (k(), w("li", {
                 key: a.path
               }, [
-                b("button", {
+                b("a", {
+                  href: a.path,
                   class: M(["menu-item", { active: n.currentPath === a.path }]),
-                  onClick: (d) => l(a.path)
+                  onClick: (d) => l(a.path, d)
                 }, [
                   ie(se(ye), {
                     icon: a.icon,
@@ -1305,25 +1306,26 @@ const Ut = {
             ])
           ]),
           u.bottomMenuItem ? (k(), w("div", Jt, [
-            b("button", {
+            b("a", {
+              href: u.bottomMenuItem.path,
               class: M(["menu-item", { active: n.currentPath === u.bottomMenuItem.path }]),
-              onClick: c[0] || (c[0] = (a) => l(u.bottomMenuItem.path))
+              onClick: c[0] || (c[0] = (a) => l(u.bottomMenuItem.path, a))
             }, [
               ie(se(ye), {
                 icon: u.bottomMenuItem.icon,
                 class: "menu-item-icon"
               }, null, 8, ["icon"]),
               b("p", null, P(u.bottomMenuItem.label), 1)
-            ], 2)
+            ], 10, Xt)
           ])) : G("", !0)
         ])
       ], 2)
     ], 64));
   }
-}), nn = /* @__PURE__ */ H(Xt, [["__scopeId", "data-v-184eb879"]]);
+}), on = /* @__PURE__ */ H(Yt, [["__scopeId", "data-v-7f45a441"]]);
 export {
-  en as InputField,
-  Zt as MainButton,
-  nn as SideHeader,
-  tn as TopHeader
+  tn as InputField,
+  en as MainButton,
+  on as SideHeader,
+  nn as TopHeader
 };
