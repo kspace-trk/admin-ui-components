@@ -1,0 +1,65 @@
+{
+  "name": "admin-ui-components",
+  "description": "Vue Component Library",
+  "version": "1.4.5",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "module": "./dist/admin-ui-components.js",
+  "main": "./dist/admin-ui-components-umd.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/admin-ui-components.js",
+      "require": "./dist/admin-ui-components-umd.js"
+    },
+    "./styles": {
+      "types": "./dist/admin-ui-components.css",
+      "import": "./dist/admin-ui-components.css",
+      "require": "./dist/admin-ui-components.css"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "prepare": "npm run build",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@eslint/js": "^9.17.0",
+    "@storybook/addon-essentials": "^8.5.2",
+    "@storybook/addon-interactions": "^8.5.2",
+    "@storybook/addon-mdx-gfm": "^8.5.2",
+    "@storybook/addon-onboarding": "^8.5.2",
+    "@storybook/blocks": "^8.5.2",
+    "@storybook/test": "^8.5.2",
+    "@storybook/vue3": "^8.5.2",
+    "@storybook/vue3-vite": "^8.5.2",
+    "@stylistic/eslint-plugin": "^2.12.1",
+    "@types/node": "^22.10.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.17.0",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^15.14.0",
+    "path": "^0.12.7",
+    "sass": "^1.83.1",
+    "storybook": "^8.5.2",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.19.1",
+    "vite": "^6.0.5",
+    "vite-plugin-dts": "^4.4.0",
+    "vue-tsc": "^2.2.0"
+  }
+}
