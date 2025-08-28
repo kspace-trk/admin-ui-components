@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { Icon } from '@iconify/vue';
 
-interface MenuItem {
+export interface SideHeaderMenuItem {
   path: string;
   label: string;
   icon: string;
@@ -13,9 +13,9 @@ interface Props {
   /** ロゴテキスト */
   logoText: string;
   /** メニュー項目リスト */
-  menuItems: MenuItem[];
+  menuItems: SideHeaderMenuItem[];
   /** ボトムメニュー項目 */
-  bottomMenuItem?: MenuItem;
+  bottomMenuItem?: SideHeaderMenuItem;
 }
 
 defineProps<Props>();

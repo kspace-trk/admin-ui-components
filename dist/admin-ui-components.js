@@ -62,7 +62,7 @@ const Be = ["disabled"], Qe = {
       y("h1", Xe, E(o.title), 1)
     ]));
   }
-}), un = /* @__PURE__ */ B(Ye, [["__scopeId", "data-v-e8c80d3a"]]);
+}), un = /* @__PURE__ */ B(Ye, [["__scopeId", "data-v-87421744"]]);
 /*!
   * vue-router v4.5.1
   * (c) 2025 Eduardo San Martin Morote
@@ -1356,7 +1356,7 @@ const Zt = {
       ], 64);
     };
   }
-}), an = /* @__PURE__ */ B(sn, [["__scopeId", "data-v-56f33e2c"]]);
+}), an = /* @__PURE__ */ B(sn, [["__scopeId", "data-v-76d31c3d"]]);
 export {
   ln as InputField,
   cn as MainButton,

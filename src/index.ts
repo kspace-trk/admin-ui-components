@@ -7,6 +7,7 @@ import MainButton from './components/buttons/MainButton.vue';
 import InputField from './components/forms/InputField.vue';
 import TopHeader from './components/headers/TopHeader.vue';
 import SideHeader from './components/headers/SideHeader.vue';
+import type { SideHeaderMenuItem } from './components/headers/SideHeader.vue';
 
 export {
   MainButton,
@@ -14,3 +15,5 @@ export {
   TopHeader,
   SideHeader,
 };
+
+export type { SideHeaderMenuItem };
