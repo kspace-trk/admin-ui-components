@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.1"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
@@ -58,7 +57,6 @@
     "path": "^0.12.7",
     "sass": "^1.83.1",
     "storybook": "^8.5.2",
-    "storybook-vue3-router": "5.1",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.19.1",
     "vite": "^6.0.5",

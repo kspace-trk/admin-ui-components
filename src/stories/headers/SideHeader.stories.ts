@@ -1,26 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { vueRouter } from 'storybook-vue3-router';
+import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import SideHeader from '../../components/headers/SideHeader.vue';
-
-// ルート定義
-const routes = [
-  { 
-    path: '/', 
-    name: 'home', 
-    component: { template: '<div>ホームページコンテンツ</div>' } 
-  },
-  { 
-    path: '/settings', 
-    name: 'settings', 
-    component: { template: '<div>設定ページコンテンツ</div>' } 
-  },
-  { 
-    path: '/account', 
-    name: 'account', 
-    component: { template: '<div>アカウントページコンテンツ</div>' } 
-  },
-];
 
 const meta: Meta<typeof SideHeader> = {
   title: 'Components/Headers/SideHeader',
@@ -29,7 +10,7 @@ const meta: Meta<typeof SideHeader> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'サイドヘッダーコンポーネント。ナビゲーションメニューを提供し、レスポンシブ対応のハンバーガーメニュー機能を含みます。vue-routerとrouter-linkを使用し、@iconify/vueでアイコンを表示します。storybook-vue3-routerで実際のルーティング機能を提供。',
+        component: 'サイドヘッダーコンポーネント。ナビゲーションメニューを提供し、レスポンシブ対応のハンバーガーメニュー機能を含みます。currentPathをpropsで受け取り、メニュークリック時にイベントをエミットします。',
       },
     },
   },
@@ -53,6 +34,11 @@ const meta: Meta<typeof SideHeader> = {
       description: 'ボトムメニュー項目',
       defaultValue: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
     },
+    currentPath: {
+      control: { type: 'text' },
+      description: '現在のパス',
+      defaultValue: '/',
+    },
   },
   args: {
     logoText: 'Admin UI',
@@ -61,21 +47,32 @@ const meta: Meta<typeof SideHeader> = {
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
     bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
+    currentPath: '/',
   },
   decorators: [
-    vueRouter(routes),
     () => ({
       components: { Icon },
+      setup() {
+        const currentPath = ref('/');
+        const handleMenuItemClick = (path: string) => {
+          currentPath.value = path;
+          console.log('Menu item clicked:', path);
+        };
+        return { currentPath, handleMenuItemClick };
+      },
       template: `
         <div style="width: 100vw; height: 100vh; background-color: #f5f5f5; position: relative;">
-          <story />
-          <!-- メインコンテンツエリア（実際のルーターでページが変わる） -->
+          <story 
+            :current-path="currentPath"
+            @menu-item-click="handleMenuItemClick"
+          />
+          <!-- メインコンテンツエリア -->
           <div style="margin-left: 260px; padding: 20px; min-height: 100vh;">
             <h2>メインコンテンツエリア</h2>
-            <p>サイドヘッダーのメニューをクリックすると実際にルーティングが発生します。</p>
+            <p>サイドヘッダーのメニューをクリックすると currentPath が変更されます。</p>
             <div style="padding: 20px; background: white; border-radius: 8px; margin: 20px 0;">
-              <h3>現在のページ:</h3>
-              <router-view />
+              <h3>現在のパス: {{ currentPath }}</h3>
+              <p>メニューをクリックしてパスの変更を確認してください。</p>
             </div>
             <div style="height: 200vh; background: linear-gradient(to bottom, #f0f0f0, #e0e0e0); padding: 20px;">
               <h3>スクロールテスト用コンテンツ</h3>
@@ -93,7 +90,6 @@ type Story = StoryObj<typeof meta>;
 
 // デスクトップ表示（ホームページ）
 export const HomePage: Story = {
-  decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'Admin UI',
     menuItems: [
@@ -101,11 +97,12 @@ export const HomePage: Story = {
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
     bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
+    currentPath: '/',
   },
   parameters: {
     docs: {
       description: {
-        story: 'ホームページ（/）でのサイドヘッダー表示。実際のルーティングが動作します。',
+        story: 'ホームページ（/）でのサイドヘッダー表示。タスクリストメニューがアクティブになります。',
       },
     },
   },
@@ -113,7 +110,6 @@ export const HomePage: Story = {
 
 // 設定ページ
 export const SettingsPage: Story = {
-  decorators: [vueRouter(routes, { initialRoute: '/settings' })],
   args: {
     logoText: 'Admin UI',
     menuItems: [
@@ -121,6 +117,7 @@ export const SettingsPage: Story = {
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
     bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
+    currentPath: '/settings',
   },
   parameters: {
     docs: {
@@ -133,7 +130,6 @@ export const SettingsPage: Story = {
 
 // アカウントページ
 export const AccountPage: Story = {
-  decorators: [vueRouter(routes, { initialRoute: '/account' })],
   args: {
     logoText: 'Admin UI',
     menuItems: [
@@ -141,6 +137,7 @@ export const AccountPage: Story = {
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
     bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
+    currentPath: '/account',
   },
   parameters: {
     docs: {
@@ -153,7 +150,6 @@ export const AccountPage: Story = {
 
 // モバイル表示
 export const MobileView: Story = {
-  decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'Mobile App',
     menuItems: [
@@ -161,6 +157,7 @@ export const MobileView: Story = {
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
     bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
+    currentPath: '/',
   },
   parameters: {
     viewport: {
@@ -176,7 +173,6 @@ export const MobileView: Story = {
 
 // カスタムロゴテキスト
 export const CustomLogo: Story = {
-  decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'My Custom App',
     menuItems: [
@@ -184,6 +180,7 @@ export const CustomLogo: Story = {
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
     bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
+    currentPath: '/',
   },
   parameters: {
     docs: {
@@ -196,13 +193,13 @@ export const CustomLogo: Story = {
 
 // ヘッダーのみ表示（装飾なし）
 export const HeaderOnly: Story = {
-  decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'Simple UI',
     menuItems: [
       { path: '/', label: 'ホーム', icon: 'material-symbols:home-rounded' },
       { path: '/settings', label: '設定', icon: 'uil:setting' },
     ],
+    currentPath: '/',
   },
   parameters: {
     layout: 'centered',
@@ -216,33 +213,6 @@ export const HeaderOnly: Story = {
 
 // カスタムメニュー項目
 export const CustomMenuItems: Story = {
-  decorators: [vueRouter([
-    { 
-      path: '/', 
-      name: 'dashboard', 
-      component: { template: '<div>ダッシュボードページ</div>' } 
-    },
-    { 
-      path: '/users', 
-      name: 'users', 
-      component: { template: '<div>ユーザー管理ページ</div>' } 
-    },
-    { 
-      path: '/orders', 
-      name: 'orders', 
-      component: { template: '<div>注文管理ページ</div>' } 
-    },
-    { 
-      path: '/reports', 
-      name: 'reports', 
-      component: { template: '<div>レポートページ</div>' } 
-    },
-    { 
-      path: '/profile', 
-      name: 'profile', 
-      component: { template: '<div>プロフィールページ</div>' } 
-    },
-  ], { initialRoute: '/' })],
   args: {
     logoText: 'E-Commerce Admin',
     menuItems: [
@@ -252,6 +222,7 @@ export const CustomMenuItems: Story = {
       { path: '/reports', label: 'レポート', icon: 'material-symbols:analytics-rounded' },
     ],
     bottomMenuItem: { path: '/profile', label: 'プロフィール', icon: 'material-symbols:person-rounded' },
+    currentPath: '/',
   },
   parameters: {
     docs: {

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
 import { Icon } from '@iconify/vue';
 
 export interface SideHeaderMenuItem {
@@ -16,11 +15,16 @@ interface Props {
   menuItems: SideHeaderMenuItem[];
   /** ボトムメニュー項目 */
   bottomMenuItem?: SideHeaderMenuItem;
+  /** 現在のパス */
+  currentPath: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-const route = useRoute();
+const emit = defineEmits<{
+  menuItemClick: [path: string];
+}>();
+
 const isMenuOpen = ref(false);
 
 const toggleMenu = (): void => {
@@ -31,8 +35,9 @@ const closeMenu = (): void => {
   isMenuOpen.value = false;
 };
 
-// メニュー項目クリック時にメニューを閉じる（モバイル時）
-const handleMenuItemClick = (): void => {
+// メニュー項目クリック時にメニューを閉じる（モバイル時）とイベントをエミット
+const handleMenuItemClick = (path: string): void => {
+  emit('menuItemClick', path);
   closeMenu();
 };
 </script>
@@ -67,32 +72,30 @@ const handleMenuItemClick = (): void => {
       <div class="menu-wrapper">
         <ul>
           <li v-for="item in menuItems" :key="item.path">
-            <router-link
-              :to="item.path"
-              :class="['menu-item', { active: route.path === item.path }]"
-              @click="handleMenuItemClick"
+            <button
+              :class="['menu-item', { active: props.currentPath === item.path }]"
+              @click="handleMenuItemClick(item.path)"
             >
               <Icon
                 :icon="item.icon"
                 class="menu-item-icon"
               />
               <p>{{ item.label }}</p>
-            </router-link>
+            </button>
           </li>
         </ul>
       </div>
       <div v-if="bottomMenuItem" class="bottom-wrapper">
-        <router-link
-          :to="bottomMenuItem.path"
-          :class="['menu-item', { active: route.path === bottomMenuItem.path }]"
-          @click="handleMenuItemClick"
+        <button
+          :class="['menu-item', { active: props.currentPath === bottomMenuItem.path }]"
+          @click="handleMenuItemClick(bottomMenuItem.path)"
         >
           <Icon
             :icon="bottomMenuItem.icon"
             class="menu-item-icon"
           />
           <p>{{ bottomMenuItem.label }}</p>
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -203,6 +206,11 @@ const handleMenuItemClick = (): void => {
   text-decoration: none;
   color: inherit;
   transition: background-color 0.2s ease;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-family: inherit;
 
   &.active,
   &:hover {
