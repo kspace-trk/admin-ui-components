@@ -11,9 +11,9 @@ interface MenuItem {
 
 interface Props {
   /** ロゴテキスト */
-  logoText?: string;
+  logoText: string;
   /** メニュー項目リスト */
-  menuItems?: MenuItem[];
+  menuItems: MenuItem[];
   /** ボトムメニュー項目 */
   bottomMenuItem?: MenuItem;
 }

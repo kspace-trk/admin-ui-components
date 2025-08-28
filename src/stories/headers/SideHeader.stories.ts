@@ -116,6 +116,11 @@ export const SettingsPage: Story = {
   decorators: [vueRouter(routes, { initialRoute: '/settings' })],
   args: {
     logoText: 'Admin UI',
+    menuItems: [
+      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
+      { path: '/settings', label: '設定', icon: 'uil:setting' },
+    ],
+    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
   },
   parameters: {
     docs: {
@@ -131,6 +136,11 @@ export const AccountPage: Story = {
   decorators: [vueRouter(routes, { initialRoute: '/account' })],
   args: {
     logoText: 'Admin UI',
+    menuItems: [
+      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
+      { path: '/settings', label: '設定', icon: 'uil:setting' },
+    ],
+    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
   },
   parameters: {
     docs: {
@@ -146,6 +156,11 @@ export const MobileView: Story = {
   decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'Mobile App',
+    menuItems: [
+      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
+      { path: '/settings', label: '設定', icon: 'uil:setting' },
+    ],
+    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
   },
   parameters: {
     viewport: {
@@ -164,6 +179,11 @@ export const CustomLogo: Story = {
   decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'My Custom App',
+    menuItems: [
+      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
+      { path: '/settings', label: '設定', icon: 'uil:setting' },
+    ],
+    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
   },
   parameters: {
     docs: {
@@ -179,6 +199,10 @@ export const HeaderOnly: Story = {
   decorators: [vueRouter(routes, { initialRoute: '/' })],
   args: {
     logoText: 'Simple UI',
+    menuItems: [
+      { path: '/', label: 'ホーム', icon: 'material-symbols:home-rounded' },
+      { path: '/settings', label: '設定', icon: 'uil:setting' },
+    ],
   },
   parameters: {
     layout: 'centered',
