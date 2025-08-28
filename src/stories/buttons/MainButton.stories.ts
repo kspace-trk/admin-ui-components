@@ -45,77 +45,65 @@ const meta: Meta<typeof MainButton> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// デフォルトの送信ボタン
-export const SubmitDefault: Story = {
+// 送信ボタン
+export const Submit: Story = {
   args: {
     type: 'submit',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'デフォルトの送信ボタン。',
+      },
+    },
+  },
 };
 
-// デフォルトのキャンセルボタン
-export const CancelDefault: Story = {
+// キャンセルボタン
+export const Cancel: Story = {
   args: {
     type: 'cancel',
   },
-};
-
-// カスタムテキストの送信ボタン
-export const SubmitWithCustomText: Story = {
-  args: {
-    type: 'submit',
-    text: '保存',
+  parameters: {
+    docs: {
+      description: {
+        story: 'デフォルトのキャンセルボタン。',
+      },
+    },
   },
 };
 
-// カスタムテキストのキャンセルボタン
-export const CancelWithCustomText: Story = {
-  args: {
-    type: 'cancel',
-    text: '戻る',
-  },
-};
-
-// 無効化された送信ボタン
-export const SubmitDisabled: Story = {
-  args: {
-    type: 'submit',
-    disabled: true,
-  },
-};
-
-// 無効化されたキャンセルボタン
-export const CancelDisabled: Story = {
-  args: {
-    type: 'cancel',
-    disabled: true,
-  },
-};
-
-// ローディング中の送信ボタン
-export const SubmitLoading: Story = {
+// ローディング状態
+export const Loading: Story = {
   args: {
     type: 'submit',
     loading: true,
   },
-};
-
-// ローディング中のキャンセルボタン
-export const CancelLoading: Story = {
-  args: {
-    type: 'cancel',
-    loading: true,
+  parameters: {
+    docs: {
+      description: {
+        story: 'ローディング状態のボタン。',
+      },
+    },
   },
 };
 
-// 長いテキストのボタン
-export const LongText: Story = {
+// 無効化状態
+export const Disabled: Story = {
   args: {
     type: 'submit',
-    text: '非常に長いテキストのボタン',
+    disabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '無効化状態のボタン。',
+      },
+    },
   },
 };
 
-// ボタンのバリエーション表示
+// すべてのバリエーション
 export const AllVariations: Story = {
   render: () => ({
     components: { MainButton },
@@ -143,7 +131,7 @@ export const AllVariations: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'すべてのボタンバリエーションの表示例',
+        story: 'すべてのボタンバリエーションの一覧表示。',
       },
     },
   },

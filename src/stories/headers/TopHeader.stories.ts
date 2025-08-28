@@ -49,50 +49,22 @@ const meta: Meta<typeof TopHeader> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// ルートページ（タスクリスト）
-export const TaskListPage: Story = {
+// デフォルト表示
+export const Default: Story = {
   args: {
     title: 'タスクリスト',
   },
   parameters: {
     docs: {
       description: {
-        story: 'タスクリストページでのTopHeaderの表示例。タイトルが「タスクリスト」になります。',
+        story: 'デフォルトのTopHeader表示。基本的な使用例です。',
       },
     },
   },
 };
 
-// 設定ページ  
-export const SettingsPage: Story = {
-  args: {
-    title: '設定',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '設定ページでのTopHeaderの表示例。タイトルが「設定」になります。',
-      },
-    },
-  },
-};
-
-// その他のページ（デフォルトタイトル）
-export const DefaultPage: Story = {
-  args: {
-    title: 'その他のページ',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'その他のページでのTopHeaderの表示例。カスタムタイトル「その他のページ」が表示されます。',
-      },
-    },
-  },
-};
-
-// モバイル表示のプレビュー
-export const MobileView: Story = {
+// モバイル表示
+export const Mobile: Story = {
   args: {
     title: 'モバイルアプリ',
   },
@@ -102,56 +74,13 @@ export const MobileView: Story = {
     },
     docs: {
       description: {
-        story: 'モバイル表示でのTopHeaderの表示例（全幅で表示）。',
+        story: 'モバイル表示でのTopHeader（全幅で表示）。',
       },
     },
   },
 };
 
-// レスポンシブデザインの確認用
-export const ResponsiveDemo: Story = {
-  args: {
-    title: 'レスポンシブデモ',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'レスポンシブデザインの動作確認用。画面サイズを変更してレスポンシブ動作を確認できます。デスクトップではサイドバー分の余白を考慮した幅、モバイルでは全幅表示になります。',
-      },
-    },
-  },
-};
-
-// ヘッダーのみ表示（装飾なし）
-export const HeaderOnly: Story = {
-  args: {
-    title: 'シンプルヘッダー',
-  },
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        story: 'ヘッダーのみの表示（装飾やダミーコンテンツなし）',
-      },
-    },
-  },
-};
-
-// カスタムタイトルの例
-export const CustomTitle: Story = {
-  args: {
-    title: 'カスタム管理画面',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'カスタムタイトルを使用したTopHeaderの表示例。propsでタイトルを自由に設定できます。',
-      },
-    },
-  },
-};
-
-// 長いタイトルのテスト
+// 長いタイトル
 export const LongTitle: Story = {
   args: {
     title: 'とても長いページタイトルのテストケース',
@@ -159,7 +88,7 @@ export const LongTitle: Story = {
   parameters: {
     docs: {
       description: {
-        story: '長いタイトルが適切に表示されるかのテストケース。レスポンシブ対応も確認できます。',
+        story: '長いタイトルでの表示テスト。レスポンシブ対応を確認できます。',
       },
     },
   },

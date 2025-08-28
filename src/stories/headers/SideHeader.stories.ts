@@ -92,8 +92,8 @@ const meta: Meta<typeof SideHeader> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// デスクトップ表示（ホームページ）
-export const HomePage: Story = {
+// デフォルト表示
+export const Default: Story = {
   args: {
     logoText: 'Admin UI',
     menuItems: [
@@ -106,56 +106,16 @@ export const HomePage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'ホームページ（/）でのサイドヘッダー表示。タスクリストメニューがアクティブになります。',
-      },
-    },
-  },
-};
-
-// 設定ページ
-export const SettingsPage: Story = {
-  args: {
-    logoText: 'Admin UI',
-    menuItems: [
-      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
-      { path: '/settings', label: '設定', icon: 'uil:setting' },
-    ],
-    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
-    currentPath: '/settings',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '設定ページ（/settings）でのサイドヘッダー表示。設定メニューがアクティブになります。',
-      },
-    },
-  },
-};
-
-// アカウントページ
-export const AccountPage: Story = {
-  args: {
-    logoText: 'Admin UI',
-    menuItems: [
-      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
-      { path: '/settings', label: '設定', icon: 'uil:setting' },
-    ],
-    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
-    currentPath: '/account',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'アカウントページ（/account）でのサイドヘッダー表示。アカウントメニューがアクティブになります。',
+        story: 'デフォルトのサイドヘッダー表示。基本的な使用例です。',
       },
     },
   },
 };
 
 // モバイル表示
-export const MobileView: Story = {
+export const Mobile: Story = {
   args: {
-    logoText: 'Mobile App',
+    logoText: 'Admin UI',
     menuItems: [
       { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
       { path: '/settings', label: '設定', icon: 'uil:setting' },
@@ -175,48 +135,8 @@ export const MobileView: Story = {
   },
 };
 
-// カスタムロゴテキスト
-export const CustomLogo: Story = {
-  args: {
-    logoText: 'My Custom App',
-    menuItems: [
-      { path: '/', label: 'タスクリスト', icon: 'material-symbols:list-rounded' },
-      { path: '/settings', label: '設定', icon: 'uil:setting' },
-    ],
-    bottomMenuItem: { path: '/account', label: 'アカウント', icon: 'mdi:user-outline' },
-    currentPath: '/',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'カスタムロゴテキストを使用したサイドヘッダー。',
-      },
-    },
-  },
-};
-
-// ヘッダーのみ表示（装飾なし）
-export const HeaderOnly: Story = {
-  args: {
-    logoText: 'Simple UI',
-    menuItems: [
-      { path: '/', label: 'ホーム', icon: 'material-symbols:home-rounded' },
-      { path: '/settings', label: '設定', icon: 'uil:setting' },
-    ],
-    currentPath: '/',
-  },
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        story: 'サイドヘッダーのみの表示（装飾やダミーコンテンツなし）',
-      },
-    },
-  },
-};
-
-// カスタムメニュー項目
-export const CustomMenuItems: Story = {
+// カスタムメニュー
+export const CustomMenu: Story = {
   args: {
     logoText: 'E-Commerce Admin',
     menuItems: [
@@ -231,7 +151,7 @@ export const CustomMenuItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'カスタムメニュー項目を使用したサイドヘッダー。ECサイトの管理画面を想定したメニュー構成です。',
+        story: 'カスタムメニュー項目とロゴテキストを使用した例。',
       },
     },
   },

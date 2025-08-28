@@ -38,55 +38,38 @@ const meta: Meta<typeof InputField> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// デフォルトの入力フィールド
+// デフォルト表示
 export const Default: Story = {
   args: {
     label: 'お名前',
     placeholder: 'お名前を入力してください',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'デフォルトの入力フィールド。基本的な使用例です。',
+      },
+    },
+  },
 };
 
-// 値が入力済みの入力フィールド
+// 入力済み
 export const WithValue: Story = {
   args: {
     label: 'お名前',
     placeholder: 'お名前を入力してください',
     modelValue: '山田太郎',
   },
-};
-
-// メールアドレス入力フィールド
-export const EmailField: Story = {
-  args: {
-    label: 'メールアドレス',
-    placeholder: 'example@domain.com',
+  parameters: {
+    docs: {
+      description: {
+        story: '値が入力済みの状態。',
+      },
+    },
   },
 };
 
-// パスワード入力フィールド
-export const PasswordField: Story = {
-  args: {
-    label: 'パスワード',
-    placeholder: 'パスワードを入力してください',
-  },
-};
-
-// 長いラベルの入力フィールド
-export const LongLabel: Story = {
-  args: {
-    label: '非常に長いラベルテキストの入力フィールド',
-    placeholder: 'こちらに入力してください',
-  },
-};
-
-// プレースホルダーなしの入力フィールド
-export const NoPlaceholder: Story = {
-  args: {
-    label: 'コメント',
-  },
-};
-
-// インタラクティブな例（双方向バインディング）
+// インタラクティブ
 export const Interactive: Story = {
   render: (args) => ({
     components: { InputField },
@@ -113,13 +96,13 @@ export const Interactive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'v-modelによる双方向バインディングの動作確認',
+        story: 'v-modelによる双方向バインディングの動作確認。',
       },
     },
   },
 };
 
-// 複数の入力フィールドを使ったフォーム例
+// フォーム例
 export const FormExample: Story = {
   render: () => ({
     components: { InputField },
@@ -128,7 +111,6 @@ export const FormExample: Story = {
         name: '',
         email: '',
         phone: '',
-        address: '',
       });
       return { formData };
     },
@@ -149,11 +131,6 @@ export const FormExample: Story = {
           placeholder="090-1234-5678"
           v-model="formData.phone"
         />
-        <InputField 
-          label="住所" 
-          placeholder="都道府県から入力してください"
-          v-model="formData.address"
-        />
         <div style="margin-top: 20px; padding: 16px; background-color: #f5f5f5; border-radius: 8px;">
           <h4 style="margin: 0 0 12px 0; color: #333;">入力データ:</h4>
           <pre style="margin: 0; font-size: 12px; white-space: pre-wrap;">{{ JSON.stringify(formData, null, 2) }}</pre>
@@ -164,34 +141,7 @@ export const FormExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: '複数の入力フィールドを使ったフォームの例。各フィールドの入力値がリアルタイムで表示されます。',
-      },
-    },
-  },
-};
-
-// 幅が異なる入力フィールドの表示例
-export const DifferentWidths: Story = {
-  render: () => ({
-    components: { InputField },
-    template: `
-      <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
-        <div style="width: 200px;">
-          <InputField label="小幅" placeholder="200px" />
-        </div>
-        <div style="width: 300px;">
-          <InputField label="中幅" placeholder="300px" />
-        </div>
-        <div style="width: 500px;">
-          <InputField label="大幅" placeholder="500px" />
-        </div>
-      </div>
-    `,
-  }),
-  parameters: {
-    docs: {
-      description: {
-        story: '異なる幅での入力フィールドの表示例',
+        story: '複数の入力フィールドを使ったフォームの例。',
       },
     },
   },
