@@ -9,6 +9,7 @@ import TextareaField from './components/forms/TextareaField.vue';
 import TopHeader from './components/headers/TopHeader.vue';
 import SideHeader from './components/headers/SideHeader.vue';
 import TextItem from './components/panels/TextItem.vue';
+import SectionTextWithLine from './components/sections/SectionTextWithLine.vue';
 import type { SideHeaderMenuItem } from './components/headers/SideHeader.vue';
 
 export {
@@ -18,6 +19,7 @@ export {
   TopHeader,
   SideHeader,
   TextItem,
+  SectionTextWithLine,
 };
 
 export type { SideHeaderMenuItem };
