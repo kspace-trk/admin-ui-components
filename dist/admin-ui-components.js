@@ -1344,7 +1344,7 @@ const Jt = {
       ], 2)
     ], 64));
   }
-}), hn = /* @__PURE__ */ F(on, [["__scopeId", "data-v-7f45a441"]]), sn = { class: "text-item" }, rn = /* @__PURE__ */ C({
+}), hn = /* @__PURE__ */ F(on, [["__scopeId", "data-v-8e7379a4"]]), sn = { class: "text-item" }, rn = /* @__PURE__ */ C({
   __name: "TextItem",
   props: {
     text: {},

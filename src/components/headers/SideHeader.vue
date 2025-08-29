@@ -220,6 +220,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
     font-size: 0.9rem;
     font-weight: 700;
     margin: 0;
+    line-height: 1.2rem;
   }
 }
 
