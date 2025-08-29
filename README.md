@@ -18,8 +18,9 @@ npm install kspace-trk/admin-ui-components
 
 ```javascript
 // 単一コンポーネントのインポート
-import { MainButton } from 'kspace-trk/admin-ui-components';
-import 'kspace-trk/admin-ui-components/styles';
+import { MainButton } from 'admin-ui-components';
+// app.vue等のエントリポイントでスタイルをimport
+import 'admin-ui-components/styles';
 
 // コンポーネントの使用
 <MainButton />
