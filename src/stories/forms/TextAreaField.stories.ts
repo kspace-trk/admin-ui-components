@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import TextAreaField from '../../components/forms/TextareaField.vue';
+import TextareaField from '../../components/forms/TextareaField.vue';
 
-const meta: Meta<typeof TextAreaField> = {
-  title: 'Components/Forms/TextAreaField',
-  component: TextAreaField,
+const meta: Meta<typeof TextareaField> = {
+  title: 'Components/Forms/TextareaField',
+  component: TextareaField,
   parameters: {
     layout: 'centered',
     docs: {
@@ -109,14 +109,14 @@ export const ShortTextArea: Story = {
 // インタラクティブ
 export const Interactive: Story = {
   render: (args) => ({
-    components: { TextAreaField },
+    components: { TextareaField },
     setup() {
       const value = ref('');
       return { args, value };
     },
     template: `
       <div style="width: 400px;">
-        <TextAreaField 
+        <TextareaField 
           v-bind="args" 
           v-model="value"
         />
@@ -145,7 +145,7 @@ export const Interactive: Story = {
 // フォーム例
 export const FormExample: Story = {
   render: () => ({
-    components: { TextAreaField },
+    components: { TextareaField },
     setup() {
       const formData = ref({
         subject: '',
@@ -156,19 +156,19 @@ export const FormExample: Story = {
     },
     template: `
       <div style="width: 500px; display: flex; flex-direction: column; gap: 20px;">
-        <TextAreaField 
+        <TextareaField 
           label="件名" 
           placeholder="件名を入力してください"
           rows="2"
           v-model="formData.subject"
         />
-        <TextAreaField 
+        <TextareaField 
           label="お問い合わせ内容" 
           placeholder="お問い合わせ内容を詳しく入力してください"
           rows="6"
           v-model="formData.content"
         />
-        <TextAreaField 
+        <TextareaField 
           label="備考・メモ" 
           placeholder="その他ご要望やメモがあれば入力してください"
           rows="3"
