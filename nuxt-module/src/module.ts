@@ -1,0 +1,22 @@
+import { defineNuxtModule, addPlugin, createResolver, addImportsDir } from '@nuxt/kit'
+
+// Module options TypeScript interface definition
+export interface ModuleOptions {}
+
+export default defineNuxtModule<ModuleOptions>({
+  meta: {
+    name: '@kspace-trk/admin-ui-components',
+    configKey: 'adminUiComponents',
+  },
+  // Default configuration options of the Nuxt module
+  defaults: {},
+  setup(_options, _nuxt) {
+    const resolver = createResolver(import.meta.url)
+
+    // プラグインを追加（コンポーネントのグローバル登録）
+    addPlugin(resolver.resolve('./runtime/plugin'))
+
+    // composablesの自動インポートを設定
+    addImportsDir(resolver.resolve('./runtime/composables'))
+  },
+})
