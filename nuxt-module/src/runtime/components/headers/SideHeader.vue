@@ -1,45 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Icon } from '@iconify/vue';
+import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 
 export interface SideHeaderMenuItem {
-  path: string;
-  label: string;
-  icon: string;
+  path: string
+  label: string
+  icon: string
 }
 
 interface Props {
   /** ロゴテキスト */
-  logoText: string;
+  logoText: string
   /** メニュー項目リスト */
-  menuItems: SideHeaderMenuItem[];
+  menuItems: SideHeaderMenuItem[]
   /** ボトムメニュー項目 */
-  bottomMenuItem?: SideHeaderMenuItem;
+  bottomMenuItem?: SideHeaderMenuItem
   /** 現在のパス */
-  currentPath: string;
+  currentPath: string
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  menuItemClick: [path: string, event?: Event];
-}>();
+  menuItemClick: [path: string, event?: Event]
+}>()
 
-const isMenuOpen = ref(false);
+const isMenuOpen = ref(false)
 
 const toggleMenu = (): void => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
+  isMenuOpen.value = !isMenuOpen.value
+}
 
 const closeMenu = (): void => {
-  isMenuOpen.value = false;
-};
+  isMenuOpen.value = false
+}
 
 // メニュー項目クリック時にメニューを閉じる（モバイル時）とイベントをエミット
 const handleMenuItemClick = (path: string, event?: Event): void => {
-  emit('menuItemClick', path, event);
-  closeMenu();
-};
+  emit('menuItemClick', path, event)
+  closeMenu()
+}
 </script>
 
 <template>
@@ -71,7 +71,10 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
       </div>
       <div class="menu-wrapper">
         <ul>
-          <li v-for="item in menuItems" :key="item.path">
+          <li
+            v-for="item in menuItems"
+            :key="item.path"
+          >
             <a
               :href="item.path"
               :class="['menu-item', { active: props.currentPath === item.path }]"
@@ -86,7 +89,10 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
           </li>
         </ul>
       </div>
-      <div v-if="bottomMenuItem" class="bottom-wrapper">
+      <div
+        v-if="bottomMenuItem"
+        class="bottom-wrapper"
+      >
         <a
           :href="bottomMenuItem.path"
           :class="['menu-item', { active: props.currentPath === bottomMenuItem.path }]"
@@ -104,6 +110,8 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 </template>
 
 <style lang="scss" scoped>
+@use '../../assets/scss/variables.scss' as *;
+
 // ハンバーガーボタンのスタイル
 .hamburger-button {
   position: fixed;

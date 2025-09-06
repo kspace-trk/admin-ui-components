@@ -1,13 +1,13 @@
 <script setup lang="ts">
 defineProps<{
-  label: string;
-  placeholder?: string;
-  modelValue?: string;
-}>();
+  label: string
+  placeholder?: string
+  modelValue?: string
+}>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string];
-}>();
+  'update:modelValue': [value: string]
+}>()
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 @use 'sass:color';
-@use '~/assets/scss/variables.scss' as *;
+@use '../../assets/scss/variables.scss' as *;
 
 .input-field {
   position: relative;

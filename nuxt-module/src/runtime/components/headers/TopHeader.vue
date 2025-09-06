@@ -1,10 +1,10 @@
 <script setup lang="ts">
 interface Props {
   /** ページタイトル */
-  title: string;
+  title: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
@@ -16,6 +16,8 @@ defineProps<Props>();
 </template>
 
 <style lang="scss" scoped>
+@use '../../assets/scss/variables.scss' as *;
+
 .top-header {
   display: flex;
   align-items: center;

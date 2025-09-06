@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
+import { Icon } from '@iconify/vue'
 
 interface Props {
-  text: string;
-  showCloseIcon?: boolean;
-  maxLines?: number;
+  text: string
+  showCloseIcon?: boolean
+  maxLines?: number
 }
 
 interface Emits {
-  close: [];
+  close: []
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const emit = defineEmits<Emits>();
+const emit = defineEmits<Emits>()
 
 const handleClose = (): void => {
-  emit('close');
-};
+  emit('close')
+}
 </script>
 
 <template>
   <div class="text-item">
-    <p 
-      class="text-item__text" 
+    <p
+      class="text-item__text"
       :style="{ '--max-lines': props.maxLines || 1 }"
     >
       {{ text }}
@@ -42,7 +42,7 @@ const handleClose = (): void => {
 </template>
 
 <style scoped lang="scss">
-@use '~/assets/scss/variables.scss' as *;
+@use '../../assets/scss/variables.scss' as *;
 .text-item {
   background-color: $white-200;
   box-sizing: border-box;
@@ -66,14 +66,14 @@ const handleClose = (): void => {
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-line;
-    
+
     // CSS Line Clampを使用して最大行数を制限
     display: -webkit-box;
     -webkit-line-clamp: var(--max-lines);
     line-clamp: var(--max-lines);
     -webkit-box-orient: vertical;
     overflow: hidden;
-    
+
     // 1行の場合は従来通りの省略表示
     &[style*="--max-lines: 1"] {
       display: block;

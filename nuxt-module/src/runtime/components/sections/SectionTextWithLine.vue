@@ -1,19 +1,21 @@
 <script setup lang="ts">
 interface Props {
-  text: string;
+  text: string
 }
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
   <div class="section-text-with-line">
-    <span class="line-left"></span>
+    <span class="line-left" />
     <p>{{ text }}</p>
   </div>
 </template>
 
 <style scoped lang="scss">
+@use '../../assets/scss/variables.scss' as *;
+
 .section-text-with-line {
   width: 100%;
   display: flex;

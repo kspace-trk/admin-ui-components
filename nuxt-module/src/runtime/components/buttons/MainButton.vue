@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 interface Props {
   /** ボタンのタイプ（送信またはキャンセル） */
-  type?: 'submit' | 'cancel';
+  type?: 'submit' | 'cancel'
   /** ボタンのテキスト */
-  text?: string;
+  text?: string
   /** 無効化状態 */
-  disabled?: boolean;
+  disabled?: boolean
   /** ローディング状態 */
-  loading?: boolean;
+  loading?: boolean
 }
 
-const { type = 'submit', text = '', disabled = false, loading = false } = defineProps<Props>();
+const { type = 'submit', text = '', disabled = false, loading = false } = defineProps<Props>()
 
 const emit = defineEmits<{
-  click: [];
-}>();
+  click: []
+}>()
 
 const handleClick = (): void => {
   if (!disabled && !loading) {
-    emit('click');
+    emit('click')
   }
-};
+}
 
 // ボタンのテキストを決定
 const buttonText = computed(() => {
-  if (loading) return '処理中...';
-  if (text) return text;
-  return type === 'submit' ? '送信' : 'キャンセル';
-});
+  if (loading) return '処理中...'
+  if (text) return text
+  return type === 'submit' ? '送信' : 'キャンセル'
+})
 
 // ボタンのスタイルクラスを決定
 const buttonClass = computed(() => {
-  const baseClass = 'main-button';
-  const typeClass = type === 'submit' ? 'main-button--submit' : 'main-button--cancel';
-  const disabledClass = (disabled || loading) ? 'main-button--disabled' : '';
+  const baseClass = 'main-button'
+  const typeClass = type === 'submit' ? 'main-button--submit' : 'main-button--cancel'
+  const disabledClass = (disabled || loading) ? 'main-button--disabled' : ''
 
-  return [baseClass, typeClass, disabledClass].filter(Boolean).join(' ');
-});
+  return [baseClass, typeClass, disabledClass].filter(Boolean).join(' ')
+})
 </script>
 
 <template>
@@ -57,6 +57,7 @@ const buttonClass = computed(() => {
 
 <style lang="scss" scoped>
 @use 'sass:color';
+@use '../../assets/scss/variables.scss' as *;
 
 .main-button {
   width: 151px;

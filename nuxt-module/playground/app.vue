@@ -1,3 +1,20 @@
+<script setup lang="ts">
+const { createSideHeaderMenuItem } = useAdminComponents()
+
+// 表示用の静的データ
+const formData = ref({
+  name: 'サンプル名前',
+  description: 'サンプル説明文'
+})
+
+// サイドメニューの設定（SideHeaderコンポーネント用）
+const sideMenuItems = [
+  { path: '/dashboard', label: 'ダッシュボード', icon: 'mdi:view-dashboard' },
+  { path: '/users', label: 'ユーザー管理', icon: 'mdi:account-group' },
+  { path: '/settings', label: '設定', icon: 'mdi:cog' }
+]
+</script>
+
 <template>
   <div class="playground">
     <h1>Admin UI Components Playground</h1>
@@ -8,7 +25,6 @@
       <TopHeader 
         title="管理画面"
         :user="{ name: 'テストユーザー', email: 'test@example.com' }"
-        @logout="handleLogout"
       />
     </section>
 
@@ -17,8 +33,9 @@
       <h2>Side Header</h2>
       <div style="display: flex; height: 400px;">
         <SideHeader 
+          logo-text="管理画面"
           :menu-items="sideMenuItems"
-          @menu-click="handleMenuClick"
+          current-path="/dashboard"
         />
         <div style="flex: 1; padding: 20px; background: #f5f5f5;">
           メインコンテンツエリア
@@ -33,12 +50,10 @@
         <MainButton 
           type="submit" 
           text="送信ボタン"
-          @click="handleButtonClick('submit')"
         />
         <MainButton 
           type="cancel" 
           text="キャンセルボタン"
-          @click="handleButtonClick('cancel')"
         />
         <MainButton 
           type="submit" 
@@ -76,12 +91,10 @@
     <section>
       <h2>Panels</h2>
       <TextItem
-        label="ユーザー名"
-        :value="formData.name || '未入力'"
+        :text="`ユーザー名: ${formData.name || '未入力'}`"
       />
       <TextItem
-        label="説明"
-        :value="formData.description || '未入力'"
+        :text="`説明: ${formData.description || '未入力'}`"
       />
     </section>
 
@@ -91,55 +104,8 @@
       <SectionTextWithLine text="セクション見出し" />
     </section>
 
-    <!-- Composables テスト -->
-    <section>
-      <h2>Composables Test</h2>
-      <div>
-        <p>Form State:</p>
-        <pre>{{ JSON.stringify(formState, null, 2) }}</pre>
-      </div>
-    </section>
   </div>
 </template>
-
-<script setup>
-const { createSideHeaderMenuItem, createFormState } = useAdminComponents()
-
-// フォームデータ
-const formData = ref({
-  name: '',
-  description: ''
-})
-
-// フォーム状態管理のテスト
-const formState = createFormState({
-  testField: '',
-  anotherField: ''
-})
-
-// サイドメニューの設定
-const sideMenuItems = ref([
-  createSideHeaderMenuItem('ダッシュボード', '/dashboard', 'mdi:view-dashboard'),
-  createSideHeaderMenuItem('ユーザー管理', '/users', 'mdi:account-group', [
-    createSideHeaderMenuItem('ユーザー一覧', '/users/list'),
-    createSideHeaderMenuItem('ユーザー追加', '/users/add')
-  ]),
-  createSideHeaderMenuItem('設定', '/settings', 'mdi:cog')
-])
-
-// イベントハンドラー
-const handleLogout = () => {
-  console.log('ログアウトが実行されました')
-}
-
-const handleMenuClick = (menuItem) => {
-  console.log('メニューがクリックされました:', menuItem)
-}
-
-const handleButtonClick = (type) => {
-  console.log(`${type} ボタンがクリックされました`)
-}
-</script>
 
 <style scoped>
 .playground {

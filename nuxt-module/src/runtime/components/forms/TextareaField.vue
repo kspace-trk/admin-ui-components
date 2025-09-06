@@ -1,14 +1,14 @@
 <script setup lang="ts">
 defineProps<{
-  label: string;
-  placeholder?: string;
-  modelValue?: string;
-  rows?: number;
-}>();
+  label: string
+  placeholder?: string
+  modelValue?: string
+  rows?: number
+}>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string];
-}>();
+  'update:modelValue': [value: string]
+}>()
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 @use 'sass:color';
-@use '~/assets/scss/variables.scss' as *;
+@use '../../assets/scss/variables.scss' as *;
 
 .textarea-field {
   position: relative;
