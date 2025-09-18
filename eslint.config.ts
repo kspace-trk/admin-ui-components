@@ -1,28 +1,20 @@
-import globals from 'globals';
-import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import pluginVue from 'eslint-plugin-vue';
-import stylistic from '@stylistic/eslint-plugin';
-import type { Linter } from 'eslint';
+// @ts-check
+import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
 
-const config: Linter.Config[] = [
-  { files: ['**/*.{js,mjs,cjs,ts,vue}'] },
-  { ignores: ['dist/**'] },
-  { languageOptions: { globals: globals.browser } },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
-  {
-    plugins: {
-      stylistic
-    },
-    rules: {
-      'stylistic/indent': ['error', 2],
-      'stylistic/quotes': ['error', 'single'],
-      'stylistic/semi': ['error', 'always']
-    }
+// Run `npx @eslint/config-inspector` to inspect the resolved config interactively
+export default createConfigForNuxt({
+  features: {
+    // Rules for module authors
+    tooling: true,
+    // Rules for formatting
+    stylistic: true,
   },
-  { files: ['**/*.vue'], languageOptions: { parserOptions: { parser: tseslint.parser } } },
-];
-
-export default config;
+  dirs: {
+    src: [
+      './playground',
+    ],
+  },
+})
+  .append(
+    // your custom flat config here...
+  )
