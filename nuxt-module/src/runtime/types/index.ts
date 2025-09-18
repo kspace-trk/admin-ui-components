@@ -1,9 +1,6 @@
 // コンポーネントの型定義をエクスポート
 export type { SideHeaderMenuItem } from '../components/headers/SideHeader.vue'
 
-// composablesの型定義をエクスポート
-export type { SideHeaderMenuItem as ComposableSideHeaderMenuItem } from '../composables/useAdminComponents'
-
 // グローバルコンポーネントの型定義
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
@@ -14,5 +11,6 @@ declare module '@vue/runtime-core' {
     SideHeader: typeof import('../components/headers/SideHeader.vue')['default']
     TextItem: typeof import('../components/panels/TextItem.vue')['default']
     SectionTextWithLine: typeof import('../components/sections/SectionTextWithLine.vue')['default']
+    DashboardContainer: typeof import('../components/layouts/DashboardContainer.vue')['default']
   }
 }

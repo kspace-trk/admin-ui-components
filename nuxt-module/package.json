@@ -1,7 +1,7 @@
 {
   "name": "@kspace-trk/admin-ui-components",
   "version": "1.4.5",
-  "description": "Admin UI Components for Nuxt 3",
+  "description": "Admin UI Components for Nuxt",
   "repository": "kspace-trk/admin-ui-components",
   "license": "MIT",
   "type": "module",
@@ -9,6 +9,10 @@
     ".": {
       "types": "./dist/types.d.mts",
       "import": "./dist/module.mjs"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "import": "./dist/runtime/index.mjs"
     }
   },
   "main": "./dist/module.mjs",
@@ -16,6 +20,9 @@
     "*": {
       ".": [
         "./dist/types.d.mts"
+      ],
+      "runtime": [
+        "./dist/runtime/index.d.ts"
       ]
     }
   },

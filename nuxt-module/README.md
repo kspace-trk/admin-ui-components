@@ -95,9 +95,6 @@ export default defineNuxtConfig({
 </template>
 
 <script setup>
-// composableを使用
-const { createSideHeaderMenuItem } = useAdminComponents()
-
 const form = ref({
   name: ''
 })
@@ -120,24 +117,6 @@ const handleSubmit = () => {
 }
 </script>
 ```
-
-### Composables
-
-`useAdminComponents` composableが提供するユーティリティ：
-
-```typescript
-const { createSideHeaderMenuItem, createFormState } = useAdminComponents()
-
-// メニュー項目の作成
-const menuItem = createSideHeaderMenuItem('ラベル', '/path', 'icon-name')
-
-// フォーム状態管理
-const formState = createFormState({
-  field1: '',
-  field2: ''
-})
-```
-
 
 ## Contribution
 
