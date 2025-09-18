@@ -6,5 +6,6 @@ export { default as SideHeader } from './components/headers/SideHeader.vue.js';
 export { default as TextItem } from './components/panels/TextItem.vue.js';
 export { default as SectionTextWithLine } from './components/sections/SectionTextWithLine.vue.js';
 export { default as DashboardContainer } from './components/layouts/DashboardContainer.vue.js';
+export * from './types/index.js';
 export declare const CSS_RESET = "./assets/css/reset.css";
 export declare const CSS_FONTS = "./assets/css/fonts/mplus-1p.css";

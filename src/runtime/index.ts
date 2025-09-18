@@ -8,6 +8,9 @@ export { default as TextItem } from './components/panels/TextItem.vue'
 export { default as SectionTextWithLine } from './components/sections/SectionTextWithLine.vue'
 export { default as DashboardContainer } from './components/layouts/DashboardContainer.vue'
 
+// 型定義をエクスポート
+export * from './types'
+
 // CSSファイルのパスを定数として提供
 export const CSS_RESET = './assets/css/reset.css'
 export const CSS_FONTS = './assets/css/fonts/mplus-1p.css'
