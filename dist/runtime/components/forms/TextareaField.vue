@@ -1,0 +1,61 @@
+<script setup>
+defineProps({
+  label: { type: String, required: true },
+  placeholder: { type: String, required: false },
+  modelValue: { type: String, required: false },
+  rows: { type: Number, required: false }
+});
+const emit = defineEmits(["update:modelValue"]);
+</script>
+
+<template>
+  <div class="textarea-field">
+    <label class="textarea-field__label">{{ label }}</label>
+    <textarea
+      :value="modelValue"
+      :placeholder="placeholder"
+      :rows="rows || 4"
+      class="textarea-field__input"
+      @input="emit('update:modelValue', $event.target.value)"
+    />
+  </div>
+</template>
+
+<style scoped>
+.textarea-field {
+  position: relative;
+  width: 100%;
+}
+.textarea-field__label {
+  display: block;
+  font-weight: 700;
+  font-size: 12.8px;
+  color: #363139;
+  letter-spacing: 1.024px;
+  margin-bottom: 8px;
+  line-height: normal;
+}
+.textarea-field__input {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 16px;
+  background-color: #EBF1F4;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #4B464E;
+  outline: none;
+  transition: all 0.2s ease;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.4;
+}
+.textarea-field__input::placeholder {
+  color: #4B464E;
+  opacity: 0.6;
+}
+.textarea-field__input:focus {
+  background-color: rgb(228.4193548387, 236.3935483871, 240.3806451613);
+  box-shadow: 0 0 0 2px rgba(74, 101, 220, 0.2);
+}
+</style>
