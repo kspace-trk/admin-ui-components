@@ -8,7 +8,7 @@ export interface SideHeaderMenuItem {
   icon: string
 }
 
-interface Props {
+export interface SideHeaderProps {
   /** ロゴテキスト */
   logoText: string
   /** メニュー項目リスト */
@@ -19,11 +19,13 @@ interface Props {
   currentPath: string
 }
 
-const props = defineProps<Props>()
-
-const emit = defineEmits<{
+export interface SideHeaderEmits {
   menuItemClick: [path: string, event?: Event]
-}>()
+}
+
+const props = defineProps<SideHeaderProps>()
+
+const emit = defineEmits<SideHeaderEmits>()
 
 const isMenuOpen = ref(false)
 

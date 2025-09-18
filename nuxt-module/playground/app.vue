@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { createSideHeaderMenuItem } = useAdminComponents()
-
 // 表示用の静的データ
 const formData = ref({
   name: 'サンプル名前',
@@ -16,33 +14,8 @@ const sideMenuItems = [
 </script>
 
 <template>
+  <NuxtLayout name="default">
   <div class="playground">
-    <h1>Admin UI Components Playground</h1>
-    
-    <!-- Top Header テスト -->
-    <section>
-      <h2>Top Header</h2>
-      <TopHeader 
-        title="管理画面"
-        :user="{ name: 'テストユーザー', email: 'test@example.com' }"
-      />
-    </section>
-
-    <!-- Side Header テスト -->
-    <section>
-      <h2>Side Header</h2>
-      <div style="display: flex; height: 400px;">
-        <SideHeader 
-          logo-text="管理画面"
-          :menu-items="sideMenuItems"
-          current-path="/dashboard"
-        />
-        <div style="flex: 1; padding: 20px; background: #f5f5f5;">
-          メインコンテンツエリア
-        </div>
-      </div>
-    </section>
-
     <!-- Buttons テスト -->
     <section>
       <h2>Buttons</h2>
@@ -105,11 +78,12 @@ const sideMenuItems = [
     </section>
 
   </div>
+  </NuxtLayout>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .playground {
-  padding: 20px;
+  padding: 16px;
 }
 
 section {

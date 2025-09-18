@@ -1,5 +1,3 @@
-import { defineNuxtPlugin } from '#app'
-
 // グローバルスタイルをインポート
 import './assets/css/reset.css'
 import './assets/css/fonts/mplus-1p.css'
@@ -12,6 +10,9 @@ import TopHeader from './components/headers/TopHeader.vue'
 import SideHeader from './components/headers/SideHeader.vue'
 import TextItem from './components/panels/TextItem.vue'
 import SectionTextWithLine from './components/sections/SectionTextWithLine.vue'
+import DashboardContainer from './components/layouts/DashboardContainer.vue'
+
+import { defineNuxtPlugin } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
   // コンポーネントをグローバル登録
@@ -22,4 +23,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('SideHeader', SideHeader)
   nuxtApp.vueApp.component('TextItem', TextItem)
   nuxtApp.vueApp.component('SectionTextWithLine', SectionTextWithLine)
+  nuxtApp.vueApp.component('DashboardContainer', DashboardContainer)
 })

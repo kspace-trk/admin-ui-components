@@ -1,10 +1,10 @@
 <script setup lang="ts">
-interface Props {
+export interface TopHeaderProps {
   /** ページタイトル */
   title: string
 }
 
-defineProps<Props>()
+defineProps<TopHeaderProps>()
 </script>
 
 <template>
