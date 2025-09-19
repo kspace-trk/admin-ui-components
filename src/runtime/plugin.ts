@@ -1,4 +1,3 @@
-// グローバルスタイルをインポート
 import './assets/css/reset.css'
 import './assets/css/fonts/mplus-1p.css'
 
@@ -14,16 +13,19 @@ import DashboardContainer from './components/layouts/DashboardContainer.vue'
 
 import { defineNuxtPlugin } from '#app'
 
-export default defineNuxtPlugin((nuxtApp) => {
-  const prefix = 'KS'
+export default defineNuxtPlugin({
+  name: 'admin-ui-components',
+  setup(nuxtApp) {
+    const prefix = 'KS'
 
-  // コンポーネントをグローバル登録
-  nuxtApp.vueApp.component(`${prefix}MainButton`, MainButton)
-  nuxtApp.vueApp.component(`${prefix}InputField`, InputField)
-  nuxtApp.vueApp.component(`${prefix}TextareaField`, TextareaField)
-  nuxtApp.vueApp.component(`${prefix}TopHeader`, TopHeader)
-  nuxtApp.vueApp.component(`${prefix}SideHeader`, SideHeader)
-  nuxtApp.vueApp.component(`${prefix}TextItem`, TextItem)
-  nuxtApp.vueApp.component(`${prefix}SectionTextWithLine`, SectionTextWithLine)
-  nuxtApp.vueApp.component(`${prefix}DashboardContainer`, DashboardContainer)
+    // コンポーネントをグローバル登録
+    nuxtApp.vueApp.component(`${prefix}MainButton`, MainButton)
+    nuxtApp.vueApp.component(`${prefix}InputField`, InputField)
+    nuxtApp.vueApp.component(`${prefix}TextareaField`, TextareaField)
+    nuxtApp.vueApp.component(`${prefix}TopHeader`, TopHeader)
+    nuxtApp.vueApp.component(`${prefix}SideHeader`, SideHeader)
+    nuxtApp.vueApp.component(`${prefix}TextItem`, TextItem)
+    nuxtApp.vueApp.component(`${prefix}SectionTextWithLine`, SectionTextWithLine)
+    nuxtApp.vueApp.component(`${prefix}DashboardContainer`, DashboardContainer)
+  },
 })
