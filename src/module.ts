@@ -11,7 +11,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {},
-  setup(_options, nuxt) {
+  setup(_options) {
     const resolver = createResolver(import.meta.url)
 
     // プラグインを追加（コンポーネントのグローバル登録）
