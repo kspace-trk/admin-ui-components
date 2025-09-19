@@ -1,6 +1,3 @@
-import './assets/css/reset.css'
-import './assets/css/fonts/mplus-1p.css'
-
 // コンポーネントをインポート
 import MainButton from './components/buttons/MainButton.vue'
 import InputField from './components/forms/InputField.vue'
