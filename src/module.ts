@@ -1,4 +1,4 @@
-import { defineNuxtModule, addPlugin, createResolver, addImportsDir } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
 
 // Module options TypeScript interface definition
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -16,8 +16,5 @@ export default defineNuxtModule<ModuleOptions>({
 
     // プラグインを追加（コンポーネントのグローバル登録）
     addPlugin(resolver.resolve('./runtime/plugin'))
-
-    // composablesの自動インポートを設定
-    addImportsDir(resolver.resolve('./runtime/composables'))
   },
 })
