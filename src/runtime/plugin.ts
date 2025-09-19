@@ -15,13 +15,15 @@ import DashboardContainer from './components/layouts/DashboardContainer.vue'
 import { defineNuxtPlugin } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const prefix = 'KS'
+
   // コンポーネントをグローバル登録
-  nuxtApp.vueApp.component('MainButton', MainButton)
-  nuxtApp.vueApp.component('InputField', InputField)
-  nuxtApp.vueApp.component('TextareaField', TextareaField)
-  nuxtApp.vueApp.component('TopHeader', TopHeader)
-  nuxtApp.vueApp.component('SideHeader', SideHeader)
-  nuxtApp.vueApp.component('TextItem', TextItem)
-  nuxtApp.vueApp.component('SectionTextWithLine', SectionTextWithLine)
-  nuxtApp.vueApp.component('DashboardContainer', DashboardContainer)
+  nuxtApp.vueApp.component(`${prefix}MainButton`, MainButton)
+  nuxtApp.vueApp.component(`${prefix}InputField`, InputField)
+  nuxtApp.vueApp.component(`${prefix}TextareaField`, TextareaField)
+  nuxtApp.vueApp.component(`${prefix}TopHeader`, TopHeader)
+  nuxtApp.vueApp.component(`${prefix}SideHeader`, SideHeader)
+  nuxtApp.vueApp.component(`${prefix}TextItem`, TextItem)
+  nuxtApp.vueApp.component(`${prefix}SectionTextWithLine`, SectionTextWithLine)
+  nuxtApp.vueApp.component(`${prefix}DashboardContainer`, DashboardContainer)
 })

@@ -6,6 +6,6 @@ export { default as KSSideHeader } from "./components/headers/SideHeader.vue";
 export { default as KSTextItem } from "./components/panels/TextItem.vue";
 export { default as KSSectionTextWithLine } from "./components/sections/SectionTextWithLine.vue";
 export { default as KSDashboardContainer } from "./components/layouts/DashboardContainer.vue";
-export * from "./types/index.js";
+export * from "./types/index.mjs";
 export const CSS_RESET = "./assets/css/reset.css";
 export const CSS_FONTS = "./assets/css/fonts/mplus-1p.css";
