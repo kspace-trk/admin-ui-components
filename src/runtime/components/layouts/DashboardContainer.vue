@@ -16,7 +16,7 @@ const handleMenuItemClick = (path: string) => {
 
 <template>
   <div id="default-layout">
-    <SideHeader
+    <KSSideHeader
       :logo-text="sideHeaderProps.logoText"
       :menu-items="sideHeaderProps.menuItems"
       :current-path="sideHeaderProps.currentPath"
@@ -24,7 +24,7 @@ const handleMenuItemClick = (path: string) => {
       @menu-item-click="handleMenuItemClick"
     />
     <div class="main-content">
-      <TopHeader :title="topHeaderProps.title" />
+      <KSTopHeader :title="topHeaderProps.title" />
       <slot />
     </div>
   </div>

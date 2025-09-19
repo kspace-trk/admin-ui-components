@@ -20,20 +20,20 @@ const _sideMenuItems = [
       <section>
         <h2>Buttons</h2>
         <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-          <MainButton
+          <KSMainButton
             type="submit"
             text="送信ボタン"
           />
-          <MainButton
+          <KSMainButton
             type="cancel"
             text="キャンセルボタン"
           />
-          <MainButton
+          <KSMainButton
             type="submit"
             text="ローディング"
             :loading="true"
           />
-          <MainButton
+          <KSMainButton
             type="submit"
             text="無効化"
             :disabled="true"
@@ -45,13 +45,13 @@ const _sideMenuItems = [
       <section>
         <h2>Forms</h2>
         <div style="max-width: 400px;">
-          <InputField
+          <KSInputField
             v-model="formData.name"
             label="名前"
             placeholder="名前を入力してください"
             :required="true"
           />
-          <TextareaField
+          <KSTextareaField
             v-model="formData.description"
             label="説明"
             placeholder="説明を入力してください"
@@ -63,10 +63,10 @@ const _sideMenuItems = [
       <!-- Panels テスト -->
       <section>
         <h2>Panels</h2>
-        <TextItem
+        <KSTextItem
           :text="`ユーザー名: ${formData.name || '未入力'}`"
         />
-        <TextItem
+        <KSTextItem
           :text="`説明: ${formData.description || '未入力'}`"
         />
       </section>
@@ -74,7 +74,7 @@ const _sideMenuItems = [
       <!-- Sections テスト -->
       <section>
         <h2>Sections</h2>
-        <SectionTextWithLine text="セクション見出し" />
+        <KSSectionTextWithLine text="セクション見出し" />
       </section>
     </div>
   </NuxtLayout>
