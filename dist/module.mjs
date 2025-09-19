@@ -7,9 +7,12 @@ const module = defineNuxtModule({
   },
   // Default configuration options of the Nuxt module
   defaults: {},
-  setup(_options, _nuxt) {
+  setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url);
     addPlugin(resolver.resolve("./runtime/plugin"));
+    nuxt.options.css = nuxt.options.css || [];
+    nuxt.options.css.push(resolver.resolve("./runtime/assets/css/reset.css"));
+    nuxt.options.css.push(resolver.resolve("./runtime/assets/css/fonts/mplus-1p.css"));
   }
 });
 
