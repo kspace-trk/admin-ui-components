@@ -1,7 +1,7 @@
 {
   "name": "@kspace-trk/admin-ui-components",
   "configKey": "adminUiComponents",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "builder": {
     "@nuxt/module-builder": "1.0.2",
     "unbuild": "3.6.1"
