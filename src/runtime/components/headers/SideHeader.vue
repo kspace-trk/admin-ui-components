@@ -77,7 +77,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
             v-for="item in menuItems"
             :key="item.path"
           >
-            <a
+            <NuxtLink
               :href="item.path"
               :class="['menu-item', { active: props.currentPath === item.path }]"
               @click="handleMenuItemClick(item.path, $event)"
@@ -87,7 +87,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
                 class="menu-item-icon"
               />
               <p>{{ item.label }}</p>
-            </a>
+            </NuxtLink>
           </li>
         </ul>
       </div>
@@ -95,8 +95,8 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
         v-if="bottomMenuItem"
         class="bottom-wrapper"
       >
-        <a
-          :href="bottomMenuItem.path"
+        <NuxtLink
+          :to="bottomMenuItem.path"
           :class="['menu-item', { active: props.currentPath === bottomMenuItem.path }]"
           @click="handleMenuItemClick(bottomMenuItem.path, $event)"
         >
@@ -105,7 +105,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
             class="menu-item-icon"
           />
           <p>{{ bottomMenuItem.label }}</p>
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { KSDashboardContainer } from '../../dist/runtime'
+
 const sideMenuItems = [
   { path: '/dashboard', label: 'ダッシュボード', icon: 'mdi:view-dashboard' },
   { path: '/users', label: 'ユーザー管理', icon: 'mdi:account-group' },
@@ -8,7 +10,7 @@ const sideMenuItems = [
 
 <template>
   <div>
-    <DashboardContainer
+    <KSDashboardContainer
       :side-header-props="{
         logoText: '管理画面',
         menuItems: sideMenuItems,
@@ -17,6 +19,6 @@ const sideMenuItems = [
       :top-header-props="{ title: '管理画面' }"
     >
       <slot />
-    </DashboardContainer>
+    </KSDashboardContainer>
   </div>
 </template>
