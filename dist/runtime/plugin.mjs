@@ -1,3 +1,5 @@
+import "./assets/css/reset.css";
+import "./assets/css/fonts/mplus-1p.css";
 import MainButton from "./components/buttons/MainButton.vue";
 import InputField from "./components/forms/InputField.vue";
 import TextareaField from "./components/forms/TextareaField.vue";

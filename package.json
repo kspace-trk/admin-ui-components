@@ -13,9 +13,7 @@
     "./runtime": {
       "types": "./dist/runtime/index.d.ts",
       "import": "./dist/runtime/index.mjs"
-    },
-    "./runtime/*": "./dist/runtime/*",
-    "./dist/*": "./dist/*"
+    }
   },
   "main": "./dist/module.mjs",
   "typesVersions": {
