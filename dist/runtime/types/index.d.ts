@@ -9,5 +9,14 @@ declare module '@vue/runtime-core' {
         TextItem: typeof import('../components/panels/TextItem.vue')['default'];
         SectionTextWithLine: typeof import('../components/sections/SectionTextWithLine.vue')['default'];
         DashboardContainer: typeof import('../components/layouts/DashboardContainer.vue')['default'];
+        KSMainButton: typeof import('../components/buttons/MainButton.vue')['default'];
+        KSInputField: typeof import('../components/forms/InputField.vue')['default'];
+        KSTextareaField: typeof import('../components/forms/TextareaField.vue')['default'];
+        KSTopHeader: typeof import('../components/headers/TopHeader.vue')['default'];
+        KSSideHeader: typeof import('../components/headers/SideHeader.vue')['default'];
+        KSTextItem: typeof import('../components/panels/TextItem.vue')['default'];
+        KSSectionTextWithLine: typeof import('../components/sections/SectionTextWithLine.vue')['default'];
+        KSDashboardContainer: typeof import('../components/layouts/DashboardContainer.vue')['default'];
+        KSIcon: typeof import('@iconify/vue')['Icon'];
     }
 }

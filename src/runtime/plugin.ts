@@ -11,6 +11,9 @@ import TextItem from './components/panels/TextItem.vue'
 import SectionTextWithLine from './components/sections/SectionTextWithLine.vue'
 import DashboardContainer from './components/layouts/DashboardContainer.vue'
 
+// Iconifyコンポーネントをインポート
+import { Icon } from '@iconify/vue'
+
 import { defineNuxtPlugin } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -25,4 +28,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component(`${prefix}TextItem`, TextItem)
   nuxtApp.vueApp.component(`${prefix}SectionTextWithLine`, SectionTextWithLine)
   nuxtApp.vueApp.component(`${prefix}DashboardContainer`, DashboardContainer)
+  // Iconifyコンポーネントをグローバル登録
+  nuxtApp.vueApp.component(`${prefix}Icon`, Icon)
 })

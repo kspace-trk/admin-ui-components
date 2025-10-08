@@ -8,6 +8,7 @@ import SideHeader from "./components/headers/SideHeader.vue";
 import TextItem from "./components/panels/TextItem.vue";
 import SectionTextWithLine from "./components/sections/SectionTextWithLine.vue";
 import DashboardContainer from "./components/layouts/DashboardContainer.vue";
+import { Icon } from "@iconify/vue";
 import { defineNuxtPlugin } from "#app";
 export default defineNuxtPlugin((nuxtApp) => {
   const prefix = "KS";
@@ -19,4 +20,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component(`${prefix}TextItem`, TextItem);
   nuxtApp.vueApp.component(`${prefix}SectionTextWithLine`, SectionTextWithLine);
   nuxtApp.vueApp.component(`${prefix}DashboardContainer`, DashboardContainer);
+  nuxtApp.vueApp.component(`${prefix}Icon`, Icon);
 });

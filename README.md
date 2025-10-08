@@ -313,13 +313,15 @@ interface Props {
 
 ## Quick Setup
 
-1. モジュールをインストール:
+1. 必要な依存関係をインストール:
 
 ```bash
 npm install @kspace-trk/admin-ui-components @iconify/vue
 ```
 
-1. `nuxt.config.ts`にモジュールを追加:
+**注意**: `@iconify/vue`はpeerDependencyとして設定されているため、手動でインストールする必要があります。
+
+2. `nuxt.config.ts`にモジュールを追加:
 
 ```typescript
 export default defineNuxtConfig({
@@ -328,6 +330,29 @@ export default defineNuxtConfig({
   ]
 })
 ```
+
+## アイコンの使用
+
+このライブラリは`@iconify/vue`を含んでおり、`KSIcon`コンポーネントとしてグローバルに利用できます。
+
+```vue
+<template>
+  <!-- Material Design Icons -->
+  <KSIcon icon="mdi:home" />
+  <KSIcon icon="mdi:user" />
+  
+  <!-- Heroicons -->
+  <KSIcon icon="heroicons:user-solid" />
+  
+  <!-- Font Awesome -->
+  <KSIcon icon="fa:user" />
+  
+  <!-- サイズとスタイルの指定 -->
+  <KSIcon icon="mdi:home" style="font-size: 24px; color: #333;" />
+</template>
+```
+
+利用可能なアイコンは[Iconify](https://iconify.design/)で検索できます。
 
 ## 実装例
 
