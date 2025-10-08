@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { SideHeaderProps, SideHeaderEmits } from '../headers/SideHeader.vue'
 import type { TopHeaderProps } from '../headers/TopHeader.vue'
 
@@ -8,6 +9,17 @@ const { sideHeaderProps, topHeaderProps } = defineProps<{
 }>()
 
 const emit = defineEmits<SideHeaderEmits>()
+
+// メニューの開閉状態を管理
+const isMenuOpen = ref(false)
+
+const toggleMenu = (): void => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+const closeMenu = (): void => {
+  isMenuOpen.value = false
+}
 
 const handleMenuItemClick = (path: string) => {
   emit('menuItemClick', path)
@@ -21,10 +33,16 @@ const handleMenuItemClick = (path: string) => {
       :menu-items="sideHeaderProps.menuItems"
       :current-path="sideHeaderProps.currentPath"
       :bottom-menu-item="sideHeaderProps.bottomMenuItem"
+      :is-open="isMenuOpen"
       @menu-item-click="handleMenuItemClick"
+      @close-menu="closeMenu"
     />
     <div class="main-content">
-      <KSTopHeader :title="topHeaderProps.title" />
+      <KSTopHeader
+        :title="topHeaderProps.title"
+        :show-hamburger="true"
+        @toggle-menu="toggleMenu"
+      />
       <slot />
     </div>
   </div>

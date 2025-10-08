@@ -1,19 +1,15 @@
 <script setup>
-import { ref } from "vue";
 import { Icon } from "@iconify/vue";
 const props = defineProps({
   logoText: { type: String, required: true },
   menuItems: { type: Array, required: true },
   bottomMenuItem: { type: Object, required: false },
-  currentPath: { type: String, required: true }
+  currentPath: { type: String, required: true },
+  isOpen: { type: Boolean, required: false }
 });
-const emit = defineEmits(["menuItemClick"]);
-const isMenuOpen = ref(false);
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
+const emit = defineEmits(["menuItemClick", "closeMenu"]);
 const closeMenu = () => {
-  isMenuOpen.value = false;
+  emit("closeMenu");
 };
 const handleMenuItemClick = (path, event) => {
   emit("menuItemClick", path, event);
@@ -22,27 +18,16 @@ const handleMenuItemClick = (path, event) => {
 </script>
 
 <template>
-  <!-- ハンバーガーボタン（モバイル時のみ表示） -->
-  <button
-    class="hamburger-button"
-    :class="{ open: isMenuOpen }"
-    @click="toggleMenu"
-  >
-    <span />
-    <span />
-    <span />
-  </button>
-
   <!-- オーバーレイ（モバイル時にメニューが開いている時に表示） -->
   <div
-    v-if="isMenuOpen"
+    v-if="isOpen"
     class="menu-overlay"
     @click="closeMenu"
   />
 
   <div
     id="side-header"
-    :class="{ open: isMenuOpen }"
+    :class="{ open: isOpen }"
   >
     <div class="side-header-container">
       <div class="logo-wrapper">
@@ -89,41 +74,6 @@ const handleMenuItemClick = (path, event) => {
 </template>
 
 <style scoped>
-.hamburger-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  width: 44px;
-  height: 44px;
-  background: #363139;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 1001;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  transition: all 0.3s ease;
-}
-.hamburger-button span {
-  width: 20px;
-  height: 2px;
-  background-color: #EBF1F4;
-  border-radius: 1px;
-  transition: all 0.3s ease;
-}
-.hamburger-button.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger-button.open span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger-button.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
-}
-
 .menu-overlay {
   position: fixed;
   top: 0;
@@ -200,9 +150,6 @@ const handleMenuItemClick = (path, event) => {
 }
 
 @media (max-width: 768px) {
-  .hamburger-button {
-    display: flex;
-  }
   .menu-overlay {
     display: block;
   }
@@ -214,9 +161,6 @@ const handleMenuItemClick = (path, event) => {
   }
 }
 @media (min-width: 769px) {
-  .hamburger-button {
-    display: none !important;
-  }
   .menu-overlay {
     display: none !important;
   }

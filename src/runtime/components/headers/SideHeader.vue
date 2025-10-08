@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 
 export interface SideHeaderMenuItem {
@@ -17,24 +16,21 @@ export interface SideHeaderProps {
   bottomMenuItem?: SideHeaderMenuItem
   /** 現在のパス */
   currentPath: string
+  /** メニューの開閉状態（モバイル時） */
+  isOpen?: boolean
 }
 
 export interface SideHeaderEmits {
   menuItemClick: [path: string, event?: Event]
+  closeMenu: []
 }
 
 const props = defineProps<SideHeaderProps>()
 
 const emit = defineEmits<SideHeaderEmits>()
 
-const isMenuOpen = ref(false)
-
-const toggleMenu = (): void => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-
 const closeMenu = (): void => {
-  isMenuOpen.value = false
+  emit('closeMenu')
 }
 
 // メニュー項目クリック時にメニューを閉じる（モバイル時）とイベントをエミット
@@ -45,27 +41,16 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 </script>
 
 <template>
-  <!-- ハンバーガーボタン（モバイル時のみ表示） -->
-  <button
-    class="hamburger-button"
-    :class="{ open: isMenuOpen }"
-    @click="toggleMenu"
-  >
-    <span />
-    <span />
-    <span />
-  </button>
-
   <!-- オーバーレイ（モバイル時にメニューが開いている時に表示） -->
   <div
-    v-if="isMenuOpen"
+    v-if="isOpen"
     class="menu-overlay"
     @click="closeMenu"
   />
 
   <div
     id="side-header"
-    :class="{ open: isMenuOpen }"
+    :class="{ open: isOpen }"
   >
     <div class="side-header-container">
       <div class="logo-wrapper">
@@ -113,49 +98,6 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 
 <style lang="scss" scoped>
 @use '../../assets/scss/variables.scss' as *;
-
-// ハンバーガーボタンのスタイル
-.hamburger-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  width: 44px;
-  height: 44px;
-  background: $black-100;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 1001;
-  display: none; // デフォルトは非表示（モバイル時のみ表示）
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  transition: all 0.3s ease;
-
-  span {
-    width: 20px;
-    height: 2px;
-    background-color: $white-200;
-    border-radius: 1px;
-    transition: all 0.3s ease;
-  }
-
-  // ハンバーガーメニューが開いている時のアニメーション
-  &.open {
-    span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    span:nth-child(2) {
-      opacity: 0;
-    }
-
-    span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -6px);
-    }
-  }
-}
 
 // オーバーレイのスタイル
 .menu-overlay {
@@ -240,10 +182,6 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 
 // レスポンシブ対応
 @media (max-width: 768px) {
-  .hamburger-button {
-    display: flex; // モバイル時にハンバーガーボタンを表示
-  }
-
   .menu-overlay {
     display: block; // モバイル時にオーバーレイを有効化
   }
@@ -259,10 +197,6 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 
 // タブレット以上のサイズでは通常のサイドバーとして表示
 @media (min-width: 769px) {
-  .hamburger-button {
-    display: none !important; // デスクトップ時はハンバーガーボタンを完全に非表示
-  }
-
   .menu-overlay {
     display: none !important; // デスクトップ時はオーバーレイを完全に非表示
   }

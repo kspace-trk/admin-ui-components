@@ -1,9 +1,17 @@
 <script setup>
+import { ref } from "vue";
 const { sideHeaderProps, topHeaderProps } = defineProps({
   sideHeaderProps: { type: Object, required: true },
   topHeaderProps: { type: Object, required: true }
 });
-const emit = defineEmits(["menuItemClick"]);
+const emit = defineEmits(["menuItemClick", "closeMenu"]);
+const isMenuOpen = ref(false);
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+const closeMenu = () => {
+  isMenuOpen.value = false;
+};
 const handleMenuItemClick = (path) => {
   emit("menuItemClick", path);
 };
@@ -16,10 +24,16 @@ const handleMenuItemClick = (path) => {
       :menu-items="sideHeaderProps.menuItems"
       :current-path="sideHeaderProps.currentPath"
       :bottom-menu-item="sideHeaderProps.bottomMenuItem"
+      :is-open="isMenuOpen"
       @menu-item-click="handleMenuItemClick"
+      @close-menu="closeMenu"
     />
     <div class="main-content">
-      <KSTopHeader :title="topHeaderProps.title" />
+      <KSTopHeader
+        :title="topHeaderProps.title"
+        :show-hamburger="true"
+        @toggle-menu="toggleMenu"
+      />
       <slot />
     </div>
   </div>
