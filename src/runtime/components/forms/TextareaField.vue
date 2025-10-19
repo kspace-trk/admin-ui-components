@@ -4,6 +4,7 @@ defineProps<{
   placeholder?: string
   modelValue?: string
   rows?: number
+  readonly?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -18,7 +19,8 @@ const emit = defineEmits<{
       :value="modelValue"
       :placeholder="placeholder"
       :rows="rows || 4"
-      class="textarea-field__input"
+      :readonly="readonly"
+      :class="['textarea-field__input', { 'textarea-field__input--readonly': readonly }]"
       @input="emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"
     />
   </div>
@@ -65,6 +67,23 @@ const emit = defineEmits<{
     &:focus {
       background-color: color.adjust($white-200, $lightness: -2%);
       box-shadow: 0 0 0 2px rgba($primary-100, 0.2);
+    }
+
+    &--readonly {
+      background-color: color.adjust($white-200, $lightness: -5%);
+      color: color.adjust($black-200, $lightness: 5%);
+      cursor: default;
+      resize: none;
+
+      &:focus {
+        background-color: color.adjust($white-200, $lightness: -5%);
+        box-shadow: none;
+      }
+
+      &::placeholder {
+        color: color.adjust($black-200, $lightness: 30%);
+        opacity: 0.8;
+      }
     }
   }
 }

@@ -92,6 +92,7 @@ interface Props {
   placeholder?: string    // プレースホルダーテキスト
   modelValue?: string     // v-model値
   rows?: number          // 行数（デフォルト: 4）
+  readonly?: boolean     // 読み取り専用モード（デフォルト: false）
 }
 ```
 
@@ -104,12 +105,17 @@ interface Props {
 - 最小高さ: 80px
 - padding: 12px 16px
 - resize: vertical（縦方向のみリサイズ可能）
+- readonly時: 背景色変更、リサイズ無効、カーソル変更
 - その他はInputFieldと同様
 
 **使用例**:
 
 ```vue
+<!-- 通常のテキストエリア -->
 <TextareaField v-model="form.description" label="説明" :rows="6" />
+
+<!-- 読み取り専用テキストエリア -->
+<TextareaField v-model="form.readonlyText" label="読み取り専用" :readonly="true" />
 ```
 
 ### 3. ヘッダーコンポーネント
@@ -383,6 +389,13 @@ export default defineNuxtConfig({
           placeholder="説明を入力してください"
         />
         
+        <!-- 読み取り専用テキストエリアの例 -->
+        <TextareaField
+          v-model="form.readonlyNote"
+          label="備考（読み取り専用）"
+          :readonly="true"
+        />
+        
         <div class="button-group">
           <MainButton 
             type="submit"
@@ -482,6 +495,7 @@ const removeItem = (index: number) => {
   <!-- フォームコンポーネント -->
   <InputField v-model="inputValue" label="入力フィールド" />
   <TextareaField v-model="textareaValue" label="テキストエリア" :rows="6" />
+  <TextareaField v-model="readonlyValue" label="読み取り専用" :readonly="true" />
   
   <!-- ボタン -->
   <MainButton type="submit" :loading="loading" @click="submit" />

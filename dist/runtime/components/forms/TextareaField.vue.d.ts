@@ -3,6 +3,7 @@ type __VLS_Props = {
     placeholder?: string;
     modelValue?: string;
     rows?: number;
+    readonly?: boolean;
 };
 declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:modelValue": (value: string) => any;

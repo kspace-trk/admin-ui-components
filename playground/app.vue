@@ -3,6 +3,7 @@
 const formData = ref({
   name: 'サンプル名前',
   description: 'サンプル説明文',
+  readonlyText: 'これは読み取り専用のテキストエリアです。編集することはできません。',
 })
 
 // サイドメニューの設定（SideHeaderコンポーネント用）
@@ -57,6 +58,15 @@ const _sideMenuItems = [
             placeholder="説明を入力してください"
             :rows="4"
           />
+          <div style="margin-top: 20px;">
+            <KSTextareaField
+              v-model="formData.readonlyText"
+              label="読み取り専用テキストエリア"
+              placeholder="このプレースホルダーは表示されません"
+              :rows="3"
+              :readonly="true"
+            />
+          </div>
         </div>
       </section>
 
