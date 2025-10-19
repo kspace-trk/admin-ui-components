@@ -322,10 +322,8 @@ interface Props {
 1. 必要な依存関係をインストール:
 
 ```bash
-npm install @kspace-trk/admin-ui-components @iconify/vue
+npm install @kspace-trk/admin-ui-components
 ```
-
-**注意**: `@iconify/vue`はpeerDependencyとして設定されているため、手動でインストールする必要があります。
 
 2. `nuxt.config.ts`にモジュールを追加:
 
