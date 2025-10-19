@@ -107,7 +107,7 @@ const handleMenuItemClick = (path, event) => {
 
 .logo-wrapper {
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 300;
   padding: 16px 0;
   border-bottom: 1px solid #D9D0DF;
 }
@@ -140,7 +140,7 @@ const handleMenuItemClick = (path, event) => {
 }
 .menu-item p {
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 300;
   margin: 0;
   line-height: 1.2rem;
 }

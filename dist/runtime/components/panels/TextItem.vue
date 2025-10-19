@@ -45,7 +45,7 @@ const handleClose = () => {
   width: 100%;
 }
 .text-item__text {
-  font-weight: 500;
+  font-weight: 300;
   font-size: 12.8px;
   letter-spacing: 1.024px;
   color: #4B464E;
