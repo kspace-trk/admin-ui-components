@@ -1,4 +1,6 @@
 /* Reset CSS */
+@import url('./fonts/noto-sans-jp.css');
+
 *,
 *::before,
 *::after {

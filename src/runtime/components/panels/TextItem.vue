@@ -55,7 +55,7 @@ const handleClose = (): void => {
   width: 100%;
 
   &__text {
-    font-weight: 500;
+    font-weight: 300;
     font-size: 12.8px;
     letter-spacing: 1.024px;
     color: $black-200;

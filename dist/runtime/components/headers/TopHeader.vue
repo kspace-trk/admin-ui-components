@@ -46,7 +46,7 @@ const handleToggleMenu = () => {
   }
 }
 .top-header__title {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 16px;
   color: #363139;
   letter-spacing: 1.28px;
