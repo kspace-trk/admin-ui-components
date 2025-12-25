@@ -324,7 +324,7 @@ interface Props {
 1. 必要な依存関係をインストール:
 
 ```bash
-npm install @kspace-trk/admin-ui-components
+npm install kspace-trk/admin-ui-components
 ```
 
 2. `nuxt.config.ts`にモジュールを追加:
