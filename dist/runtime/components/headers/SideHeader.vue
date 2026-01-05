@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { Icon } from "@iconify/vue";
+import { useRoute } from "#app";
 const props = defineProps({
   logoText: { type: String, required: true },
   menuItems: { type: Array, required: true },
