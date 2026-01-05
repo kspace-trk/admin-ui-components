@@ -14,7 +14,6 @@ const sideMenuItems = [
       :side-header-props="{
         logoText: '管理画面',
         menuItems: sideMenuItems,
-        currentPath: '/dashboard',
       }"
       :top-header-props="{ title: '管理画面' }"
     >

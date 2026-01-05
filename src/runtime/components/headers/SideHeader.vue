@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 
 export interface SideHeaderMenuItem {
@@ -14,8 +15,8 @@ export interface SideHeaderProps {
   menuItems: SideHeaderMenuItem[]
   /** ボトムメニュー項目 */
   bottomMenuItem?: SideHeaderMenuItem
-  /** 現在のパス */
-  currentPath: string
+  /** 現在のパス（未指定時は自動検知） */
+  currentPath?: string
   /** メニューの開閉状態（モバイル時） */
   isOpen?: boolean
 }
@@ -28,6 +29,10 @@ export interface SideHeaderEmits {
 const props = defineProps<SideHeaderProps>()
 
 const emit = defineEmits<SideHeaderEmits>()
+
+// currentPath が未指定の場合は useRoute() で自動検知
+const route = useRoute()
+const activePath = computed(() => props.currentPath ?? route.path)
 
 const closeMenu = (): void => {
   emit('closeMenu')
@@ -64,7 +69,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
           >
             <NuxtLink
               :href="item.path"
-              :class="['menu-item', { active: props.currentPath === item.path }]"
+              :class="['menu-item', { active: activePath === item.path }]"
               @click="handleMenuItemClick(item.path, $event)"
             >
               <Icon
@@ -82,7 +87,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
       >
         <NuxtLink
           :to="bottomMenuItem.path"
-          :class="['menu-item', { active: props.currentPath === bottomMenuItem.path }]"
+          :class="['menu-item', { active: activePath === bottomMenuItem.path }]"
           @click="handleMenuItemClick(bottomMenuItem.path, $event)"
         >
           <Icon

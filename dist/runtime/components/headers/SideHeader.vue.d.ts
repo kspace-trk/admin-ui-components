@@ -10,8 +10,8 @@ export interface SideHeaderProps {
     menuItems: SideHeaderMenuItem[];
     /** ボトムメニュー項目 */
     bottomMenuItem?: SideHeaderMenuItem;
-    /** 現在のパス */
-    currentPath: string;
+    /** 現在のパス（未指定時は自動検知） */
+    currentPath?: string;
     /** メニューの開閉状態（モバイル時） */
     isOpen?: boolean;
 }

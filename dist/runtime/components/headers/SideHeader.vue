@@ -1,13 +1,16 @@
 <script setup>
+import { computed } from "vue";
 import { Icon } from "@iconify/vue";
 const props = defineProps({
   logoText: { type: String, required: true },
   menuItems: { type: Array, required: true },
   bottomMenuItem: { type: Object, required: false },
-  currentPath: { type: String, required: true },
+  currentPath: { type: String, required: false },
   isOpen: { type: Boolean, required: false }
 });
 const emit = defineEmits(["menuItemClick", "closeMenu"]);
+const route = useRoute();
+const activePath = computed(() => props.currentPath ?? route.path);
 const closeMenu = () => {
   emit("closeMenu");
 };
@@ -41,7 +44,7 @@ const handleMenuItemClick = (path, event) => {
           >
             <NuxtLink
               :href="item.path"
-              :class="['menu-item', { active: props.currentPath === item.path }]"
+              :class="['menu-item', { active: activePath === item.path }]"
               @click="handleMenuItemClick(item.path, $event)"
             >
               <Icon
@@ -59,7 +62,7 @@ const handleMenuItemClick = (path, event) => {
       >
         <NuxtLink
           :to="bottomMenuItem.path"
-          :class="['menu-item', { active: props.currentPath === bottomMenuItem.path }]"
+          :class="['menu-item', { active: activePath === bottomMenuItem.path }]"
           @click="handleMenuItemClick(bottomMenuItem.path, $event)"
         >
           <Icon
