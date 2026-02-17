@@ -1,6 +1,18 @@
 /* Reset CSS */
 @import url('./fonts/noto-sans-jp.css');
 
+/* KS Design Tokens */
+:root {
+  --ks-primary-100: #4A65DC;
+  --ks-primary-200: #8AB0E2;
+  --ks-primary-300: #686991;
+  --ks-black-100: #363139;
+  --ks-black-200: #4B464E;
+  --ks-black-400: #D9D0DF;
+  --ks-white-100: #FFFFFF;
+  --ks-white-200: #EBF1F4;
+}
+
 *,
 *::before,
 *::after {
