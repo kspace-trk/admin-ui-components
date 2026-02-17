@@ -21,8 +21,8 @@ const closeMenu = (): void => {
   isMenuOpen.value = false
 }
 
-const handleMenuItemClick = (path: string) => {
-  emit('menuItemClick', path)
+const handleMenuItemClick = (path: string, event?: Event) => {
+  emit('menuItemClick', path, event)
 }
 </script>
 
