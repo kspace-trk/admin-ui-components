@@ -1,18 +1,16 @@
-import { createJiti } from "file:///Users/keigo/ghq/github.com/kspace-trk/admin-ui-components/node_modules/jiti/lib/jiti.mjs";
+import { defineNuxtModule, createResolver, addPlugin } from '@nuxt/kit';
 
-const jiti = createJiti(import.meta.url, {
-  "interopDefault": true,
-  "alias": {
-    "@kspace-trk/admin-ui-components": "/Users/keigo/ghq/github.com/kspace-trk/admin-ui-components"
+const module = defineNuxtModule({
+  meta: {
+    name: "@kspace-trk/admin-ui-components",
+    configKey: "adminUiComponents"
   },
-  "transformOptions": {
-    "babel": {
-      "plugins": []
-    }
+  // Default configuration options of the Nuxt module
+  defaults: {},
+  setup(_options) {
+    const resolver = createResolver(import.meta.url);
+    addPlugin(resolver.resolve("./runtime/plugin"));
   }
-})
+});
 
-/** @type {import("/Users/keigo/ghq/github.com/kspace-trk/admin-ui-components/src/module.js")} */
-const _module = await jiti.import("/Users/keigo/ghq/github.com/kspace-trk/admin-ui-components/src/module.ts");
-
-export default _module?.default ?? _module;
+export { module as default };
