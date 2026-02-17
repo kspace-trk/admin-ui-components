@@ -73,12 +73,14 @@ const _sideMenuItems = [
       <!-- Panels テスト -->
       <section>
         <h2>Panels</h2>
-        <KSTextItem
-          :text="`ユーザー名: ${formData.name || '未入力'}`"
-        />
-        <KSTextItem
-          :text="`説明: ${formData.description || '未入力'}`"
-        />
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <KSTextItem
+            :text="`ユーザー名: ${formData.name || '未入力'}`"
+          />
+          <KSTextItem
+            :text="`説明: ${formData.description || '未入力'}`"
+          />
+        </div>
       </section>
 
       <!-- Sections テスト -->
@@ -99,7 +101,7 @@ section {
   margin-bottom: 40px;
   padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 1px;
 }
 
 h1 {
@@ -117,7 +119,7 @@ h2 {
 pre {
   background: #f5f5f5;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 1px;
   font-size: 12px;
   overflow-x: auto;
 }

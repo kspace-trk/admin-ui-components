@@ -65,11 +65,14 @@ const buttonClass = computed(() => {
   width: 151px;
   height: 41px;
   border: none;
-  border-radius: 6px;
+  border-radius: 1px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+              color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+              opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
   outline: none;
   display: flex;
   align-items: center;
@@ -78,36 +81,37 @@ const buttonClass = computed(() => {
 }
 
 .main-button:focus {
-  box-shadow: 0 0 0 2px color.adjust($primary-100, $lightness: -10%);
+  box-shadow: 0 0 0 1px $black-200;
 }
 
 /* 送信ボタンのスタイル */
 .main-button--submit {
-  background-color: $primary-100;
+  background-color: $black-100;
   color: white;
 }
 
 .main-button--submit:hover:not(:disabled) {
-  background-color: color.adjust($primary-100, $lightness: -10%);
+  opacity: 0.75;
 }
 
 .main-button--submit:active:not(:disabled) {
-  background-color: color.adjust($primary-100, $lightness: -10%);
+  opacity: 0.6;
 }
 
 /* キャンセルボタンのスタイル */
 .main-button--cancel {
-  background-color: $black-400;
+  background-color: transparent;
   color: $black-100;
   border: 1px solid $black-400;
 }
 
 .main-button--cancel:hover:not(:disabled) {
-  background-color: color.adjust($black-400, $lightness: 10%);
+  border-color: $black-100;
 }
 
 .main-button--cancel:active:not(:disabled) {
-  background-color: $black-400;
+  border-color: $black-100;
+  opacity: 0.6;
 }
 
 /* 無効化状態 */

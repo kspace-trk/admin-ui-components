@@ -24,7 +24,8 @@ defineProps<Props>()
 
   p {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 400;
+    letter-spacing: 0.1em;
     color: $black-100;
   }
 }

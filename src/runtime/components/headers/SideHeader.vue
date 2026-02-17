@@ -162,10 +162,10 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
   align-items: center;
   gap: 12px;
   padding: 0 16px;
-  border-radius: 6px;
+  border-radius: 1px;
   text-decoration: none;
   color: inherit;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
   width: 100%;
   cursor: pointer;
 

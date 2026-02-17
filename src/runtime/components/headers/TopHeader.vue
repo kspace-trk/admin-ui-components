@@ -77,7 +77,7 @@ const handleToggleMenu = (): void => {
   height: 44px;
   background: $black-100;
   border: none;
-  border-radius: 6px;
+  border-radius: 1px;
   cursor: pointer;
   z-index: 1001;
   display: none; // デフォルトは非表示（モバイル時のみ表示）

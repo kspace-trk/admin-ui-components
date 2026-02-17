@@ -35,7 +35,7 @@ const emit = defineEmits<{
 
   &__label {
     display: block;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 12.8px;
     color: $black-100;
     letter-spacing: 1.024px;
@@ -47,9 +47,9 @@ const emit = defineEmits<{
     width: 100%;
     height: 40px;
     padding: 0 16px;
-    background-color: $white-200;
-    border: none;
-    border-radius: 8px;
+    background-color: transparent;
+    border: 1px solid $black-400;
+    border-radius: 1px;
     font-size: 14px;
     color: $black-200;
     outline: none;
@@ -61,8 +61,8 @@ const emit = defineEmits<{
     }
 
     &:focus {
-      background-color: color.adjust($white-200, $lightness: -2%);
-      box-shadow: 0 0 0 2px rgba($primary-100, 0.2);
+      border-color: $black-100;
+      box-shadow: 0 0 0 1px rgba($black-100, 0.1);
     }
   }
 }
