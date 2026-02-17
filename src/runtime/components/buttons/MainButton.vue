@@ -10,9 +10,11 @@ interface Props {
   disabled?: boolean
   /** ローディング状態 */
   loading?: boolean
+  /** ローディング時のテキスト */
+  loadingText?: string
 }
 
-const { type = 'submit', text = '', disabled = false, loading = false } = defineProps<Props>()
+const { type = 'submit', text = '', disabled = false, loading = false, loadingText = '処理中...' } = defineProps<Props>()
 
 const emit = defineEmits<{
   click: []
@@ -26,7 +28,7 @@ const handleClick = (): void => {
 
 // ボタンのテキストを決定
 const buttonText = computed(() => {
-  if (loading) return '処理中...'
+  if (loading) return loadingText
   if (text) return text
   return type === 'submit' ? '送信' : 'キャンセル'
 })
