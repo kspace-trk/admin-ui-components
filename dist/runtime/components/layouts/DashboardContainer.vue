@@ -12,8 +12,8 @@ const toggleMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false;
 };
-const handleMenuItemClick = (path) => {
-  emit("menuItemClick", path);
+const handleMenuItemClick = (path, event) => {
+  emit("menuItemClick", path, event);
 };
 </script>
 

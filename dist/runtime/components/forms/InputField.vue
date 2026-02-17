@@ -2,7 +2,8 @@
 defineProps({
   label: { type: String, required: true },
   placeholder: { type: String, required: false },
-  modelValue: { type: String, required: false }
+  modelValue: { type: String, required: false },
+  type: { type: String, required: false }
 });
 const emit = defineEmits(["update:modelValue"]);
 </script>
@@ -11,6 +12,7 @@ const emit = defineEmits(["update:modelValue"]);
   <div class="input-field">
     <label class="input-field__label">{{ label }}</label>
     <input
+      :type="type ?? 'text'"
       :value="modelValue"
       :placeholder="placeholder"
       class="input-field__input"

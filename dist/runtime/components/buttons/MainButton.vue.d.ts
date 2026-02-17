@@ -7,6 +7,8 @@ interface Props {
     disabled?: boolean;
     /** ローディング状態 */
     loading?: boolean;
+    /** ローディング時のテキスト */
+    loadingText?: string;
 }
 declare const _default: import("vue").DefineComponent<Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     click: () => any;

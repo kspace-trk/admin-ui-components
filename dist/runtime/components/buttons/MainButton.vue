@@ -1,10 +1,11 @@
 <script setup>
 import { computed } from "vue";
-const { type = "submit", text = "", disabled = false, loading = false } = defineProps({
+const { type = "submit", text = "", disabled = false, loading = false, loadingText = "\u51E6\u7406\u4E2D..." } = defineProps({
   type: { type: String, required: false },
   text: { type: String, required: false },
   disabled: { type: Boolean, required: false },
-  loading: { type: Boolean, required: false }
+  loading: { type: Boolean, required: false },
+  loadingText: { type: String, required: false }
 });
 const emit = defineEmits(["click"]);
 const handleClick = () => {
@@ -13,7 +14,7 @@ const handleClick = () => {
   }
 };
 const buttonText = computed(() => {
-  if (loading) return "\u51E6\u7406\u4E2D...";
+  if (loading) return loadingText;
   if (text) return text;
   return type === "submit" ? "\u9001\u4FE1" : "\u30AD\u30E3\u30F3\u30BB\u30EB";
 });
