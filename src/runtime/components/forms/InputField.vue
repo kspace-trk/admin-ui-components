@@ -3,6 +3,8 @@ defineProps<{
   label: string
   placeholder?: string
   modelValue?: string
+  /** input の type 属性 */
+  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url'
 }>()
 
 const emit = defineEmits<{
@@ -14,6 +16,7 @@ const emit = defineEmits<{
   <div class="input-field">
     <label class="input-field__label">{{ label }}</label>
     <input
+      :type="type ?? 'text'"
       :value="modelValue"
       :placeholder="placeholder"
       class="input-field__input"
