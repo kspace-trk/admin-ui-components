@@ -31,6 +31,7 @@ const handleMenuItemClick = (path: string, event?: Event) => {
     <KSSideHeader
       :logo-text="sideHeaderProps.logoText"
       :menu-items="sideHeaderProps.menuItems"
+      :menu-sections="sideHeaderProps.menuSections"
       :current-path="sideHeaderProps.currentPath"
       :bottom-menu-item="sideHeaderProps.bottomMenuItem"
       :is-open="isMenuOpen"

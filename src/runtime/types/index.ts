@@ -1,5 +1,5 @@
 // コンポーネントの型定義をエクスポート
-export type { SideHeaderMenuItem } from '../components/headers/SideHeader.vue'
+export type { SideHeaderMenuItem, SideHeaderMenuSection } from '../components/headers/SideHeader.vue'
 
 // グローバルコンポーネントの型定義
 declare module '@vue/runtime-core' {

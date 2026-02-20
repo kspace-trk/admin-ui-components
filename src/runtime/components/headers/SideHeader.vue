@@ -9,11 +9,20 @@ export interface SideHeaderMenuItem {
   icon: string
 }
 
+export interface SideHeaderMenuSection {
+  /** セクションラベル */
+  label: string
+  /** セクション内のメニュー項目リスト */
+  items: SideHeaderMenuItem[]
+}
+
 export interface SideHeaderProps {
   /** ロゴテキスト */
   logoText: string
   /** メニュー項目リスト */
   menuItems: SideHeaderMenuItem[]
+  /** セクション付きメニュー項目リスト */
+  menuSections?: SideHeaderMenuSection[]
   /** ボトムメニュー項目 */
   bottomMenuItem?: SideHeaderMenuItem
   /** 現在のパス（未指定時は自動検知） */
@@ -81,6 +90,31 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
             </NuxtLink>
           </li>
         </ul>
+        <div
+          v-for="section in menuSections"
+          :key="section.label"
+          class="menu-section"
+        >
+          <p class="menu-section-label">{{ section.label }}</p>
+          <ul>
+            <li
+              v-for="item in section.items"
+              :key="item.path"
+            >
+              <NuxtLink
+                :href="item.path"
+                :class="['menu-item', { active: activePath === item.path }]"
+                @click="handleMenuItemClick(item.path, $event)"
+              >
+                <Icon
+                  :icon="item.icon"
+                  class="menu-item-icon"
+                />
+                <p>{{ item.label }}</p>
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
       </div>
       <div
         v-if="bottomMenuItem"
@@ -184,6 +218,26 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 
 .menu-item-icon {
   font-size: 1.2rem;
+}
+
+.menu-section {
+  margin-top: 16px;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.menu-section-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $black-400;
+  margin: 0 0 4px 0;
+  padding: 0;
 }
 
 // レスポンシブ対応
