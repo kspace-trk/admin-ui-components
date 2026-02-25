@@ -22,7 +22,7 @@ const {
 } = defineProps<Props>()
 
 const emit = defineEmits<{
-  'close': []
+  close: []
 }>()
 
 const timer = ref<ReturnType<typeof setTimeout> | null>(null)

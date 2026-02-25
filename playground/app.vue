@@ -60,7 +60,8 @@ const tableSortOrder = ref<'asc' | 'desc'>('desc')
 const handleSort = (key: string) => {
   if (tableSortKey.value === key) {
     tableSortOrder.value = tableSortOrder.value === 'asc' ? 'desc' : 'asc'
-  } else {
+  }
+  else {
     tableSortKey.value = key
     tableSortOrder.value = 'asc'
   }
@@ -315,7 +316,7 @@ const handleFileError = (message: string) => {
               :variant="statusVariant(value as string)"
             />
           </template>
-          <template #cell-actions="{ row }">
+          <template #cell-actions>
             <KSDropdownMenu
               :items="dropdownItems"
               @select="handleDropdownSelect"
@@ -324,7 +325,9 @@ const handleFileError = (message: string) => {
         </KSDataTable>
 
         <div style="margin-top: 16px;">
-          <h3 style="font-size: 13px; color: #666; margin-bottom: 8px;">ローディング状態</h3>
+          <h3 style="font-size: 13px; color: #666; margin-bottom: 8px;">
+            ローディング状態
+          </h3>
           <KSDataTable
             :columns="tableColumns.slice(0, 4)"
             :rows="[]"
@@ -333,7 +336,9 @@ const handleFileError = (message: string) => {
         </div>
 
         <div style="margin-top: 16px;">
-          <h3 style="font-size: 13px; color: #666; margin-bottom: 8px;">空の状態</h3>
+          <h3 style="font-size: 13px; color: #666; margin-bottom: 8px;">
+            空の状態
+          </h3>
           <KSDataTable
             :columns="tableColumns.slice(0, 4)"
             :rows="[]"
@@ -504,14 +509,18 @@ const handleFileError = (message: string) => {
         <h2>DropdownMenu</h2>
         <div style="display: flex; gap: 24px; align-items: center;">
           <div>
-            <p style="font-size: 13px; color: #666; margin-bottom: 8px;">デフォルト（縦三点）</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 8px;">
+              デフォルト（縦三点）
+            </p>
             <KSDropdownMenu
               :items="dropdownItems"
               @select="handleDropdownSelect"
             />
           </div>
           <div>
-            <p style="font-size: 13px; color: #666; margin-bottom: 8px;">横三点アイコン</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 8px;">
+              横三点アイコン
+            </p>
             <KSDropdownMenu
               :items="dropdownItems"
               trigger-icon="mdi:dots-horizontal"

@@ -39,8 +39,8 @@ const {
 } = defineProps<Props>()
 
 const emit = defineEmits<{
-  'sort': [key: string]
-  'rowClick': [row: Record<string, unknown>, index: number]
+  sort: [key: string]
+  rowClick: [row: Record<string, unknown>, index: number]
 }>()
 
 const cellStyle = (column: DataTableColumn) => {

@@ -15,7 +15,7 @@ interface Props {
 const { open, closeOnOverlay = true, width = '480px' } = defineProps<Props>()
 
 const emit = defineEmits<{
-  'close': []
+  close: []
 }>()
 
 const handleOverlayClick = (): void => {
@@ -34,7 +34,8 @@ watch(() => open, (isOpen) => {
   if (isOpen) {
     document.addEventListener('keydown', handleKeydown)
     document.body.style.overflow = 'hidden'
-  } else {
+  }
+  else {
     document.removeEventListener('keydown', handleKeydown)
     document.body.style.overflow = ''
   }

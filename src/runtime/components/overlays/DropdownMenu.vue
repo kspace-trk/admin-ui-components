@@ -25,7 +25,7 @@ interface Props {
 const { triggerIcon = 'mdi:dots-vertical' } = defineProps<Props>()
 
 const emit = defineEmits<{
-  'select': [item: DropdownMenuItem]
+  select: [item: DropdownMenuItem]
 }>()
 
 const isOpen = ref(false)

@@ -18,8 +18,8 @@ interface Props {
 const { label, accept, multiple = false, disabled = false, maxSize } = defineProps<Props>()
 
 const emit = defineEmits<{
-  'change': [files: File[]]
-  'error': [message: string]
+  change: [files: File[]]
+  error: [message: string]
 }>()
 
 const inputRef = ref<HTMLInputElement | null>(null)

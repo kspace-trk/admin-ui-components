@@ -12,7 +12,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'navigate': [item: BreadcrumbItem, index: number]
+  navigate: [item: BreadcrumbItem, index: number]
 }>()
 </script>
 
