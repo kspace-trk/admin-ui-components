@@ -5,11 +5,24 @@ import './assets/css/fonts/mplus-1p.css'
 import MainButton from './components/buttons/MainButton.vue'
 import InputField from './components/forms/InputField.vue'
 import TextareaField from './components/forms/TextareaField.vue'
+import SelectField from './components/forms/SelectField.vue'
+import Checkbox from './components/forms/Checkbox.vue'
+import ToggleSwitch from './components/forms/ToggleSwitch.vue'
+import SearchField from './components/forms/SearchField.vue'
+import FileUpload from './components/forms/FileUpload.vue'
 import TopHeader from './components/headers/TopHeader.vue'
 import SideHeader from './components/headers/SideHeader.vue'
 import TextItem from './components/panels/TextItem.vue'
 import SectionTextWithLine from './components/sections/SectionTextWithLine.vue'
 import DashboardContainer from './components/layouts/DashboardContainer.vue'
+import Badge from './components/display/Badge.vue'
+import DataTable from './components/display/DataTable.vue'
+import Pagination from './components/navigation/Pagination.vue'
+import Breadcrumb from './components/navigation/Breadcrumb.vue'
+import Tabs from './components/navigation/Tabs.vue'
+import Modal from './components/overlays/Modal.vue'
+import Toast from './components/overlays/Toast.vue'
+import DropdownMenu from './components/overlays/DropdownMenu.vue'
 
 // Iconifyコンポーネントをインポート
 import { Icon } from '@iconify/vue'
@@ -23,11 +36,24 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component(`${prefix}MainButton`, MainButton)
   nuxtApp.vueApp.component(`${prefix}InputField`, InputField)
   nuxtApp.vueApp.component(`${prefix}TextareaField`, TextareaField)
+  nuxtApp.vueApp.component(`${prefix}SelectField`, SelectField)
+  nuxtApp.vueApp.component(`${prefix}Checkbox`, Checkbox)
+  nuxtApp.vueApp.component(`${prefix}ToggleSwitch`, ToggleSwitch)
+  nuxtApp.vueApp.component(`${prefix}SearchField`, SearchField)
+  nuxtApp.vueApp.component(`${prefix}FileUpload`, FileUpload)
   nuxtApp.vueApp.component(`${prefix}TopHeader`, TopHeader)
   nuxtApp.vueApp.component(`${prefix}SideHeader`, SideHeader)
   nuxtApp.vueApp.component(`${prefix}TextItem`, TextItem)
   nuxtApp.vueApp.component(`${prefix}SectionTextWithLine`, SectionTextWithLine)
   nuxtApp.vueApp.component(`${prefix}DashboardContainer`, DashboardContainer)
+  nuxtApp.vueApp.component(`${prefix}Badge`, Badge)
+  nuxtApp.vueApp.component(`${prefix}DataTable`, DataTable)
+  nuxtApp.vueApp.component(`${prefix}Pagination`, Pagination)
+  nuxtApp.vueApp.component(`${prefix}Breadcrumb`, Breadcrumb)
+  nuxtApp.vueApp.component(`${prefix}Tabs`, Tabs)
+  nuxtApp.vueApp.component(`${prefix}Modal`, Modal)
+  nuxtApp.vueApp.component(`${prefix}Toast`, Toast)
+  nuxtApp.vueApp.component(`${prefix}DropdownMenu`, DropdownMenu)
   // Iconifyコンポーネントをグローバル登録
   nuxtApp.vueApp.component(`${prefix}Icon`, Icon)
 })

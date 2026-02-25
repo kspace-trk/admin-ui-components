@@ -3,5 +3,9 @@
     "allow": [
       "Bash(find:*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "github",
+    "figma-mcp"
+  ]
 }
