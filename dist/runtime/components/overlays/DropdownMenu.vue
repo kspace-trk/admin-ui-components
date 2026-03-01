@@ -1,31 +1,62 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, nextTick, onMounted, onUnmounted } from "vue";
 import { Icon } from "@iconify/vue";
 const { triggerIcon = "mdi:dots-vertical" } = defineProps({
   items: { type: Array, required: true },
   triggerIcon: { type: String, required: false }
 });
 const emit = defineEmits(["select"]);
+const uid = Symbol();
 const isOpen = ref(false);
 const menuRef = ref(null);
-const toggle = () => {
+const triggerRef = ref(null);
+const contentStyle = ref({});
+const updatePosition = () => {
+  if (!triggerRef.value) return;
+  const rect = triggerRef.value.getBoundingClientRect();
+  contentStyle.value = {
+    top: `${rect.bottom + 4}px`,
+    right: `${document.documentElement.clientWidth - rect.right}px`
+  };
+};
+const close = () => {
+  isOpen.value = false;
+  window.removeEventListener("scroll", updatePosition, true);
+};
+const handleOtherOpen = (event) => {
+  if (event.detail !== uid) {
+    close();
+  }
+};
+const toggle = async () => {
   isOpen.value = !isOpen.value;
+  if (isOpen.value) {
+    window.dispatchEvent(new CustomEvent("dropdown-menu:open", { detail: uid }));
+    await nextTick();
+    updatePosition();
+    window.addEventListener("scroll", updatePosition, true);
+  } else {
+    window.removeEventListener("scroll", updatePosition, true);
+  }
 };
 const select = (item) => {
   if (item.disabled) return;
   emit("select", item);
-  isOpen.value = false;
+  close();
 };
 const handleClickOutside = (event) => {
   if (menuRef.value && !menuRef.value.contains(event.target)) {
-    isOpen.value = false;
+    close();
   }
 };
 onMounted(() => {
   document.addEventListener("click", handleClickOutside);
+  window.addEventListener("dropdown-menu:open", handleOtherOpen);
 });
 onUnmounted(() => {
   document.removeEventListener("click", handleClickOutside);
+  window.removeEventListener("dropdown-menu:open", handleOtherOpen);
+  window.removeEventListener("scroll", updatePosition, true);
 });
 </script>
 
@@ -35,6 +66,7 @@ onUnmounted(() => {
     class="dropdown-menu"
   >
     <button
+      ref="triggerRef"
       class="dropdown-menu__trigger"
       type="button"
       @click.stop="toggle"
@@ -51,6 +83,7 @@ onUnmounted(() => {
       <div
         v-if="isOpen"
         class="dropdown-menu__content"
+        :style="contentStyle"
       >
         <button
           v-for="item in items"
@@ -101,13 +134,10 @@ onUnmounted(() => {
   background-color: #F7F7F7;
 }
 .dropdown-menu__content {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: 100;
+  position: fixed;
+  z-index: 1000;
   min-width: 160px;
   padding: 4px 0;
-  margin-top: 4px;
   background-color: #FFFFFF;
   border: 1px solid #E0E0E0;
   border-radius: 1px;

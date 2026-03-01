@@ -62,7 +62,9 @@ const handleMenuItemClick = (path, event) => {
           :key="section.label"
           class="menu-section"
         >
-          <p class="menu-section-label">{{ section.label }}</p>
+          <p class="menu-section-label">
+            {{ section.label }}
+          </p>
           <ul>
             <li
               v-for="item in section.items"

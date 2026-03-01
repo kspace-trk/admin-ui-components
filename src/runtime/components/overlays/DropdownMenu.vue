@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import { Icon } from '@iconify/vue'
 
 export interface DropdownMenuItem {
@@ -28,31 +28,65 @@ const emit = defineEmits<{
   select: [item: DropdownMenuItem]
 }>()
 
+const uid = Symbol()
 const isOpen = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
+const triggerRef = ref<HTMLElement | null>(null)
+const contentStyle = ref<Record<string, string>>({})
 
-const toggle = (): void => {
+const updatePosition = (): void => {
+  if (!triggerRef.value) return
+  const rect = triggerRef.value.getBoundingClientRect()
+  contentStyle.value = {
+    top: `${rect.bottom + 4}px`,
+    right: `${document.documentElement.clientWidth - rect.right}px`,
+  }
+}
+
+const close = (): void => {
+  isOpen.value = false
+  window.removeEventListener('scroll', updatePosition, true)
+}
+
+const handleOtherOpen = (event: Event): void => {
+  if ((event as CustomEvent).detail !== uid) {
+    close()
+  }
+}
+
+const toggle = async (): Promise<void> => {
   isOpen.value = !isOpen.value
+  if (isOpen.value) {
+    window.dispatchEvent(new CustomEvent('dropdown-menu:open', { detail: uid }))
+    await nextTick()
+    updatePosition()
+    window.addEventListener('scroll', updatePosition, true)
+  } else {
+    window.removeEventListener('scroll', updatePosition, true)
+  }
 }
 
 const select = (item: DropdownMenuItem): void => {
   if (item.disabled) return
   emit('select', item)
-  isOpen.value = false
+  close()
 }
 
 const handleClickOutside = (event: MouseEvent): void => {
   if (menuRef.value && !menuRef.value.contains(event.target as Node)) {
-    isOpen.value = false
+    close()
   }
 }
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
+  window.addEventListener('dropdown-menu:open', handleOtherOpen)
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('dropdown-menu:open', handleOtherOpen)
+  window.removeEventListener('scroll', updatePosition, true)
 })
 </script>
 
@@ -62,6 +96,7 @@ onUnmounted(() => {
     class="dropdown-menu"
   >
     <button
+      ref="triggerRef"
       class="dropdown-menu__trigger"
       type="button"
       @click.stop="toggle"
@@ -78,6 +113,7 @@ onUnmounted(() => {
       <div
         v-if="isOpen"
         class="dropdown-menu__content"
+        :style="contentStyle"
       >
         <button
           v-for="item in items"
@@ -133,13 +169,10 @@ onUnmounted(() => {
   }
 
   &__content {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 100;
+    position: fixed;
+    z-index: 1000;
     min-width: 160px;
     padding: 4px 0;
-    margin-top: 4px;
     background-color: $white-100;
     border: 1px solid $black-400;
     border-radius: 1px;
