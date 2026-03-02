@@ -364,6 +364,7 @@ interface SideHeaderMenuItem {
 interface SideHeaderMenuSection {
   label: string
   items: SideHeaderMenuItem[]
+  menuActions?: DropdownMenuItem[]  // セクション見出し横の3点リーダーメニュー
 }
 ```
 
@@ -373,6 +374,7 @@ interface SideHeaderMenuSection {
 |---|---|---|
 | `menuItemClick` | `string, Event?` | メニュー項目クリック時 |
 | `closeMenu` | - | メニュー閉じる時 |
+| `sectionActionSelect` | `string, DropdownMenuItem` | セクションの3点リーダーメニュー選択時（第1引数はセクションラベル） |
 
 **使用例**:
 
@@ -380,9 +382,21 @@ interface SideHeaderMenuSection {
 <KSSideHeader
   logo-text="管理画面"
   :menu-items="menuItems"
-  :menu-sections="menuSections"
+  :menu-sections="[
+    {
+      label: 'コンテンツ',
+      items: [
+        { path: '/articles', label: '記事一覧', icon: 'mdi:file-document' },
+      ],
+      menuActions: [
+        { key: 'add', label: '追加', icon: 'mdi:plus' },
+        { key: 'refresh', label: '更新', icon: 'mdi:refresh' },
+      ],
+    },
+  ]"
   :current-path="$route.path"
   @menu-item-click="handleMenuClick"
+  @section-action-select="handleSectionAction"
 />
 ```
 
