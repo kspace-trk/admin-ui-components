@@ -10,6 +10,7 @@ const uid = Symbol();
 const isOpen = ref(false);
 const menuRef = ref(null);
 const triggerRef = ref(null);
+const contentRef = ref(null);
 const contentStyle = ref({});
 const updatePosition = () => {
   if (!triggerRef.value) return;
@@ -45,7 +46,10 @@ const select = (item) => {
   close();
 };
 const handleClickOutside = (event) => {
-  if (menuRef.value && !menuRef.value.contains(event.target)) {
+  const target = event.target;
+  const inTrigger = menuRef.value?.contains(target);
+  const inContent = contentRef.value?.contains(target);
+  if (!inTrigger && !inContent) {
     close();
   }
 };
@@ -79,35 +83,38 @@ onUnmounted(() => {
         />
       </slot>
     </button>
-    <Transition name="dropdown">
-      <div
-        v-if="isOpen"
-        class="dropdown-menu__content"
-        :style="contentStyle"
-      >
-        <button
-          v-for="item in items"
-          :key="item.key"
-          class="dropdown-menu__item"
-          :class="{
+    <Teleport to="body">
+      <Transition name="dropdown-fade">
+        <div
+          v-if="isOpen"
+          ref="contentRef"
+          class="dropdown-menu__content"
+          :style="contentStyle"
+        >
+          <button
+            v-for="item in items"
+            :key="item.key"
+            class="dropdown-menu__item"
+            :class="{
   'dropdown-menu__item--danger': item.danger,
   'dropdown-menu__item--disabled': item.disabled
 }"
-          :disabled="item.disabled"
-          type="button"
-          @click="select(item)"
-        >
-          <Icon
-            v-if="item.icon"
-            :icon="item.icon"
-            width="16"
-            height="16"
-            class="dropdown-menu__item-icon"
-          />
-          <span>{{ item.label }}</span>
-        </button>
-      </div>
-    </Transition>
+            :disabled="item.disabled"
+            type="button"
+            @click="select(item)"
+          >
+            <Icon
+              v-if="item.icon"
+              :icon="item.icon"
+              width="16"
+              height="16"
+              class="dropdown-menu__item-icon"
+            />
+            <span>{{ item.label }}</span>
+          </button>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -133,9 +140,12 @@ onUnmounted(() => {
 .dropdown-menu__trigger:hover {
   background-color: #F7F7F7;
 }
+</style>
+
+<style>
 .dropdown-menu__content {
   position: fixed;
-  z-index: 1000;
+  z-index: 10000;
   min-width: 160px;
   padding: 4px 0;
   background-color: #FFFFFF;
@@ -143,6 +153,7 @@ onUnmounted(() => {
   border-radius: 1px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+
 .dropdown-menu__item {
   display: flex;
   align-items: center;
@@ -171,18 +182,19 @@ onUnmounted(() => {
   opacity: 0.4;
   cursor: not-allowed;
 }
+
 .dropdown-menu__item-icon {
   flex-shrink: 0;
   opacity: 0.7;
 }
 
-.dropdown-enter-active,
-.dropdown-leave-active {
+.dropdown-fade-enter-active,
+.dropdown-fade-leave-active {
   transition: all 0.15s ease;
 }
 
-.dropdown-enter-from,
-.dropdown-leave-to {
+.dropdown-fade-enter-from,
+.dropdown-fade-leave-to {
   opacity: 0;
   transform: translateY(-4px);
 }

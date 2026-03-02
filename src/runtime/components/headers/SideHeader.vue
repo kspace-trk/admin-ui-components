@@ -2,6 +2,8 @@
 import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useRoute } from '#app'
+import DropdownMenu from '../overlays/DropdownMenu.vue'
+import type { DropdownMenuItem } from '../overlays/DropdownMenu.vue'
 
 export interface SideHeaderMenuItem {
   path: string
@@ -14,6 +16,8 @@ export interface SideHeaderMenuSection {
   label: string
   /** セクション内のメニュー項目リスト */
   items: SideHeaderMenuItem[]
+  /** セクションのドロップダウンメニュー項目 */
+  menuActions?: DropdownMenuItem[]
 }
 
 export interface SideHeaderProps {
@@ -34,6 +38,7 @@ export interface SideHeaderProps {
 export interface SideHeaderEmits {
   menuItemClick: [path: string, event?: Event]
   closeMenu: []
+  sectionActionSelect: [sectionLabel: string, item: DropdownMenuItem]
 }
 
 const props = defineProps<SideHeaderProps>()
@@ -52,6 +57,11 @@ const closeMenu = (): void => {
 const handleMenuItemClick = (path: string, event?: Event): void => {
   emit('menuItemClick', path, event)
   closeMenu()
+}
+
+// セクションのドロップダウンメニュー選択時
+const handleSectionActionSelect = (sectionLabel: string, item: DropdownMenuItem): void => {
+  emit('sectionActionSelect', sectionLabel, item)
 }
 </script>
 
@@ -95,9 +105,17 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
           :key="section.label"
           class="menu-section"
         >
-          <p class="menu-section-label">
-            {{ section.label }}
-          </p>
+          <div class="menu-section-header">
+            <p class="menu-section-label">
+              {{ section.label }}
+            </p>
+            <DropdownMenu
+              v-if="section.menuActions?.length"
+              :items="section.menuActions"
+              class="menu-section-dropdown"
+              @select="handleSectionActionSelect(section.label, $event)"
+            />
+          </div>
           <ul>
             <li
               v-for="item in section.items"
@@ -144,10 +162,7 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
 // オーバーレイのスタイル
 .menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   display: none; // デフォルトは非表示（モバイル時のみ表示）
@@ -232,14 +247,34 @@ const handleMenuItemClick = (path: string, event?: Event): void => {
   }
 }
 
+.menu-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
 .menu-section-label {
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: $black-400;
-  margin: 0 0 4px 0;
+  margin: 0;
   padding: 0;
+}
+
+.menu-section-dropdown {
+  :deep(.dropdown-menu__trigger) {
+    width: 24px;
+    height: 24px;
+    color: $black-400;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: $black-200;
+    }
+  }
 }
 
 // レスポンシブ対応

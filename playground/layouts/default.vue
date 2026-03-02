@@ -12,12 +12,19 @@ const sideMenuSections = [
       { path: '/users', label: 'ユーザー一覧', icon: 'mdi:account-group' },
       { path: '/users/roles', label: 'ロール管理', icon: 'mdi:shield-account' },
     ],
+    menuActions: [
+      { key: 'add', label: '追加', icon: 'mdi:plus' },
+      { key: 'refresh', label: '更新', icon: 'mdi:refresh' },
+    ],
   },
   {
     label: '設定',
     items: [
       { path: '/settings', label: '一般設定', icon: 'mdi:cog' },
       { path: '/settings/security', label: 'セキュリティ', icon: 'mdi:lock' },
+    ],
+    menuActions: [
+      { key: 'export', label: 'エクスポート', icon: 'mdi:export' },
     ],
   },
 ]

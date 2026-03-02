@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import type { SideHeaderProps, SideHeaderEmits } from '../headers/SideHeader.vue'
 import type { TopHeaderProps } from '../headers/TopHeader.vue'
+import type { DropdownMenuItem } from '../overlays/DropdownMenu.vue'
 
 const { sideHeaderProps, topHeaderProps } = defineProps<{
   sideHeaderProps: SideHeaderProps
@@ -24,6 +25,10 @@ const closeMenu = (): void => {
 const handleMenuItemClick = (path: string, event?: Event) => {
   emit('menuItemClick', path, event)
 }
+
+const handleSectionActionSelect = (sectionLabel: string, item: DropdownMenuItem) => {
+  emit('sectionActionSelect', sectionLabel, item)
+}
 </script>
 
 <template>
@@ -37,6 +42,7 @@ const handleMenuItemClick = (path: string, event?: Event) => {
       :is-open="isMenuOpen"
       @menu-item-click="handleMenuItemClick"
       @close-menu="closeMenu"
+      @section-action-select="handleSectionActionSelect"
     />
     <div class="main-content">
       <KSTopHeader

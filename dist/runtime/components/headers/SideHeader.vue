@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { Icon } from "@iconify/vue";
 import { useRoute } from "#app";
+import DropdownMenu from "../overlays/DropdownMenu.vue";
 const props = defineProps({
   logoText: { type: String, required: true },
   menuItems: { type: Array, required: true },
@@ -10,7 +11,7 @@ const props = defineProps({
   currentPath: { type: String, required: false },
   isOpen: { type: Boolean, required: false }
 });
-const emit = defineEmits(["menuItemClick", "closeMenu"]);
+const emit = defineEmits(["menuItemClick", "closeMenu", "sectionActionSelect"]);
 const route = useRoute();
 const activePath = computed(() => props.currentPath ?? route.path);
 const closeMenu = () => {
@@ -19,6 +20,9 @@ const closeMenu = () => {
 const handleMenuItemClick = (path, event) => {
   emit("menuItemClick", path, event);
   closeMenu();
+};
+const handleSectionActionSelect = (sectionLabel, item) => {
+  emit("sectionActionSelect", sectionLabel, item);
 };
 </script>
 
@@ -62,9 +66,17 @@ const handleMenuItemClick = (path, event) => {
           :key="section.label"
           class="menu-section"
         >
-          <p class="menu-section-label">
-            {{ section.label }}
-          </p>
+          <div class="menu-section-header">
+            <p class="menu-section-label">
+              {{ section.label }}
+            </p>
+            <DropdownMenu
+              v-if="section.menuActions?.length"
+              :items="section.menuActions"
+              class="menu-section-dropdown"
+              @select="handleSectionActionSelect(section.label, $event)"
+            />
+          </div>
           <ul>
             <li
               v-for="item in section.items"
@@ -108,10 +120,7 @@ const handleMenuItemClick = (path, event) => {
 <style scoped>
 .menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   display: none;
@@ -190,14 +199,31 @@ const handleMenuItemClick = (path, event) => {
   gap: 12px;
 }
 
+.menu-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
 .menu-section-label {
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #E0E0E0;
-  margin: 0 0 4px 0;
+  margin: 0;
   padding: 0;
+}
+
+.menu-section-dropdown :deep(.dropdown-menu__trigger) {
+  width: 24px;
+  height: 24px;
+  color: #E0E0E0;
+  border-radius: 4px;
+}
+.menu-section-dropdown :deep(.dropdown-menu__trigger):hover {
+  background-color: #4B464E;
 }
 
 @media (max-width: 768px) {

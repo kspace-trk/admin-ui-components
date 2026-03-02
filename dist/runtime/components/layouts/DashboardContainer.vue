@@ -4,7 +4,7 @@ const { sideHeaderProps, topHeaderProps } = defineProps({
   sideHeaderProps: { type: Object, required: true },
   topHeaderProps: { type: Object, required: true }
 });
-const emit = defineEmits(["menuItemClick", "closeMenu"]);
+const emit = defineEmits(["menuItemClick", "closeMenu", "sectionActionSelect"]);
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -14,6 +14,9 @@ const closeMenu = () => {
 };
 const handleMenuItemClick = (path, event) => {
   emit("menuItemClick", path, event);
+};
+const handleSectionActionSelect = (sectionLabel, item) => {
+  emit("sectionActionSelect", sectionLabel, item);
 };
 </script>
 
@@ -28,6 +31,7 @@ const handleMenuItemClick = (path, event) => {
       :is-open="isMenuOpen"
       @menu-item-click="handleMenuItemClick"
       @close-menu="closeMenu"
+      @section-action-select="handleSectionActionSelect"
     />
     <div class="main-content">
       <KSTopHeader

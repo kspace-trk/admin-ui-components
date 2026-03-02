@@ -32,6 +32,7 @@ const uid = Symbol()
 const isOpen = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
 const triggerRef = ref<HTMLElement | null>(null)
+const contentRef = ref<HTMLElement | null>(null)
 const contentStyle = ref<Record<string, string>>({})
 
 const updatePosition = (): void => {
@@ -73,7 +74,10 @@ const select = (item: DropdownMenuItem): void => {
 }
 
 const handleClickOutside = (event: MouseEvent): void => {
-  if (menuRef.value && !menuRef.value.contains(event.target as Node)) {
+  const target = event.target as Node
+  const inTrigger = menuRef.value?.contains(target)
+  const inContent = contentRef.value?.contains(target)
+  if (!inTrigger && !inContent) {
     close()
   }
 }
@@ -109,40 +113,42 @@ onUnmounted(() => {
         />
       </slot>
     </button>
-    <Transition name="dropdown">
-      <div
-        v-if="isOpen"
-        class="dropdown-menu__content"
-        :style="contentStyle"
-      >
-        <button
-          v-for="item in items"
-          :key="item.key"
-          class="dropdown-menu__item"
-          :class="{
-            'dropdown-menu__item--danger': item.danger,
-            'dropdown-menu__item--disabled': item.disabled,
-          }"
-          :disabled="item.disabled"
-          type="button"
-          @click="select(item)"
+    <Teleport to="body">
+      <Transition name="dropdown-fade">
+        <div
+          v-if="isOpen"
+          ref="contentRef"
+          class="dropdown-menu__content"
+          :style="contentStyle"
         >
-          <Icon
-            v-if="item.icon"
-            :icon="item.icon"
-            width="16"
-            height="16"
-            class="dropdown-menu__item-icon"
-          />
-          <span>{{ item.label }}</span>
-        </button>
-      </div>
-    </Transition>
+          <button
+            v-for="item in items"
+            :key="item.key"
+            class="dropdown-menu__item"
+            :class="{
+              'dropdown-menu__item--danger': item.danger,
+              'dropdown-menu__item--disabled': item.disabled,
+            }"
+            :disabled="item.disabled"
+            type="button"
+            @click="select(item)"
+          >
+            <Icon
+              v-if="item.icon"
+              :icon="item.icon"
+              width="16"
+              height="16"
+              class="dropdown-menu__item-icon"
+            />
+            <span>{{ item.label }}</span>
+          </button>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@use 'sass:color';
 @use '../../assets/scss/variables.scss' as *;
 
 .dropdown-menu {
@@ -167,64 +173,69 @@ onUnmounted(() => {
       background-color: $white-200;
     }
   }
+}
+</style>
 
-  &__content {
-    position: fixed;
-    z-index: 1000;
-    min-width: 160px;
-    padding: 4px 0;
-    background-color: $white-100;
-    border: 1px solid $black-400;
-    border-radius: 1px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+<!-- Teleport先のコンテンツ用（scopedだと適用されない） -->
+<style lang="scss">
+@use '../../assets/scss/variables.scss' as *;
+
+.dropdown-menu__content {
+  position: fixed;
+  z-index: 10000;
+  min-width: 160px;
+  padding: 4px 0;
+  background-color: $white-100;
+  border: 1px solid $black-400;
+  border-radius: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  color: $black-200;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background-color: $white-200;
   }
 
-  &__item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    padding: 8px 16px;
-    border: none;
-    background: none;
-    font-size: 13px;
-    color: $black-200;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-    white-space: nowrap;
+  &--danger {
+    color: #c62828;
 
     &:hover:not(:disabled) {
-      background-color: $white-200;
-    }
-
-    &--danger {
-      color: #c62828;
-
-      &:hover:not(:disabled) {
-        background-color: #fce4ec;
-      }
-    }
-
-    &--disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
+      background-color: #fce4ec;
     }
   }
 
-  &__item-icon {
-    flex-shrink: 0;
-    opacity: 0.7;
+  &--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 }
 
-.dropdown-enter-active,
-.dropdown-leave-active {
+.dropdown-menu__item-icon {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.dropdown-fade-enter-active,
+.dropdown-fade-leave-active {
   transition: all 0.15s ease;
 }
 
-.dropdown-enter-from,
-.dropdown-leave-to {
+.dropdown-fade-enter-from,
+.dropdown-fade-leave-to {
   opacity: 0;
   transform: translateY(-4px);
 }
