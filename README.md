@@ -47,6 +47,7 @@ export default defineNuxtConfig({
 | Overlays | [Modal](#modal) | モーダルダイアログ |
 | | [Toast](#toast) | トースト通知 |
 | | [DropdownMenu](#dropdownmenu) | ドロップダウンメニュー |
+| Icons | KSIcon | Iconifyアイコン表示（`@iconify/vue`のラッパー） |
 
 ---
 
@@ -65,7 +66,7 @@ export default defineNuxtConfig({
 | Prop | 型 | デフォルト | 説明 |
 |---|---|---|---|
 | `type` | `'submit' \| 'cancel'` | `'submit'` | ボタンタイプ |
-| `text` | `string` | typeに基づく自動設定 | ボタンテキスト |
+| `text` | `string` | `''`（未指定時は`type`に応じて`'送信'`/`'キャンセル'`を自動設定） | ボタンテキスト |
 | `disabled` | `boolean` | `false` | 無効化状態 |
 | `loading` | `boolean` | `false` | ローディング状態 |
 | `loadingText` | `string` | `'処理中...'` | ローディング時のテキスト |
@@ -345,12 +346,12 @@ interface SelectOption {
 
 | Prop | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `logoText` | `string` | - | ロゴテキスト |
-| `menuItems` | `SideHeaderMenuItem[]` | - | メニュー項目 |
+| `logoText` | `string` | **必須** | ロゴテキスト |
+| `menuItems` | `SideHeaderMenuItem[]` | **必須** | メニュー項目 |
 | `menuSections` | `SideHeaderMenuSection[]` | - | セクション付きメニュー |
 | `bottomMenuItem` | `SideHeaderMenuItem` | - | ボトムメニュー項目 |
-| `currentPath` | `string` | - | 現在のパス |
-| `isOpen` | `boolean` | - | メニュー開閉状態 |
+| `currentPath` | `string` | - | 現在のパス（未指定時は`useRoute().path`を使用） |
+| `isOpen` | `boolean` | - | メニュー開閉状態（モバイル時のハンバーガーメニュー制御用） |
 
 **型定義**:
 
@@ -395,7 +396,9 @@ interface SideHeaderMenuSection {
     },
   ]"
   :current-path="$route.path"
+  :is-open="isMenuOpen"
   @menu-item-click="handleMenuClick"
+  @close-menu="isMenuOpen = false"
   @section-action-select="handleSectionAction"
 />
 ```
@@ -414,14 +417,22 @@ interface SideHeaderMenuSection {
 
 | Prop | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `sideHeaderProps` | `object` | **必須** | SideHeaderのprops |
-| `topHeaderProps` | `object` | **必須** | TopHeaderのprops |
+| `sideHeaderProps` | `SideHeaderProps` | **必須** | SideHeaderのprops |
+| `topHeaderProps` | `TopHeaderProps` | **必須** | TopHeaderのprops（`showHamburger`は内部で常に`true`に設定される） |
 
 **Events**:
 
 | Event | Payload | 説明 |
 |---|---|---|
-| `menuItemClick` | `string` | SideHeaderのメニュークリックを中継 |
+| `menuItemClick` | `string, Event?` | SideHeaderのメニュークリックを中継 |
+| `closeMenu` | - | メニュー閉じる時 |
+| `sectionActionSelect` | `string, DropdownMenuItem` | セクションの3点リーダーメニュー選択時（第1引数はセクションラベル） |
+
+**Slots**:
+
+| Slot | 説明 |
+|---|---|
+| `default` | メインコンテンツ領域 |
 
 **使用例**:
 
@@ -429,6 +440,8 @@ interface SideHeaderMenuSection {
 <KSDashboardContainer
   :side-header-props="{ logoText: '管理画面', menuItems, menuSections }"
   :top-header-props="{ title: 'ダッシュボード' }"
+  @menu-item-click="handleMenuClick"
+  @section-action-select="handleSectionAction"
 >
   <div>ページ内容</div>
 </KSDashboardContainer>
@@ -622,7 +635,7 @@ interface DataTableColumn {
 ```typescript
 interface BreadcrumbItem {
   label: string
-  to?: string  // リンク先（未指定の場合はテキストのみ）
+  to?: string  // リンク先（未指定または最後のアイテムの場合はテキストのみ表示）
 }
 ```
 
@@ -630,7 +643,7 @@ interface BreadcrumbItem {
 
 | Event | Payload | 説明 |
 |---|---|---|
-| `navigate` | `BreadcrumbItem, number` | リンククリック時 |
+| `navigate` | `BreadcrumbItem, number` | リンククリック時（最後のアイテムでは発火しない） |
 
 **使用例**:
 
@@ -716,7 +729,7 @@ interface TabItem {
 |---|---|---|---|
 | `open` | `boolean` | **必須** | 表示状態 |
 | `title` | `string` | - | タイトル |
-| `width` | `string` | `'480px'` | モーダル幅 |
+| `width` | `string` | `'480px'` | モーダルの最大幅（`max-width`として適用） |
 | `closeOnOverlay` | `boolean` | `true` | 背景クリックで閉じるか |
 
 **Events**:
@@ -751,7 +764,7 @@ interface TabItem {
 
 **コンポーネント名**: `KSToast`
 **ファイルパス**: `src/runtime/components/overlays/Toast.vue`
-**機能概要**: トースト通知。自動非表示、ホバーでタイマー停止に対応。
+**機能概要**: トースト通知。自動非表示、ホバーでタイマー停止に対応（ホバー解除時はタイマーがリセットされ`duration`の最初からカウントし直す）。
 
 **Props**:
 
@@ -785,7 +798,7 @@ interface TabItem {
 
 **コンポーネント名**: `KSDropdownMenu`
 **ファイルパス**: `src/runtime/components/overlays/DropdownMenu.vue`
-**機能概要**: ドロップダウンメニュー。テーブル行のアクション等に使用。クリック外で閉じる。
+**機能概要**: ドロップダウンメニュー。テーブル行のアクション等に使用。`Teleport`と`position: fixed`による配置のため、`overflow: hidden`な親要素内でも見切れない。スクロール時はトリガーに追従する。同時に複数開かず、別のメニューを開くと既存のものは自動で閉じる。クリック外でも閉じる。
 
 **Props**:
 
