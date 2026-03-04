@@ -864,15 +864,25 @@ import type {
 
 ## アイコンの使用
 
-このライブラリは`@iconify/vue`を含んでおり、`KSIcon`コンポーネントとしてグローバルに利用できます。
+このライブラリは`@iconify/vue`の`Icon`コンポーネントを`KSIcon`としてグローバル登録しています。propsは`@iconify/vue`の`Icon`と同一です（`name`/`size`ではなく`icon`/`width`/`height`を使用）。
+
+**主なProps**:
+
+| Prop | 型 | 説明 |
+|---|---|---|
+| `icon` | `string` | アイコン名（例: `mdi:home`） |
+| `width` | `string \| number` | アイコンの幅 |
+| `height` | `string \| number` | アイコンの高さ |
+
+`width`のみ指定した場合は`height`も同じ値になります（逆も同様）。
 
 ```vue
 <KSIcon icon="mdi:home" />
-<KSIcon icon="heroicons:user-solid" />
-<KSIcon icon="mdi:home" style="font-size: 24px; color: #333;" />
+<KSIcon icon="heroicons:user-solid" width="24" height="24" />
+<KSIcon icon="mdi:home" width="32" />
 ```
 
-利用可能なアイコンは[Iconify](https://iconify.design/)で検索できます。
+利用可能なアイコンは[Iconify](https://iconify.design/)で検索できます。詳細なpropsは[@iconify/vueのドキュメント](https://iconify.design/docs/icon-components/vue/)を参照してください。
 
 ## 技術仕様
 
