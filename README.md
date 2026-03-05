@@ -360,6 +360,7 @@ interface SideHeaderMenuItem {
   path: string
   label: string
   icon: string
+  external?: boolean  // trueの場合、NuxtLinkの代わりに<a target="_blank">で外部リンクとして開く
 }
 
 interface SideHeaderMenuSection {
@@ -382,7 +383,10 @@ interface SideHeaderMenuSection {
 ```vue
 <KSSideHeader
   logo-text="管理画面"
-  :menu-items="menuItems"
+  :menu-items="[
+    { path: '/dashboard', label: 'ダッシュボード', icon: 'mdi:view-dashboard' },
+    { path: 'https://example.com/docs', label: 'ドキュメント', icon: 'mdi:open-in-new', external: true },
+  ]"
   :menu-sections="[
     {
       label: 'コンテンツ',

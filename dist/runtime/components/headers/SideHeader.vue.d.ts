@@ -3,6 +3,7 @@ export interface SideHeaderMenuItem {
     path: string;
     label: string;
     icon: string;
+    external?: boolean;
 }
 export interface SideHeaderMenuSection {
     /** セクションラベル */

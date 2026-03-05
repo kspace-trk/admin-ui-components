@@ -48,7 +48,22 @@ const handleSectionActionSelect = (sectionLabel, item) => {
             v-for="item in menuItems"
             :key="item.path"
           >
+            <a
+              v-if="item.external"
+              :href="item.path"
+              target="_blank"
+              rel="noopener noreferrer"
+              :class="['menu-item']"
+              @click="closeMenu"
+            >
+              <Icon
+                :icon="item.icon"
+                class="menu-item-icon"
+              />
+              <p>{{ item.label }}</p>
+            </a>
             <NuxtLink
+              v-else
               :href="item.path"
               :class="['menu-item', { active: activePath === item.path }]"
               @click="handleMenuItemClick(item.path, $event)"
@@ -82,7 +97,22 @@ const handleSectionActionSelect = (sectionLabel, item) => {
               v-for="item in section.items"
               :key="item.path"
             >
+              <a
+                v-if="item.external"
+                :href="item.path"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="['menu-item']"
+                @click="closeMenu"
+              >
+                <Icon
+                  :icon="item.icon"
+                  class="menu-item-icon"
+                />
+                <p>{{ item.label }}</p>
+              </a>
               <NuxtLink
+                v-else
                 :href="item.path"
                 :class="['menu-item', { active: activePath === item.path }]"
                 @click="handleMenuItemClick(item.path, $event)"
@@ -101,7 +131,22 @@ const handleSectionActionSelect = (sectionLabel, item) => {
         v-if="bottomMenuItem"
         class="bottom-wrapper"
       >
+        <a
+          v-if="bottomMenuItem.external"
+          :href="bottomMenuItem.path"
+          target="_blank"
+          rel="noopener noreferrer"
+          :class="['menu-item']"
+          @click="closeMenu"
+        >
+          <Icon
+            :icon="bottomMenuItem.icon"
+            class="menu-item-icon"
+          />
+          <p>{{ bottomMenuItem.label }}</p>
+        </a>
         <NuxtLink
+          v-else
           :to="bottomMenuItem.path"
           :class="['menu-item', { active: activePath === bottomMenuItem.path }]"
           @click="handleMenuItemClick(bottomMenuItem.path, $event)"
