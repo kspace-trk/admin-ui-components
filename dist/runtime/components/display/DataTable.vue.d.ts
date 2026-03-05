@@ -52,7 +52,14 @@ declare const __VLS_component: import("vue").DefineComponent<Props, {}, {}, {}, 
         oldIndex: number;
         newIndex: number;
     }) => any) | undefined;
-}>, {}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+}>, {
+    loading: boolean;
+    emptyMessage: string;
+    sortOrder: "asc" | "desc";
+    clickable: boolean;
+    draggable: boolean;
+    rowKey: string;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
 export default _default;
 type __VLS_WithSlots<T, S> = T & {

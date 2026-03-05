@@ -67,6 +67,12 @@ const handleSort = (key: string) => {
   }
 }
 
+const handleReorder = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+  const item = tableRows.value.splice(oldIndex, 1)[0]
+  tableRows.value.splice(newIndex, 0, item)
+  console.log('並び替え:', oldIndex, '→', newIndex, tableRows.value.map(r => r.id))
+}
+
 const statusVariant = (status: string) => {
   switch (status) {
     case 'published': return 'success'
@@ -323,6 +329,27 @@ const handleFileError = (message: string) => {
             />
           </template>
         </KSDataTable>
+
+        <div style="margin-top: 16px;">
+          <h3 style="font-size: 13px; color: #666; margin-bottom: 8px;">
+            ドラッグ並び替え
+          </h3>
+          <KSDataTable
+            :columns="tableColumns.slice(0, 4)"
+            :rows="tableRows"
+            :draggable="true"
+            row-key="id"
+            :clickable="false"
+            @reorder="handleReorder"
+          >
+            <template #cell-status="{ value }">
+              <KSBadge
+                :text="statusLabel(value as string)"
+                :variant="statusVariant(value as string)"
+              />
+            </template>
+          </KSDataTable>
+        </div>
 
         <div style="margin-top: 16px;">
           <h3 style="font-size: 13px; color: #666; margin-bottom: 8px;">

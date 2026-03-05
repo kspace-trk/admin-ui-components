@@ -476,7 +476,7 @@ interface SideHeaderMenuSection {
 
 **コンポーネント名**: `KSDataTable`
 **ファイルパス**: `src/runtime/components/display/DataTable.vue`
-**機能概要**: データ一覧表示テーブル。ソート、ローディング状態、セルのslotカスタマイズに対応。
+**機能概要**: データ一覧表示テーブル。ソート、ローディング状態、セルのslotカスタマイズ、ドラッグ&ドロップによる行の並び替えに対応。
 
 **Props**:
 
@@ -488,6 +488,9 @@ interface SideHeaderMenuSection {
 | `emptyMessage` | `string` | `'データがありません'` | データなし時のメッセージ |
 | `sortKey` | `string` | - | ソート中のカラムキー |
 | `sortOrder` | `'asc' \| 'desc'` | `'asc'` | ソート方向 |
+| `clickable` | `boolean` | `true` | 行クリックを有効にする（cursor: pointer とホバー効果） |
+| `draggable` | `boolean` | `false` | ドラッグ並び替えを有効にする |
+| `rowKey` | `string` | `'id'` | 各行を識別するキー（ドラッグ後の順序追跡用） |
 
 **型定義**:
 
@@ -507,6 +510,7 @@ interface DataTableColumn {
 |---|---|---|
 | `sort` | `string` | ソート可能カラムのヘッダークリック時 |
 | `rowClick` | `Record<string, unknown>, number` | 行クリック時（行データとインデックス） |
+| `reorder` | `{ oldIndex: number, newIndex: number }` | ドラッグによる行の並び替え完了時 |
 
 **Slots**:
 
@@ -534,6 +538,27 @@ interface DataTableColumn {
     <KSBadge :text="statusLabel(value)" :variant="statusVariant(value)" />
   </template>
 </KSDataTable>
+```
+
+**ドラッグ並び替えの使用例**:
+
+```vue
+<KSDataTable
+  :columns="columns"
+  :rows="items"
+  :draggable="true"
+  row-key="id"
+  @reorder="handleReorder"
+>
+  <!-- 既存のslots -->
+</KSDataTable>
+
+<script setup>
+const handleReorder = ({ oldIndex, newIndex }) => {
+  const item = items.value.splice(oldIndex, 1)[0]
+  items.value.splice(newIndex, 0, item)
+}
+</script>
 ```
 
 ---
@@ -891,6 +916,7 @@ import type {
 - Vue 3
 - Nuxt 3
 - @iconify/vue（アイコン表示）
+- @vueuse/integrations + sortablejs（DataTableのドラッグ並び替え）
 - Sass/SCSS（スタイリング）
 
 ### デザイントークン

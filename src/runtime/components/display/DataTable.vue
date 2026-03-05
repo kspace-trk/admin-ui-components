@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, toRef, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useSortable } from '@vueuse/integrations/useSortable'
 
@@ -37,19 +37,14 @@ interface Props {
   rowKey?: string
 }
 
-const props = defineProps<Props>()
-
-const {
-  columns,
-  rows,
-  loading = false,
-  emptyMessage = 'データがありません',
-  sortKey,
-  sortOrder = 'asc',
-  clickable = true,
-  draggable = false,
-  rowKey = 'id',
-} = props
+const props = withDefaults(defineProps<Props>(), {
+  loading: false,
+  emptyMessage: 'データがありません',
+  sortOrder: 'asc',
+  clickable: true,
+  draggable: false,
+  rowKey: 'id',
+})
 
 const emit = defineEmits<{
   sort: [key: string]
@@ -58,8 +53,9 @@ const emit = defineEmits<{
 }>()
 
 const tbodyRef = ref<HTMLElement | null>(null)
+const rowsRef = toRef(props, 'rows')
 
-const { start, stop } = useSortable(tbodyRef, rows, {
+const { start, stop } = useSortable(tbodyRef, rowsRef, {
   handle: '.data-table__drag-handle',
   animation: 150,
   ghostClass: 'data-table__row--ghost',
@@ -94,11 +90,11 @@ const cellStyle = (column: DataTableColumn) => {
 }
 
 const totalColumns = computed(() => {
-  return columns.length + (props.draggable ? 1 : 0)
+  return props.columns.length + (props.draggable ? 1 : 0)
 })
 
 const sortIcon = computed(() => {
-  return sortOrder === 'asc' ? '▲' : '▼'
+  return props.sortOrder === 'asc' ? '▲' : '▼'
 })
 </script>
 
@@ -108,9 +104,9 @@ const sortIcon = computed(() => {
       <table class="data-table__table">
         <thead>
           <tr>
-            <th v-if="draggable" class="data-table__th data-table__th--drag" style="width: 40px;" />
+            <th v-if="props.draggable" class="data-table__th data-table__th--drag" style="width: 40px;" />
             <th
-              v-for="column in columns"
+              v-for="column in props.columns"
               :key="column.key"
               :style="cellStyle(column)"
               class="data-table__th"
@@ -120,7 +116,7 @@ const sortIcon = computed(() => {
               <span class="data-table__th-content">
                 {{ column.label }}
                 <span
-                  v-if="column.sortable && sortKey === column.key"
+                  v-if="column.sortable && props.sortKey === column.key"
                   class="data-table__sort-icon"
                 >{{ sortIcon }}</span>
               </span>
@@ -129,7 +125,7 @@ const sortIcon = computed(() => {
         </thead>
         <tbody ref="tbodyRef">
           <tr
-            v-if="loading"
+            v-if="props.loading"
             class="data-table__loading-row"
           >
             <td :colspan="totalColumns">
@@ -140,30 +136,30 @@ const sortIcon = computed(() => {
             </td>
           </tr>
           <tr
-            v-else-if="rows.length === 0"
+            v-else-if="props.rows.length === 0"
             class="data-table__empty-row"
           >
             <td :colspan="totalColumns">
               <div class="data-table__empty">
-                {{ emptyMessage }}
+                {{ props.emptyMessage }}
               </div>
             </td>
           </tr>
           <template v-else>
             <tr
-              v-for="(row, index) in rows"
-              :key="rowKey ? (row[rowKey] as string | number) : index"
+              v-for="(row, index) in props.rows"
+              :key="props.rowKey ? (row[props.rowKey] as string | number) : index"
               class="data-table__row"
-              :class="{ 'data-table__row--clickable': clickable }"
-              @click="clickable ? emit('rowClick', row, index) : undefined"
+              :class="{ 'data-table__row--clickable': props.clickable }"
+              @click="props.clickable ? emit('rowClick', row, index) : undefined"
             >
-              <td v-if="draggable" class="data-table__td data-table__td--drag">
+              <td v-if="props.draggable" class="data-table__td data-table__td--drag">
                 <span class="data-table__drag-handle">
                   <Icon icon="mdi:drag" width="18" height="18" />
                 </span>
               </td>
               <td
-                v-for="column in columns"
+                v-for="column in props.columns"
                 :key="column.key"
                 :style="cellStyle(column)"
                 class="data-table__td"
