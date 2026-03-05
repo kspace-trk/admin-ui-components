@@ -5,7 +5,9 @@
       "Bash(npx eslint . 2>&1)",
       "Bash(npm run prepack 2>&1 | tail -5)",
       "Bash(npx @anthropic-ai/claude-code-mcp 2>/dev/null; which playwright 2>/dev/null; npx playwright --version 2>/dev/null)",
-      "mcp__playwright__browser_resize"
+      "mcp__playwright__browser_resize",
+      "WebFetch(domain:vueuse.org)",
+      "Bash(npm install @vueuse/integrations @vueuse/core 2>&1 | tail -5)"
     ]
   },
   "enabledMcpjsonServers": [

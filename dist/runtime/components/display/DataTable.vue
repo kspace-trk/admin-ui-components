@@ -1,5 +1,18 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
+import { Icon } from "@iconify/vue";
+import { useSortable } from "@vueuse/integrations/useSortable";
+const props = defineProps({
+  columns: { type: Array, required: true },
+  rows: { type: Array, required: true },
+  loading: { type: Boolean, required: false },
+  emptyMessage: { type: String, required: false },
+  sortKey: { type: String, required: false },
+  sortOrder: { type: String, required: false },
+  clickable: { type: Boolean, required: false },
+  draggable: { type: Boolean, required: false },
+  rowKey: { type: String, required: false }
+});
 const {
   columns,
   rows,
@@ -7,23 +20,45 @@ const {
   emptyMessage = "\u30C7\u30FC\u30BF\u304C\u3042\u308A\u307E\u305B\u3093",
   sortKey,
   sortOrder = "asc",
-  clickable = true
-} = defineProps({
-  columns: { type: Array, required: true },
-  rows: { type: Array, required: true },
-  loading: { type: Boolean, required: false },
-  emptyMessage: { type: String, required: false },
-  sortKey: { type: String, required: false },
-  sortOrder: { type: String, required: false },
-  clickable: { type: Boolean, required: false }
+  clickable = true,
+  draggable = false,
+  rowKey = "id"
+} = props;
+const emit = defineEmits(["sort", "rowClick", "reorder"]);
+const tbodyRef = ref(null);
+const { start, stop } = useSortable(tbodyRef, rows, {
+  handle: ".data-table__drag-handle",
+  animation: 150,
+  ghostClass: "data-table__row--ghost",
+  chosenClass: "data-table__row--chosen",
+  onEnd: (evt) => {
+    if (evt.oldIndex !== void 0 && evt.newIndex !== void 0) {
+      emit("reorder", {
+        oldIndex: evt.oldIndex,
+        newIndex: evt.newIndex
+      });
+    }
+  }
 });
-const emit = defineEmits(["sort", "rowClick"]);
+if (!props.draggable) {
+  stop();
+}
+watch(() => props.draggable, (val) => {
+  if (val) {
+    start();
+  } else {
+    stop();
+  }
+});
 const cellStyle = (column) => {
   const style = {};
   if (column.width) style.width = column.width;
   if (column.align) style.textAlign = column.align;
   return style;
 };
+const totalColumns = computed(() => {
+  return columns.length + (props.draggable ? 1 : 0);
+});
 const sortIcon = computed(() => {
   return sortOrder === "asc" ? "\u25B2" : "\u25BC";
 });
@@ -35,6 +70,7 @@ const sortIcon = computed(() => {
       <table class="data-table__table">
         <thead>
           <tr>
+            <th v-if="draggable" class="data-table__th data-table__th--drag" style="width: 40px;" />
             <th
               v-for="column in columns"
               :key="column.key"
@@ -53,12 +89,12 @@ const sortIcon = computed(() => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody ref="tbodyRef">
           <tr
             v-if="loading"
             class="data-table__loading-row"
           >
-            <td :colspan="columns.length">
+            <td :colspan="totalColumns">
               <div class="data-table__loading">
                 <span class="data-table__spinner" />
                 読み込み中...
@@ -69,7 +105,7 @@ const sortIcon = computed(() => {
             v-else-if="rows.length === 0"
             class="data-table__empty-row"
           >
-            <td :colspan="columns.length">
+            <td :colspan="totalColumns">
               <div class="data-table__empty">
                 {{ emptyMessage }}
               </div>
@@ -78,11 +114,16 @@ const sortIcon = computed(() => {
           <template v-else>
             <tr
               v-for="(row, index) in rows"
-              :key="index"
+              :key="rowKey ? row[rowKey] : index"
               class="data-table__row"
               :class="{ 'data-table__row--clickable': clickable }"
               @click="clickable ? emit('rowClick', row, index) : void 0"
             >
+              <td v-if="draggable" class="data-table__td data-table__td--drag">
+                <span class="data-table__drag-handle">
+                  <Icon icon="mdi:drag" width="18" height="18" />
+                </span>
+              </td>
               <td
                 v-for="column in columns"
                 :key="column.key"
@@ -156,8 +197,30 @@ const sortIcon = computed(() => {
 .data-table__row--clickable:hover {
   background-color: rgba(54, 49, 57, 0.02);
 }
+.data-table__row--ghost {
+  opacity: 0.4;
+  background: #f0f0ff;
+}
+.data-table__row--chosen {
+  background: #fafafa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 .data-table__row:not(:last-child) {
   border-bottom: 1px solid #E0E0E0;
+}
+.data-table__th--drag, .data-table__td--drag {
+  width: 40px;
+  text-align: center;
+  padding: 0 4px;
+}
+.data-table__drag-handle {
+  cursor: grab;
+  color: #999;
+  display: inline-flex;
+  align-items: center;
+}
+.data-table__drag-handle:active {
+  cursor: grabbing;
 }
 .data-table__td {
   padding: 12px 16px;

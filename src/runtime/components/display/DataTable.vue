@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { Icon } from '@iconify/vue'
+import { useSortable } from '@vueuse/integrations/useSortable'
 
 export interface DataTableColumn {
   /** カラムのキー */
@@ -29,7 +31,13 @@ interface Props {
   sortOrder?: 'asc' | 'desc'
   /** 行クリックを有効にする（cursor: pointer とホバー効果） */
   clickable?: boolean
+  /** ドラッグ並び替えを有効にする */
+  draggable?: boolean
+  /** 各行を識別するキー（ドラッグ後の順序追跡用） */
+  rowKey?: string
 }
+
+const props = defineProps<Props>()
 
 const {
   columns,
@@ -39,12 +47,44 @@ const {
   sortKey,
   sortOrder = 'asc',
   clickable = true,
-} = defineProps<Props>()
+  draggable = false,
+  rowKey = 'id',
+} = props
 
 const emit = defineEmits<{
   sort: [key: string]
   rowClick: [row: Record<string, unknown>, index: number]
+  reorder: [payload: { oldIndex: number; newIndex: number }]
 }>()
+
+const tbodyRef = ref<HTMLElement | null>(null)
+
+const { start, stop } = useSortable(tbodyRef, rows, {
+  handle: '.data-table__drag-handle',
+  animation: 150,
+  ghostClass: 'data-table__row--ghost',
+  chosenClass: 'data-table__row--chosen',
+  onEnd: (evt) => {
+    if (evt.oldIndex !== undefined && evt.newIndex !== undefined) {
+      emit('reorder', {
+        oldIndex: evt.oldIndex,
+        newIndex: evt.newIndex,
+      })
+    }
+  },
+})
+
+if (!props.draggable) {
+  stop()
+}
+
+watch(() => props.draggable, (val) => {
+  if (val) {
+    start()
+  } else {
+    stop()
+  }
+})
 
 const cellStyle = (column: DataTableColumn) => {
   const style: Record<string, string> = {}
@@ -52,6 +92,10 @@ const cellStyle = (column: DataTableColumn) => {
   if (column.align) style.textAlign = column.align
   return style
 }
+
+const totalColumns = computed(() => {
+  return columns.length + (props.draggable ? 1 : 0)
+})
 
 const sortIcon = computed(() => {
   return sortOrder === 'asc' ? '▲' : '▼'
@@ -64,6 +108,7 @@ const sortIcon = computed(() => {
       <table class="data-table__table">
         <thead>
           <tr>
+            <th v-if="draggable" class="data-table__th data-table__th--drag" style="width: 40px;" />
             <th
               v-for="column in columns"
               :key="column.key"
@@ -82,12 +127,12 @@ const sortIcon = computed(() => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody ref="tbodyRef">
           <tr
             v-if="loading"
             class="data-table__loading-row"
           >
-            <td :colspan="columns.length">
+            <td :colspan="totalColumns">
               <div class="data-table__loading">
                 <span class="data-table__spinner" />
                 読み込み中...
@@ -98,7 +143,7 @@ const sortIcon = computed(() => {
             v-else-if="rows.length === 0"
             class="data-table__empty-row"
           >
-            <td :colspan="columns.length">
+            <td :colspan="totalColumns">
               <div class="data-table__empty">
                 {{ emptyMessage }}
               </div>
@@ -107,11 +152,16 @@ const sortIcon = computed(() => {
           <template v-else>
             <tr
               v-for="(row, index) in rows"
-              :key="index"
+              :key="rowKey ? (row[rowKey] as string | number) : index"
               class="data-table__row"
               :class="{ 'data-table__row--clickable': clickable }"
               @click="clickable ? emit('rowClick', row, index) : undefined"
             >
+              <td v-if="draggable" class="data-table__td data-table__td--drag">
+                <span class="data-table__drag-handle">
+                  <Icon icon="mdi:drag" width="18" height="18" />
+                </span>
+              </td>
               <td
                 v-for="column in columns"
                 :key="column.key"
@@ -197,8 +247,36 @@ const sortIcon = computed(() => {
       }
     }
 
+    &--ghost {
+      opacity: 0.4;
+      background: #f0f0ff;
+    }
+
+    &--chosen {
+      background: #fafafa;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
     &:not(:last-child) {
       border-bottom: 1px solid $black-400;
+    }
+  }
+
+  &__th--drag,
+  &__td--drag {
+    width: 40px;
+    text-align: center;
+    padding: 0 4px;
+  }
+
+  &__drag-handle {
+    cursor: grab;
+    color: #999;
+    display: inline-flex;
+    align-items: center;
+
+    &:active {
+      cursor: grabbing;
     }
   }
 
