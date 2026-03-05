@@ -27,6 +27,8 @@ interface Props {
   sortKey?: string
   /** ソート方向 */
   sortOrder?: 'asc' | 'desc'
+  /** 行クリックを有効にする（cursor: pointer とホバー効果） */
+  clickable?: boolean
 }
 
 const {
@@ -36,6 +38,7 @@ const {
   emptyMessage = 'データがありません',
   sortKey,
   sortOrder = 'asc',
+  clickable = true,
 } = defineProps<Props>()
 
 const emit = defineEmits<{
@@ -106,7 +109,8 @@ const sortIcon = computed(() => {
               v-for="(row, index) in rows"
               :key="index"
               class="data-table__row"
-              @click="emit('rowClick', row, index)"
+              :class="{ 'data-table__row--clickable': clickable }"
+              @click="clickable ? emit('rowClick', row, index) : undefined"
             >
               <td
                 v-for="column in columns"
@@ -183,11 +187,14 @@ const sortIcon = computed(() => {
   }
 
   &__row {
-    cursor: pointer;
     transition: background-color 0.15s ease;
 
-    &:hover {
-      background-color: rgba($black-100, 0.02);
+    &--clickable {
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba($black-100, 0.02);
+      }
     }
 
     &:not(:last-child) {
