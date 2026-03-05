@@ -23,6 +23,8 @@ interface Props {
     sortKey?: string;
     /** ソート方向 */
     sortOrder?: 'asc' | 'desc';
+    /** 行クリックを有効にする（cursor: pointer とホバー効果） */
+    clickable?: boolean;
 }
 declare var __VLS_2: `cell-${string}`, __VLS_3: {
     row: Record<string, unknown>;

@@ -6,14 +6,16 @@ const {
   loading = false,
   emptyMessage = "\u30C7\u30FC\u30BF\u304C\u3042\u308A\u307E\u305B\u3093",
   sortKey,
-  sortOrder = "asc"
+  sortOrder = "asc",
+  clickable = true
 } = defineProps({
   columns: { type: Array, required: true },
   rows: { type: Array, required: true },
   loading: { type: Boolean, required: false },
   emptyMessage: { type: String, required: false },
   sortKey: { type: String, required: false },
-  sortOrder: { type: String, required: false }
+  sortOrder: { type: String, required: false },
+  clickable: { type: Boolean, required: false }
 });
 const emit = defineEmits(["sort", "rowClick"]);
 const cellStyle = (column) => {
@@ -78,7 +80,8 @@ const sortIcon = computed(() => {
               v-for="(row, index) in rows"
               :key="index"
               class="data-table__row"
-              @click="emit('rowClick', row, index)"
+              :class="{ 'data-table__row--clickable': clickable }"
+              @click="clickable ? emit('rowClick', row, index) : void 0"
             >
               <td
                 v-for="column in columns"
@@ -145,10 +148,12 @@ const sortIcon = computed(() => {
   color: #4B464E;
 }
 .data-table__row {
-  cursor: pointer;
   transition: background-color 0.15s ease;
 }
-.data-table__row:hover {
+.data-table__row--clickable {
+  cursor: pointer;
+}
+.data-table__row--clickable:hover {
   background-color: rgba(54, 49, 57, 0.02);
 }
 .data-table__row:not(:last-child) {
