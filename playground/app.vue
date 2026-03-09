@@ -67,7 +67,7 @@ const handleSort = (key: string) => {
   }
 }
 
-const handleReorder = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+const handleReorder = ({ oldIndex, newIndex }: { oldIndex: number, newIndex: number }) => {
   const item = tableRows.value.splice(oldIndex, 1)[0]
   tableRows.value.splice(newIndex, 0, item)
   console.log('並び替え:', oldIndex, '→', newIndex, tableRows.value.map(r => r.id))

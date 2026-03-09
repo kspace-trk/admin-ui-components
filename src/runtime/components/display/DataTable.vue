@@ -49,7 +49,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   sort: [key: string]
   rowClick: [row: Record<string, unknown>, index: number]
-  reorder: [payload: { oldIndex: number; newIndex: number }]
+  reorder: [payload: { oldIndex: number, newIndex: number }]
 }>()
 
 const tbodyRef = ref<HTMLElement | null>(null)
@@ -77,7 +77,8 @@ if (!props.draggable) {
 watch(() => props.draggable, (val) => {
   if (val) {
     start()
-  } else {
+  }
+  else {
     stop()
   }
 })
@@ -104,7 +105,11 @@ const sortIcon = computed(() => {
       <table class="data-table__table">
         <thead>
           <tr>
-            <th v-if="props.draggable" class="data-table__th data-table__th--drag" style="width: 40px;" />
+            <th
+              v-if="props.draggable"
+              class="data-table__th data-table__th--drag"
+              style="width: 40px;"
+            />
             <th
               v-for="column in props.columns"
               :key="column.key"
@@ -153,9 +158,16 @@ const sortIcon = computed(() => {
               :class="{ 'data-table__row--clickable': props.clickable }"
               @click="props.clickable ? emit('rowClick', row, index) : undefined"
             >
-              <td v-if="props.draggable" class="data-table__td data-table__td--drag">
+              <td
+                v-if="props.draggable"
+                class="data-table__td data-table__td--drag"
+              >
                 <span class="data-table__drag-handle">
-                  <Icon icon="mdi:drag" width="18" height="18" />
+                  <Icon
+                    icon="mdi:drag"
+                    width="18"
+                    height="18"
+                  />
                 </span>
               </td>
               <td

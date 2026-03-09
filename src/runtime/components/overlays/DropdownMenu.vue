@@ -62,7 +62,8 @@ const toggle = async (): Promise<void> => {
     await nextTick()
     updatePosition()
     window.addEventListener('scroll', updatePosition, true)
-  } else {
+  }
+  else {
     window.removeEventListener('scroll', updatePosition, true)
   }
 }
