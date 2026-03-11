@@ -38,10 +38,24 @@ const contentStyle = ref<Record<string, string>>({})
 const updatePosition = (): void => {
   if (!triggerRef.value) return
   const rect = triggerRef.value.getBoundingClientRect()
-  contentStyle.value = {
-    top: `${rect.bottom + 4}px`,
+  const viewportHeight = window.innerHeight
+  const contentEl = contentRef.value
+  const menuHeight = contentEl ? contentEl.offsetHeight : 0
+  const spaceBelow = viewportHeight - rect.bottom
+  const spaceAbove = rect.top
+
+  const style: Record<string, string> = {
     right: `${document.documentElement.clientWidth - rect.right}px`,
   }
+
+  if (spaceBelow < menuHeight + 4 && spaceAbove > spaceBelow) {
+    style.bottom = `${viewportHeight - rect.top + 4}px`
+  }
+  else {
+    style.top = `${rect.bottom + 4}px`
+  }
+
+  contentStyle.value = style
 }
 
 const close = (): void => {
