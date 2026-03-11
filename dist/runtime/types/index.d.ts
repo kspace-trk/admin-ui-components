@@ -1,0 +1,53 @@
+export type { SideHeaderMenuItem, SideHeaderMenuSection } from '../components/headers/SideHeader.vue.js';
+export type { SelectOption } from '../components/forms/SelectField.vue.js';
+export type { DataTableColumn } from '../components/display/DataTable.vue.js';
+export type { BreadcrumbItem } from '../components/navigation/Breadcrumb.vue.js';
+export type { TabItem } from '../components/navigation/Tabs.vue.js';
+export type { DropdownMenuItem } from '../components/overlays/DropdownMenu.vue.js';
+declare module '@vue/runtime-core' {
+    interface GlobalComponents {
+        MainButton: typeof import('../components/buttons/MainButton.vue')['default'];
+        InputField: typeof import('../components/forms/InputField.vue')['default'];
+        TextareaField: typeof import('../components/forms/TextareaField.vue')['default'];
+        SelectField: typeof import('../components/forms/SelectField.vue')['default'];
+        Checkbox: typeof import('../components/forms/Checkbox.vue')['default'];
+        ToggleSwitch: typeof import('../components/forms/ToggleSwitch.vue')['default'];
+        SearchField: typeof import('../components/forms/SearchField.vue')['default'];
+        FileUpload: typeof import('../components/forms/FileUpload.vue')['default'];
+        TopHeader: typeof import('../components/headers/TopHeader.vue')['default'];
+        SideHeader: typeof import('../components/headers/SideHeader.vue')['default'];
+        TextItem: typeof import('../components/panels/TextItem.vue')['default'];
+        SectionTextWithLine: typeof import('../components/sections/SectionTextWithLine.vue')['default'];
+        DashboardContainer: typeof import('../components/layouts/DashboardContainer.vue')['default'];
+        Badge: typeof import('../components/display/Badge.vue')['default'];
+        DataTable: typeof import('../components/display/DataTable.vue')['default'];
+        Pagination: typeof import('../components/navigation/Pagination.vue')['default'];
+        Breadcrumb: typeof import('../components/navigation/Breadcrumb.vue')['default'];
+        Tabs: typeof import('../components/navigation/Tabs.vue')['default'];
+        Modal: typeof import('../components/overlays/Modal.vue')['default'];
+        Toast: typeof import('../components/overlays/Toast.vue')['default'];
+        DropdownMenu: typeof import('../components/overlays/DropdownMenu.vue')['default'];
+        KSMainButton: typeof import('../components/buttons/MainButton.vue')['default'];
+        KSInputField: typeof import('../components/forms/InputField.vue')['default'];
+        KSTextareaField: typeof import('../components/forms/TextareaField.vue')['default'];
+        KSSelectField: typeof import('../components/forms/SelectField.vue')['default'];
+        KSCheckbox: typeof import('../components/forms/Checkbox.vue')['default'];
+        KSToggleSwitch: typeof import('../components/forms/ToggleSwitch.vue')['default'];
+        KSSearchField: typeof import('../components/forms/SearchField.vue')['default'];
+        KSFileUpload: typeof import('../components/forms/FileUpload.vue')['default'];
+        KSTopHeader: typeof import('../components/headers/TopHeader.vue')['default'];
+        KSSideHeader: typeof import('../components/headers/SideHeader.vue')['default'];
+        KSTextItem: typeof import('../components/panels/TextItem.vue')['default'];
+        KSSectionTextWithLine: typeof import('../components/sections/SectionTextWithLine.vue')['default'];
+        KSDashboardContainer: typeof import('../components/layouts/DashboardContainer.vue')['default'];
+        KSBadge: typeof import('../components/display/Badge.vue')['default'];
+        KSDataTable: typeof import('../components/display/DataTable.vue')['default'];
+        KSPagination: typeof import('../components/navigation/Pagination.vue')['default'];
+        KSBreadcrumb: typeof import('../components/navigation/Breadcrumb.vue')['default'];
+        KSTabs: typeof import('../components/navigation/Tabs.vue')['default'];
+        KSModal: typeof import('../components/overlays/Modal.vue')['default'];
+        KSToast: typeof import('../components/overlays/Toast.vue')['default'];
+        KSDropdownMenu: typeof import('../components/overlays/DropdownMenu.vue')['default'];
+        KSIcon: typeof import('@iconify/vue')['Icon'];
+    }
+}
