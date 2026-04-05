@@ -29,6 +29,8 @@ interface Props {
     draggable?: boolean;
     /** 各行を識別するキー（ドラッグ後の順序追跡用） */
     rowKey?: string;
+    /** 各行の高さ（例: '48px', '3rem'） */
+    rowHeight?: string;
 }
 declare var __VLS_7: `cell-${string}`, __VLS_8: {
     row: Record<string, unknown>;

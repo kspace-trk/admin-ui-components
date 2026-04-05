@@ -11,7 +11,8 @@ const props = defineProps({
   sortOrder: { type: String, required: false, default: "asc" },
   clickable: { type: Boolean, required: false, default: true },
   draggable: { type: Boolean, required: false, default: false },
-  rowKey: { type: String, required: false, default: "id" }
+  rowKey: { type: String, required: false, default: "id" },
+  rowHeight: { type: String, required: false }
 });
 const emit = defineEmits(["sort", "rowClick", "reorder"]);
 const tbodyRef = ref(null);
@@ -39,6 +40,10 @@ watch(() => props.draggable, (val) => {
   } else {
     stop();
   }
+});
+const rowStyle = computed(() => {
+  if (!props.rowHeight) return {};
+  return { height: props.rowHeight };
 });
 const cellStyle = (column) => {
   const style = {};
@@ -111,6 +116,7 @@ const sortIcon = computed(() => {
               :key="props.rowKey ? row[props.rowKey] : index"
               class="data-table__row"
               :class="{ 'data-table__row--clickable': props.clickable }"
+              :style="rowStyle"
               @click="props.clickable ? emit('rowClick', row, index) : void 0"
             >
               <td

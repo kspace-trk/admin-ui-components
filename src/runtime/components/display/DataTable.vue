@@ -35,6 +35,8 @@ interface Props {
   draggable?: boolean
   /** 各行を識別するキー（ドラッグ後の順序追跡用） */
   rowKey?: string
+  /** 各行の高さ（例: '48px', '3rem'） */
+  rowHeight?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -81,6 +83,11 @@ watch(() => props.draggable, (val) => {
   else {
     stop()
   }
+})
+
+const rowStyle = computed(() => {
+  if (!props.rowHeight) return {}
+  return { height: props.rowHeight }
 })
 
 const cellStyle = (column: DataTableColumn) => {
@@ -156,6 +163,7 @@ const sortIcon = computed(() => {
               :key="props.rowKey ? (row[props.rowKey] as string | number) : index"
               class="data-table__row"
               :class="{ 'data-table__row--clickable': props.clickable }"
+              :style="rowStyle"
               @click="props.clickable ? emit('rowClick', row, index) : undefined"
             >
               <td
