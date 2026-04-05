@@ -273,10 +273,10 @@ const resizableCellStyle = (column) => {
   width: 4px;
   height: 100%;
   cursor: col-resize;
-  background-color: #888888;
+  background-color: #E0E0E0;
 }
 .data-table__resize-handle:hover, .data-table__resize-handle:active {
-  background-color: #555555;
+  background-color: #888888;
 }
 .data-table__th-content {
   display: inline-flex;
