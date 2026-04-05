@@ -33,6 +33,8 @@ interface Props {
     rowHeight?: string;
     /** セルのパディング（例: '8px 12px', '16px'） */
     cellPadding?: string;
+    /** カラムのリサイズを有効にする */
+    resizable?: boolean;
 }
 declare var __VLS_7: `cell-${string}`, __VLS_8: {
     row: Record<string, unknown>;
@@ -63,6 +65,7 @@ declare const __VLS_component: import("vue").DefineComponent<Props, {}, {}, {}, 
     clickable: boolean;
     draggable: boolean;
     rowKey: string;
+    resizable: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const _default: __VLS_WithSlots<typeof __VLS_component, __VLS_Slots>;
 export default _default;

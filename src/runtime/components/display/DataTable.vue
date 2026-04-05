@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRef, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, toRef, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useSortable } from '@vueuse/integrations/useSortable'
 
@@ -39,6 +39,8 @@ interface Props {
   rowHeight?: string
   /** セルのパディング（例: '8px 12px', '16px'） */
   cellPadding?: string
+  /** カラムのリサイズを有効にする */
+  resizable?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -47,6 +49,7 @@ const props = withDefaults(defineProps<Props>(), {
   sortOrder: 'asc',
   clickable: true,
   draggable: false,
+  resizable: false,
   rowKey: 'id',
 })
 
@@ -107,12 +110,84 @@ const totalColumns = computed(() => {
 const sortIcon = computed(() => {
   return props.sortOrder === 'asc' ? '▲' : '▼'
 })
+
+// --- Column Resize ---
+const tableRef = ref<HTMLTableElement | null>(null)
+const columnWidths = ref<Record<string, number>>({})
+const isResizing = ref(false)
+let resizeColumnKey = ''
+let resizeStartX = 0
+let resizeStartWidth = 0
+const MIN_COLUMN_WIDTH = 50
+
+function initColumnWidths() {
+  if (!props.resizable || !tableRef.value) return
+  const ths = tableRef.value.querySelectorAll<HTMLTableCellElement>('thead th:not(.data-table__th--drag)')
+  props.columns.forEach((col, i) => {
+    if (ths[i]) {
+      columnWidths.value[col.key] = ths[i].offsetWidth
+    }
+  })
+}
+
+onMounted(() => {
+  initColumnWidths()
+})
+
+watch(() => props.columns, () => {
+  if (props.resizable) {
+    columnWidths.value = {}
+    requestAnimationFrame(() => initColumnWidths())
+  }
+})
+
+function onResizeStart(event: MouseEvent, columnKey: string) {
+  event.preventDefault()
+  event.stopPropagation()
+  isResizing.value = true
+  resizeColumnKey = columnKey
+  resizeStartX = event.clientX
+  resizeStartWidth = columnWidths.value[columnKey] ?? 0
+  document.addEventListener('mousemove', onResizeMove)
+  document.addEventListener('mouseup', onResizeEnd)
+}
+
+function onResizeMove(event: MouseEvent) {
+  if (!isResizing.value) return
+  const diff = event.clientX - resizeStartX
+  const newWidth = Math.max(MIN_COLUMN_WIDTH, resizeStartWidth + diff)
+  columnWidths.value[resizeColumnKey] = newWidth
+}
+
+function onResizeEnd() {
+  isResizing.value = false
+  resizeColumnKey = ''
+  document.removeEventListener('mousemove', onResizeMove)
+  document.removeEventListener('mouseup', onResizeEnd)
+}
+
+onBeforeUnmount(() => {
+  document.removeEventListener('mousemove', onResizeMove)
+  document.removeEventListener('mouseup', onResizeEnd)
+})
+
+const resizableCellStyle = (column: DataTableColumn) => {
+  const style = cellStyle(column)
+  if (props.resizable && columnWidths.value[column.key]) {
+    style.width = `${columnWidths.value[column.key]}px`
+  }
+  return style
+}
 </script>
 
 <template>
   <div class="data-table">
     <div class="data-table__wrapper">
-      <table class="data-table__table">
+      <table
+        ref="tableRef"
+        class="data-table__table"
+        :class="{ 'data-table__table--resizable': props.resizable }"
+      >
         <thead>
           <tr>
             <th
@@ -123,10 +198,13 @@ const sortIcon = computed(() => {
             <th
               v-for="column in props.columns"
               :key="column.key"
-              :style="cellStyle(column)"
+              :style="resizableCellStyle(column)"
               class="data-table__th"
-              :class="{ 'data-table__th--sortable': column.sortable }"
-              @click="column.sortable ? emit('sort', column.key) : undefined"
+              :class="{
+                'data-table__th--sortable': column.sortable,
+                'data-table__th--resizable': props.resizable,
+              }"
+              @click="column.sortable && !isResizing ? emit('sort', column.key) : undefined"
             >
               <span class="data-table__th-content">
                 {{ column.label }}
@@ -135,6 +213,11 @@ const sortIcon = computed(() => {
                   class="data-table__sort-icon"
                 >{{ sortIcon }}</span>
               </span>
+              <span
+                v-if="props.resizable"
+                class="data-table__resize-handle"
+                @mousedown="onResizeStart($event, column.key)"
+              />
             </th>
           </tr>
         </thead>
@@ -184,7 +267,7 @@ const sortIcon = computed(() => {
               <td
                 v-for="column in props.columns"
                 :key="column.key"
-                :style="cellStyle(column)"
+                :style="resizableCellStyle(column)"
                 class="data-table__td"
               >
                 <slot
@@ -220,6 +303,10 @@ const sortIcon = computed(() => {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
+
+    &--resizable {
+      table-layout: fixed;
+    }
   }
 
   &__th {
@@ -241,6 +328,26 @@ const sortIcon = computed(() => {
       &:hover {
         background-color: color.adjust($white-200, $lightness: -3%);
       }
+    }
+
+    &--resizable {
+      position: relative;
+      overflow: hidden;
+    }
+  }
+
+  &__resize-handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    cursor: col-resize;
+    background: transparent;
+
+    &:hover,
+    &:active {
+      background-color: $black-400;
     }
   }
 
