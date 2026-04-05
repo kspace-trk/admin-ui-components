@@ -12,7 +12,8 @@ const props = defineProps({
   clickable: { type: Boolean, required: false, default: true },
   draggable: { type: Boolean, required: false, default: false },
   rowKey: { type: String, required: false, default: "id" },
-  rowHeight: { type: String, required: false }
+  rowHeight: { type: String, required: false },
+  cellPadding: { type: String, required: false }
 });
 const emit = defineEmits(["sort", "rowClick", "reorder"]);
 const tbodyRef = ref(null);
@@ -49,6 +50,7 @@ const cellStyle = (column) => {
   const style = {};
   if (column.width) style.width = column.width;
   if (column.align) style.textAlign = column.align;
+  if (props.cellPadding) style.padding = props.cellPadding;
   return style;
 };
 const totalColumns = computed(() => {

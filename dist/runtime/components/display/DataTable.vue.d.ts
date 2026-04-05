@@ -31,6 +31,8 @@ interface Props {
     rowKey?: string;
     /** 各行の高さ（例: '48px', '3rem'） */
     rowHeight?: string;
+    /** セルのパディング（例: '8px 12px', '16px'） */
+    cellPadding?: string;
 }
 declare var __VLS_7: `cell-${string}`, __VLS_8: {
     row: Record<string, unknown>;

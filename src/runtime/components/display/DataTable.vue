@@ -37,6 +37,8 @@ interface Props {
   rowKey?: string
   /** 各行の高さ（例: '48px', '3rem'） */
   rowHeight?: string
+  /** セルのパディング（例: '8px 12px', '16px'） */
+  cellPadding?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -94,6 +96,7 @@ const cellStyle = (column: DataTableColumn) => {
   const style: Record<string, string> = {}
   if (column.width) style.width = column.width
   if (column.align) style.textAlign = column.align
+  if (props.cellPadding) style.padding = props.cellPadding
   return style
 }
 
