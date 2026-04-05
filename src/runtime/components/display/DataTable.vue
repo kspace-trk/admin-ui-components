@@ -343,11 +343,11 @@ const resizableCellStyle = (column: DataTableColumn) => {
     width: 4px;
     height: 100%;
     cursor: col-resize;
-    background: transparent;
+    background-color: $primary-300;
 
     &:hover,
     &:active {
-      background-color: $black-400;
+      background-color: $primary-200;
     }
   }
 
