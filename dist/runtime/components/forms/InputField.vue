@@ -3,7 +3,8 @@ defineProps({
   label: { type: String, required: true },
   placeholder: { type: String, required: false },
   modelValue: { type: String, required: false },
-  type: { type: String, required: false }
+  type: { type: String, required: false },
+  disabled: { type: Boolean, required: false }
 });
 const emit = defineEmits(["update:modelValue"]);
 </script>
@@ -15,6 +16,7 @@ const emit = defineEmits(["update:modelValue"]);
       :type="type ?? 'text'"
       :value="modelValue"
       :placeholder="placeholder"
+      :disabled="disabled"
       class="input-field__input"
       @input="emit('update:modelValue', $event.target.value)"
     >
@@ -54,5 +56,9 @@ const emit = defineEmits(["update:modelValue"]);
 .input-field__input:focus {
   border-color: #363139;
   box-shadow: 0 0 0 1px rgba(54, 49, 57, 0.1);
+}
+.input-field__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 </style>

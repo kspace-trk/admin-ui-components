@@ -5,6 +5,7 @@ defineProps<{
   modelValue?: string
   /** input の type 属性 */
   type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url'
+  disabled?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -19,6 +20,7 @@ const emit = defineEmits<{
       :type="type ?? 'text'"
       :value="modelValue"
       :placeholder="placeholder"
+      :disabled="disabled"
       class="input-field__input"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     >
@@ -63,6 +65,11 @@ const emit = defineEmits<{
     &:focus {
       border-color: $black-100;
       box-shadow: 0 0 0 1px rgba($black-100, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }
