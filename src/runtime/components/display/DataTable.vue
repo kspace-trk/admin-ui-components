@@ -115,6 +115,7 @@ const sortIcon = computed(() => {
 const tableRef = ref<HTMLTableElement | null>(null)
 const columnWidths = ref<Record<string, number>>({})
 const isResizing = ref(false)
+const isLayoutReady = ref(false)
 let resizeColumnKey = ''
 let resizeStartX = 0
 let resizeStartWidth = 0
@@ -122,11 +123,17 @@ const MIN_COLUMN_WIDTH = 50
 
 function initColumnWidths() {
   if (!props.resizable || !tableRef.value) return
-  const ths = tableRef.value.querySelectorAll<HTMLTableCellElement>('thead th:not(.data-table__th--drag)')
-  props.columns.forEach((col, i) => {
-    if (ths[i]) {
-      columnWidths.value[col.key] = ths[i].offsetWidth
-    }
+  // auto レイアウトで自然な幅を計測してから fixed に切り替える
+  isLayoutReady.value = false
+  requestAnimationFrame(() => {
+    if (!tableRef.value) return
+    const ths = tableRef.value.querySelectorAll<HTMLTableCellElement>('thead th:not(.data-table__th--drag)')
+    props.columns.forEach((col, i) => {
+      if (ths[i]) {
+        columnWidths.value[col.key] = ths[i].offsetWidth
+      }
+    })
+    isLayoutReady.value = true
   })
 }
 
@@ -137,7 +144,7 @@ onMounted(() => {
 watch(() => props.columns, () => {
   if (props.resizable) {
     columnWidths.value = {}
-    requestAnimationFrame(() => initColumnWidths())
+    initColumnWidths()
   }
 })
 
@@ -186,7 +193,7 @@ const resizableCellStyle = (column: DataTableColumn) => {
       <table
         ref="tableRef"
         class="data-table__table"
-        :class="{ 'data-table__table--resizable': props.resizable }"
+        :class="{ 'data-table__table--resizable': props.resizable && isLayoutReady }"
       >
         <thead>
           <tr>

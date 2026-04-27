@@ -63,17 +63,23 @@ const sortIcon = computed(() => {
 const tableRef = ref(null);
 const columnWidths = ref({});
 const isResizing = ref(false);
+const isLayoutReady = ref(false);
 let resizeColumnKey = "";
 let resizeStartX = 0;
 let resizeStartWidth = 0;
 const MIN_COLUMN_WIDTH = 50;
 function initColumnWidths() {
   if (!props.resizable || !tableRef.value) return;
-  const ths = tableRef.value.querySelectorAll("thead th:not(.data-table__th--drag)");
-  props.columns.forEach((col, i) => {
-    if (ths[i]) {
-      columnWidths.value[col.key] = ths[i].offsetWidth;
-    }
+  isLayoutReady.value = false;
+  requestAnimationFrame(() => {
+    if (!tableRef.value) return;
+    const ths = tableRef.value.querySelectorAll("thead th:not(.data-table__th--drag)");
+    props.columns.forEach((col, i) => {
+      if (ths[i]) {
+        columnWidths.value[col.key] = ths[i].offsetWidth;
+      }
+    });
+    isLayoutReady.value = true;
   });
 }
 onMounted(() => {
@@ -82,7 +88,7 @@ onMounted(() => {
 watch(() => props.columns, () => {
   if (props.resizable) {
     columnWidths.value = {};
-    requestAnimationFrame(() => initColumnWidths());
+    initColumnWidths();
   }
 });
 function onResizeStart(event, columnKey) {
@@ -126,7 +132,7 @@ const resizableCellStyle = (column) => {
       <table
         ref="tableRef"
         class="data-table__table"
-        :class="{ 'data-table__table--resizable': props.resizable }"
+        :class="{ 'data-table__table--resizable': props.resizable && isLayoutReady }"
       >
         <thead>
           <tr>
