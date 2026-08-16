@@ -24,6 +24,11 @@ const categoryOptions: SelectOption[] = [
   { label: 'イベント（無効）', value: 'event', disabled: true },
 ]
 
+// --- DateField ---
+const publishedDate = ref('2026-02-20')
+const publishedDateTime = ref('')
+const publishedMonth = ref('')
+
 // --- Checkbox ---
 const checkPublish = ref(true)
 const checkFeatured = ref(false)
@@ -209,6 +214,39 @@ const handleFileError = (message: string) => {
           />
           <pre style="margin-top: 12px;">選択中: {{ selectedCategory || '未選択' }}</pre>
         </div>
+      </section>
+
+      <!-- DateField テスト -->
+      <section>
+        <h2>DateField</h2>
+        <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+          <KSDateField
+            v-model="publishedDate"
+            label="公開日"
+          />
+          <KSDateField
+            v-model="publishedDateTime"
+            label="公開日時"
+            type="datetime-local"
+          />
+          <KSDateField
+            v-model="publishedMonth"
+            label="対象月"
+            type="month"
+          />
+          <KSDateField
+            v-model="publishedDate"
+            label="範囲制限あり（2026年内のみ）"
+            min="2026-01-01"
+            max="2026-12-31"
+          />
+          <KSDateField
+            :model-value="publishedDate"
+            label="無効化された日付入力"
+            :disabled="true"
+          />
+        </div>
+        <pre style="margin-top: 12px;">日付: "{{ publishedDate }}" / 日時: "{{ publishedDateTime }}" / 月: "{{ publishedMonth }}"</pre>
       </section>
 
       <!-- Checkbox テスト -->

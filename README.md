@@ -30,6 +30,7 @@ export default defineNuxtConfig({
 | Forms | [InputField](#inputfield) | テキスト入力 |
 | | [TextareaField](#textareafield) | テキストエリア |
 | | [SelectField](#selectfield) | セレクトボックス |
+| | [DateField](#datefield) | 日付入力 |
 | | [Checkbox](#checkbox) | チェックボックス |
 | | [ToggleSwitch](#toggleswitch) | トグルスイッチ |
 | | [SearchField](#searchfield) | 検索フィールド |
@@ -191,6 +192,47 @@ interface SelectOption {
   ]"
 />
 ```
+
+#### DateField
+
+**コンポーネント名**: `KSDateField`
+**ファイルパス**: `src/runtime/components/forms/DateField.vue`
+**機能概要**: ラベル付き日付入力フィールド。ブラウザ標準の日付ピッカーを利用し、他のフォームコンポーネントと同じ見た目に揃えています。v-model対応。
+
+**Props**:
+
+| Prop | 型 | デフォルト | 説明 |
+|---|---|---|---|
+| `label` | `string` | **必須** | フィールドラベル |
+| `modelValue` | `string` | - | v-model値 |
+| `type` | `'date' \| 'datetime-local' \| 'month'` | `'date'` | input要素のtype属性 |
+| `min` | `string` | - | 選択可能な最小値 |
+| `max` | `string` | - | 選択可能な最大値 |
+| `disabled` | `boolean` | `false` | 無効化 |
+
+**値のフォーマット**: `modelValue`・`min`・`max`はいずれもHTML標準の文字列形式です。
+
+| `type` | フォーマット | 例 |
+|---|---|---|
+| `date` | `YYYY-MM-DD` | `2026-02-20` |
+| `datetime-local` | `YYYY-MM-DDTHH:mm` | `2026-02-20T09:30` |
+| `month` | `YYYY-MM` | `2026-02` |
+
+**Events**:
+
+| Event | Payload | 説明 |
+|---|---|---|
+| `update:modelValue` | `string` | 入力値変更時（未入力に戻した場合は空文字） |
+
+**使用例**:
+
+```vue
+<KSDateField v-model="form.publishedAt" label="公開日" />
+<KSDateField v-model="form.publishedAt" label="公開日時" type="datetime-local" />
+<KSDateField v-model="form.deadline" label="締切日" min="2026-01-01" max="2026-12-31" />
+```
+
+**補足**: 日付ピッカーのUI（カレンダーの見た目・表示言語）はブラウザ標準のものが使われるため、ブラウザによって差異があります。Chrome/Safariでは右端のカレンダーアイコン部分をクリックするとピッカーが開き、日付部分は直接キーボード入力できます。Firefoxはネイティブのアイコンをそのまま表示します。
 
 #### Checkbox
 

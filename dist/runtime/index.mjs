@@ -2,6 +2,7 @@ export { default as KSMainButton } from "./components/buttons/MainButton.vue";
 export { default as KSInputField } from "./components/forms/InputField.vue";
 export { default as KSTextareaField } from "./components/forms/TextareaField.vue";
 export { default as KSSelectField } from "./components/forms/SelectField.vue";
+export { default as KSDateField } from "./components/forms/DateField.vue";
 export { default as KSCheckbox } from "./components/forms/Checkbox.vue";
 export { default as KSToggleSwitch } from "./components/forms/ToggleSwitch.vue";
 export { default as KSSearchField } from "./components/forms/SearchField.vue";

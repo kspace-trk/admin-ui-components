@@ -6,6 +6,7 @@ import MainButton from './components/buttons/MainButton.vue'
 import InputField from './components/forms/InputField.vue'
 import TextareaField from './components/forms/TextareaField.vue'
 import SelectField from './components/forms/SelectField.vue'
+import DateField from './components/forms/DateField.vue'
 import Checkbox from './components/forms/Checkbox.vue'
 import ToggleSwitch from './components/forms/ToggleSwitch.vue'
 import SearchField from './components/forms/SearchField.vue'
@@ -37,6 +38,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component(`${prefix}InputField`, InputField)
   nuxtApp.vueApp.component(`${prefix}TextareaField`, TextareaField)
   nuxtApp.vueApp.component(`${prefix}SelectField`, SelectField)
+  nuxtApp.vueApp.component(`${prefix}DateField`, DateField)
   nuxtApp.vueApp.component(`${prefix}Checkbox`, Checkbox)
   nuxtApp.vueApp.component(`${prefix}ToggleSwitch`, ToggleSwitch)
   nuxtApp.vueApp.component(`${prefix}SearchField`, SearchField)
